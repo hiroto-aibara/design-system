@@ -142,8 +142,25 @@ var CardFooter = forwardRef3(
 );
 CardFooter.displayName = "CardFooter";
 
+// src/Heading/Heading.tsx
+import { forwardRef as forwardRef4 } from "react";
+import { jsx as jsx4 } from "react/jsx-runtime";
+var Heading = forwardRef4(
+  ({ level, noMargin = false, className = "", children, ...props }, ref) => {
+    const Tag = level;
+    const classes = [
+      "ds-heading",
+      `ds-heading--${level}`,
+      noMargin && "ds-heading--no-margin",
+      className
+    ].filter(Boolean).join(" ");
+    return /* @__PURE__ */ jsx4(Tag, { ref, className: classes, ...props, children });
+  }
+);
+Heading.displayName = "Heading";
+
 // src/GlobalNav/GlobalNav.tsx
-import { jsx as jsx4, jsxs as jsxs3 } from "react/jsx-runtime";
+import { jsx as jsx5, jsxs as jsxs3 } from "react/jsx-runtime";
 var GlobalNav = ({
   children,
   logo,
@@ -169,10 +186,10 @@ var GlobalNav = ({
       },
       children: [
         /* @__PURE__ */ jsxs3("div", { style: { display: "flex", alignItems: "center" }, children: [
-          logo && /* @__PURE__ */ jsx4("div", { style: { display: "flex", alignItems: "center", flexShrink: 0 }, children: logo }),
-          navigation && /* @__PURE__ */ jsx4("div", { style: { display: "flex", alignItems: "center", gap: "32px", marginLeft: "48px" }, children: navigation })
+          logo && /* @__PURE__ */ jsx5("div", { style: { display: "flex", alignItems: "center", flexShrink: 0 }, children: logo }),
+          navigation && /* @__PURE__ */ jsx5("div", { style: { display: "flex", alignItems: "center", gap: "32px", marginLeft: "48px" }, children: navigation })
         ] }),
-        actions && /* @__PURE__ */ jsx4("div", { style: { display: "flex", alignItems: "center", gap: "16px" }, children: actions }),
+        actions && /* @__PURE__ */ jsx5("div", { style: { display: "flex", alignItems: "center", gap: "16px" }, children: actions }),
         children
       ]
     }
@@ -184,7 +201,7 @@ var NavItem = ({
   onClick,
   className = ""
 }) => {
-  return /* @__PURE__ */ jsx4(
+  return /* @__PURE__ */ jsx5(
     "button",
     {
       onClick,
@@ -219,7 +236,7 @@ var NavLogo = ({
   className = ""
 }) => {
   return /* @__PURE__ */ jsxs3("div", { className, style: { display: "flex", alignItems: "center", gap: "12px" }, children: [
-    icon && /* @__PURE__ */ jsx4(
+    icon && /* @__PURE__ */ jsx5(
       "div",
       {
         style: {
@@ -237,7 +254,7 @@ var NavLogo = ({
         children: icon
       }
     ),
-    title && /* @__PURE__ */ jsx4(
+    title && /* @__PURE__ */ jsx5(
       "span",
       {
         style: {
@@ -253,13 +270,13 @@ var NavLogo = ({
 };
 
 // src/Sidebar/Sidebar.tsx
-import { jsx as jsx5, jsxs as jsxs4 } from "react/jsx-runtime";
+import { jsx as jsx6, jsxs as jsxs4 } from "react/jsx-runtime";
 var Sidebar = ({
   children,
   width = "260px",
   className = ""
 }) => {
-  return /* @__PURE__ */ jsx5(
+  return /* @__PURE__ */ jsx6(
     "aside",
     {
       className: `ds-sidebar ${className}`,
@@ -281,7 +298,7 @@ var SidebarSection = ({
   className = ""
 }) => {
   return /* @__PURE__ */ jsxs4("div", { className, style: { marginBottom: "24px" }, children: [
-    title && /* @__PURE__ */ jsx5(
+    title && /* @__PURE__ */ jsx6(
       "div",
       {
         style: {
@@ -293,7 +310,7 @@ var SidebarSection = ({
         children: title
       }
     ),
-    /* @__PURE__ */ jsx5("div", { style: { marginTop: "8px", display: "flex", flexDirection: "column", gap: "0" }, children })
+    /* @__PURE__ */ jsx6("div", { style: { marginTop: "8px", display: "flex", flexDirection: "column", gap: "0" }, children })
   ] });
 };
 var SidebarItem = ({
@@ -342,22 +359,22 @@ var SidebarItem = ({
         }
       },
       children: [
-        icon && /* @__PURE__ */ jsx5("span", { style: { width: "20px", height: "20px", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }, children: icon }),
-        /* @__PURE__ */ jsx5("span", { children })
+        icon && /* @__PURE__ */ jsx6("span", { style: { width: "20px", height: "20px", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }, children: icon }),
+        /* @__PURE__ */ jsx6("span", { children })
       ]
     }
   );
 };
 
 // src/Footer/Footer.tsx
-import { jsx as jsx6, jsxs as jsxs5 } from "react/jsx-runtime";
+import { jsx as jsx7, jsxs as jsxs5 } from "react/jsx-runtime";
 var Footer = ({
   children,
   left,
   right,
   className = ""
 }) => {
-  return /* @__PURE__ */ jsx6(
+  return /* @__PURE__ */ jsx7(
     "footer",
     {
       className: `ds-footer ${className}`,
@@ -367,8 +384,8 @@ var Footer = ({
         backgroundColor: "var(--color-bg-surface)"
       },
       children: /* @__PURE__ */ jsxs5("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between" }, children: [
-        left && /* @__PURE__ */ jsx6("div", { style: { fontSize: "13px", color: "var(--color-text-muted)" }, children: left }),
-        right && /* @__PURE__ */ jsx6("div", { style: { display: "flex", alignItems: "center", gap: "12px" }, children: right }),
+        left && /* @__PURE__ */ jsx7("div", { style: { fontSize: "13px", color: "var(--color-text-muted)" }, children: left }),
+        right && /* @__PURE__ */ jsx7("div", { style: { display: "flex", alignItems: "center", gap: "12px" }, children: right }),
         children
       ] })
     }
@@ -386,7 +403,7 @@ var FooterLink = ({
       onClick();
     }
   };
-  return /* @__PURE__ */ jsx6(
+  return /* @__PURE__ */ jsx7(
     "a",
     {
       href,
@@ -420,6 +437,7 @@ export {
   Footer,
   FooterLink,
   GlobalNav,
+  Heading,
   Input,
   NavItem,
   NavLogo,

@@ -57,6 +57,16 @@ interface CardFooterProps extends HTMLAttributes<HTMLDivElement> {
 }
 declare const CardFooter: React.ForwardRefExoticComponent<CardFooterProps & React.RefAttributes<HTMLDivElement>>;
 
+type HeadingLevel = 'h1' | 'h2' | 'h3' | 'h4' | 'h5';
+interface HeadingProps extends HTMLAttributes<HTMLHeadingElement> {
+    /** Heading level (h1-h5) */
+    level: HeadingLevel;
+    /** Remove default margins */
+    noMargin?: boolean;
+    children: ReactNode;
+}
+declare const Heading: React__default.ForwardRefExoticComponent<HeadingProps & React__default.RefAttributes<HTMLHeadingElement>>;
+
 interface GlobalNavProps {
     children?: React__default.ReactNode;
     /** Logo/brand area content */
@@ -126,4 +136,4 @@ interface FooterLinkProps {
 }
 declare const FooterLink: React__default.FC<FooterLinkProps>;
 
-export { Button, type ButtonProps, type ButtonSize, type ButtonVariant, Card, CardBody, type CardBodyProps, CardFooter, type CardFooterProps, CardHeader, type CardHeaderProps, type CardPadding, type CardProps, Footer, FooterLink, type FooterLinkProps, type FooterProps, GlobalNav, type GlobalNavProps, Input, type InputProps, type InputSize, NavItem, type NavItemProps, NavLogo, type NavLogoProps, Sidebar, SidebarItem, type SidebarItemProps, type SidebarProps, SidebarSection, type SidebarSectionProps };
+export { Button, type ButtonProps, type ButtonSize, type ButtonVariant, Card, CardBody, type CardBodyProps, CardFooter, type CardFooterProps, CardHeader, type CardHeaderProps, type CardPadding, type CardProps, Footer, FooterLink, type FooterLinkProps, type FooterProps, GlobalNav, type GlobalNavProps, Heading, type HeadingLevel, type HeadingProps, Input, type InputProps, type InputSize, NavItem, type NavItemProps, NavLogo, type NavLogoProps, Sidebar, SidebarItem, type SidebarItemProps, type SidebarProps, SidebarSection, type SidebarSectionProps };

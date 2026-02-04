@@ -6,6 +6,7 @@ import {
   CardHeader,
   CardBody,
   CardFooter,
+  Heading,
   GlobalNav,
   NavLogo,
   NavItem,
@@ -140,8 +141,9 @@ function App() {
           <div className="max-w-4xl mx-auto px-8 py-10">
             {/* Hero Section */}
             <section className="text-center py-12 mb-12">
-              <h1
-                className="text-5xl font-bold mb-5"
+              <Heading
+                level="h1"
+                className="text-5xl"
                 style={{
                   background: 'linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%)',
                   WebkitBackgroundClip: 'text',
@@ -149,7 +151,7 @@ function App() {
                 }}
               >
                 Design System
-              </h1>
+              </Heading>
               <p
                 className="text-lg mb-8 max-w-2xl mx-auto leading-relaxed"
                 style={{ color: 'var(--color-text-secondary)' }}
@@ -165,17 +167,14 @@ function App() {
 
             {/* Registration Form */}
             <section className="mb-12">
-              <h2
-                className="text-2xl font-semibold mb-6"
-                style={{ color: 'var(--color-text-primary)' }}
-              >
+              <Heading level="h2">
                 Registration Form
-              </h2>
+              </Heading>
               <Card>
                 <CardHeader>
-                  <h3 className="text-lg font-semibold" style={{ color: 'var(--color-text-primary)' }}>
+                  <Heading level="h3" noMargin>
                     Create Account
-                  </h3>
+                  </Heading>
                 </CardHeader>
                 <CardBody>
                   <form onSubmit={handleSubmit} className="flex flex-col gap-5">
@@ -221,12 +220,9 @@ function App() {
 
             {/* Button Variants */}
             <section className="mb-12">
-              <h2
-                className="text-2xl font-semibold mb-6"
-                style={{ color: 'var(--color-text-primary)' }}
-              >
+              <Heading level="h2">
                 Button Variants
-              </h2>
+              </Heading>
               <Card>
                 <CardBody>
                   <div className="flex flex-col gap-5">
@@ -272,12 +268,9 @@ function App() {
 
             {/* Input Sizes */}
             <section className="mb-12">
-              <h2
-                className="text-2xl font-semibold mb-6"
-                style={{ color: 'var(--color-text-primary)' }}
-              >
+              <Heading level="h2">
                 Input Sizes
-              </h2>
+              </Heading>
               <Card>
                 <CardBody>
                   <div className="flex flex-col gap-5">
