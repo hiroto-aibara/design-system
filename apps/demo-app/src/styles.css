@@ -1,6 +1,6 @@
 /**
  * Demo App Styles
- * アプリ固有のレイアウトスタイル
+ * グローバルスタイルとリセット
  */
 
 * {
@@ -9,130 +9,24 @@
   box-sizing: border-box;
 }
 
+html,
+body,
+#root {
+  height: 100%;
+}
+
 body {
   font-family: var(--font-family-base);
-  font-size: var(--font-size-body);
-  line-height: var(--line-height-body);
-  color: var(--color-text-primary);
-  background-color: var(--color-bg-base);
-  min-height: 100vh;
-  /* フォントスムージング - より洗練されたテキスト表示 */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  /* テーマ切り替え時のスムーズなトランジション */
+}
+
+/* テーマ切り替え時のスムーズなトランジション */
+body,
+.transition-theme {
   transition:
-    background-color var(--transition-slow),
-    color var(--transition-slow);
-}
-
-.app {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: var(--spacing-lg);
-}
-
-.app-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: var(--spacing-xl);
-  padding-bottom: var(--spacing-md);
-  border-bottom: 1px solid var(--color-border-default);
-}
-
-.app-header h1 {
-  font-size: var(--font-size-heading-2);
-  font-weight: var(--font-weight-bold);
-}
-
-.theme-controls {
-  display: flex;
-  gap: var(--spacing-sm);
-}
-
-.app-main {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-xl);
-}
-
-.section h2 {
-  font-size: var(--font-size-heading-3);
-  font-weight: var(--font-weight-semibold);
-  margin-bottom: var(--spacing-md);
-}
-
-.section h3 {
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-semibold);
-}
-
-/* Form styles */
-.form {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-md);
-}
-
-.form-field {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-xs);
-}
-
-.form-label {
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-text-secondary);
-}
-
-.form-error {
-  font-size: var(--font-size-sm);
-  color: var(--color-danger-text);
-}
-
-.form-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: var(--spacing-sm);
-}
-
-/* Button grid */
-.button-grid {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-md);
-}
-
-.button-row {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-  flex-wrap: wrap;
-}
-
-.button-row .label,
-.input-row .label {
-  width: 100px;
-  font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
-}
-
-/* Input grid */
-.input-grid {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-md);
-}
-
-.input-row {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-}
-
-.input-row .ds-input-wrapper {
-  flex: 1;
-  max-width: 300px;
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
 }

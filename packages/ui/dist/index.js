@@ -141,11 +141,289 @@ var CardFooter = forwardRef3(
   }
 );
 CardFooter.displayName = "CardFooter";
+
+// src/GlobalNav/GlobalNav.tsx
+import { jsx as jsx4, jsxs as jsxs3 } from "react/jsx-runtime";
+var GlobalNav = ({
+  children,
+  logo,
+  navigation,
+  actions,
+  className = ""
+}) => {
+  return /* @__PURE__ */ jsxs3(
+    "nav",
+    {
+      className: `ds-global-nav ${className}`,
+      style: {
+        position: "sticky",
+        top: 0,
+        zIndex: 50,
+        height: "60px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        padding: "0 24px",
+        borderBottom: "1px solid var(--color-border-default)",
+        backgroundColor: "var(--color-bg-surface)"
+      },
+      children: [
+        /* @__PURE__ */ jsxs3("div", { style: { display: "flex", alignItems: "center" }, children: [
+          logo && /* @__PURE__ */ jsx4("div", { style: { display: "flex", alignItems: "center", flexShrink: 0 }, children: logo }),
+          navigation && /* @__PURE__ */ jsx4("div", { style: { display: "flex", alignItems: "center", gap: "32px", marginLeft: "48px" }, children: navigation })
+        ] }),
+        actions && /* @__PURE__ */ jsx4("div", { style: { display: "flex", alignItems: "center", gap: "16px" }, children: actions }),
+        children
+      ]
+    }
+  );
+};
+var NavItem = ({
+  children,
+  isActive = false,
+  onClick,
+  className = ""
+}) => {
+  return /* @__PURE__ */ jsx4(
+    "button",
+    {
+      onClick,
+      className: `ds-nav-item ${className}`,
+      style: {
+        fontSize: "15px",
+        fontWeight: 500,
+        color: isActive ? "var(--color-primary)" : "var(--color-text-secondary)",
+        background: "none",
+        border: "none",
+        cursor: "pointer",
+        transition: "color 0.15s ease"
+      },
+      onMouseEnter: (e) => {
+        if (!isActive) {
+          e.currentTarget.style.color = "var(--color-text-primary)";
+        }
+      },
+      onMouseLeave: (e) => {
+        if (!isActive) {
+          e.currentTarget.style.color = "var(--color-text-secondary)";
+        }
+      },
+      children
+    }
+  );
+};
+var NavLogo = ({
+  children,
+  icon,
+  title,
+  className = ""
+}) => {
+  return /* @__PURE__ */ jsxs3("div", { className, style: { display: "flex", alignItems: "center", gap: "12px" }, children: [
+    icon && /* @__PURE__ */ jsx4(
+      "div",
+      {
+        style: {
+          width: "32px",
+          height: "32px",
+          borderRadius: "8px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          color: "white",
+          fontSize: "13px",
+          fontWeight: 700,
+          background: "linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%)"
+        },
+        children: icon
+      }
+    ),
+    title && /* @__PURE__ */ jsx4(
+      "span",
+      {
+        style: {
+          fontWeight: 600,
+          fontSize: "16px",
+          color: "var(--color-text-primary)"
+        },
+        children: title
+      }
+    ),
+    children
+  ] });
+};
+
+// src/Sidebar/Sidebar.tsx
+import { jsx as jsx5, jsxs as jsxs4 } from "react/jsx-runtime";
+var Sidebar = ({
+  children,
+  width = "260px",
+  className = ""
+}) => {
+  return /* @__PURE__ */ jsx5(
+    "aside",
+    {
+      className: `ds-sidebar ${className}`,
+      style: {
+        width,
+        flexShrink: 0,
+        borderRight: "1px solid var(--color-border-default)",
+        overflowY: "auto",
+        padding: "20px 16px",
+        backgroundColor: "var(--color-bg-surface)"
+      },
+      children
+    }
+  );
+};
+var SidebarSection = ({
+  children,
+  title,
+  className = ""
+}) => {
+  return /* @__PURE__ */ jsxs4("div", { className, style: { marginBottom: "24px" }, children: [
+    title && /* @__PURE__ */ jsx5(
+      "div",
+      {
+        style: {
+          padding: "8px 12px",
+          fontSize: "15px",
+          fontWeight: 700,
+          color: "var(--color-text-primary)"
+        },
+        children: title
+      }
+    ),
+    /* @__PURE__ */ jsx5("div", { style: { marginTop: "8px", display: "flex", flexDirection: "column", gap: "0" }, children })
+  ] });
+};
+var SidebarItem = ({
+  children,
+  icon,
+  isActive = false,
+  href = "#",
+  onClick,
+  className = ""
+}) => {
+  const handleClick = (e) => {
+    if (onClick) {
+      e.preventDefault();
+      onClick();
+    }
+  };
+  return /* @__PURE__ */ jsxs4(
+    "a",
+    {
+      href,
+      onClick: handleClick,
+      className: `ds-sidebar-item ${className}`,
+      style: {
+        display: "flex",
+        alignItems: "center",
+        gap: "12px",
+        padding: "12px 12px",
+        borderRadius: "0",
+        fontSize: "14px",
+        fontWeight: 400,
+        textDecoration: "none",
+        transition: "background-color 0.15s ease, color 0.15s ease",
+        color: isActive ? "var(--color-primary)" : "var(--color-text-secondary)",
+        backgroundColor: isActive ? "var(--color-primary-subtle)" : "transparent"
+      },
+      onMouseEnter: (e) => {
+        if (!isActive) {
+          e.currentTarget.style.backgroundColor = "var(--color-bg-surface-hover)";
+          e.currentTarget.style.color = "var(--color-text-primary)";
+        }
+      },
+      onMouseLeave: (e) => {
+        if (!isActive) {
+          e.currentTarget.style.backgroundColor = "transparent";
+          e.currentTarget.style.color = "var(--color-text-secondary)";
+        }
+      },
+      children: [
+        icon && /* @__PURE__ */ jsx5("span", { style: { width: "20px", height: "20px", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }, children: icon }),
+        /* @__PURE__ */ jsx5("span", { children })
+      ]
+    }
+  );
+};
+
+// src/Footer/Footer.tsx
+import { jsx as jsx6, jsxs as jsxs5 } from "react/jsx-runtime";
+var Footer = ({
+  children,
+  left,
+  right,
+  className = ""
+}) => {
+  return /* @__PURE__ */ jsx6(
+    "footer",
+    {
+      className: `ds-footer ${className}`,
+      style: {
+        borderTop: "1px solid var(--color-border-default)",
+        padding: "40px 24px",
+        backgroundColor: "var(--color-bg-surface)"
+      },
+      children: /* @__PURE__ */ jsxs5("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between" }, children: [
+        left && /* @__PURE__ */ jsx6("div", { style: { fontSize: "13px", color: "var(--color-text-muted)" }, children: left }),
+        right && /* @__PURE__ */ jsx6("div", { style: { display: "flex", alignItems: "center", gap: "12px" }, children: right }),
+        children
+      ] })
+    }
+  );
+};
+var FooterLink = ({
+  children,
+  href = "#",
+  onClick,
+  className = ""
+}) => {
+  const handleClick = (e) => {
+    if (onClick) {
+      e.preventDefault();
+      onClick();
+    }
+  };
+  return /* @__PURE__ */ jsx6(
+    "a",
+    {
+      href,
+      onClick: handleClick,
+      className: `ds-footer-link ${className}`,
+      style: {
+        padding: "8px",
+        borderRadius: "6px",
+        color: "var(--color-text-secondary)",
+        textDecoration: "none",
+        transition: "background-color 0.15s ease, color 0.15s ease"
+      },
+      onMouseEnter: (e) => {
+        e.currentTarget.style.backgroundColor = "var(--color-bg-surface-hover)";
+        e.currentTarget.style.color = "var(--color-text-primary)";
+      },
+      onMouseLeave: (e) => {
+        e.currentTarget.style.backgroundColor = "transparent";
+        e.currentTarget.style.color = "var(--color-text-secondary)";
+      },
+      children
+    }
+  );
+};
 export {
   Button,
   Card,
   CardBody,
   CardFooter,
   CardHeader,
-  Input
+  Footer,
+  FooterLink,
+  GlobalNav,
+  Input,
+  NavItem,
+  NavLogo,
+  Sidebar,
+  SidebarItem,
+  SidebarSection
 };
