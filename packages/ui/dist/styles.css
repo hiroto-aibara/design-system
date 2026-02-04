@@ -19,15 +19,17 @@
     background-color var(--transition-fast),
     border-color var(--transition-fast),
     color var(--transition-fast),
-    box-shadow var(--transition-fast);
+    box-shadow var(--transition-fast),
+    transform var(--transition-fast);
   white-space: nowrap;
   user-select: none;
 }
 
-/* Focus state */
+/* Focus state - モダンなフォーカスリング */
 .ds-button:focus-visible {
-  outline: var(--focus-ring-width) solid var(--focus-ring-color);
-  outline-offset: var(--focus-ring-offset);
+  outline: none;
+  box-shadow: 0 0 0 var(--focus-ring-offset) var(--color-bg-surface),
+              0 0 0 calc(var(--focus-ring-offset) + var(--focus-ring-width)) var(--focus-ring-color);
 }
 
 /* Disabled state */
@@ -68,11 +70,21 @@
 .ds-button--primary:hover:not(:disabled) {
   background-color: var(--color-primary-hover);
   border-color: var(--color-primary-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-glow), var(--shadow-hover);
 }
 
 .ds-button--primary:active:not(:disabled) {
   background-color: var(--color-primary-active);
   border-color: var(--color-primary-active);
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.ds-button--primary:focus-visible {
+  box-shadow: var(--shadow-glow),
+              0 0 0 var(--focus-ring-offset) var(--color-bg-surface),
+              0 0 0 calc(var(--focus-ring-offset) + var(--focus-ring-width)) var(--focus-ring-color);
 }
 
 /* Secondary */
@@ -85,10 +97,14 @@
 .ds-button--secondary:hover:not(:disabled) {
   background-color: var(--color-bg-surface-hover);
   border-color: var(--color-border-strong);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-hover);
 }
 
 .ds-button--secondary:active:not(:disabled) {
   background-color: var(--color-bg-muted);
+  transform: translateY(0);
+  box-shadow: none;
 }
 
 /* Ghost */
@@ -111,11 +127,52 @@
   background-color: var(--color-danger);
   border-color: var(--color-danger);
   color: var(--color-primary-text);
+  --shadow-glow-danger: 0 0 20px -4px var(--color-danger);
 }
 
 .ds-button--danger:hover:not(:disabled) {
   background-color: var(--color-danger-hover);
   border-color: var(--color-danger-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-glow-danger), var(--shadow-hover);
+}
+
+.ds-button--danger:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.ds-button--danger:focus-visible {
+  box-shadow: var(--shadow-glow-danger),
+              0 0 0 var(--focus-ring-offset) var(--color-bg-surface),
+              0 0 0 calc(var(--focus-ring-offset) + var(--focus-ring-width)) var(--color-danger);
+}
+
+/* ===== Accent Variant (Replit Orange) ===== */
+
+.ds-button--accent {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--palette-white);
+  --shadow-glow-accent: 0 0 20px -4px var(--color-accent);
+}
+
+.ds-button--accent:hover:not(:disabled) {
+  background-color: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-glow-accent), var(--shadow-hover);
+}
+
+.ds-button--accent:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.ds-button--accent:focus-visible {
+  box-shadow: var(--shadow-glow-accent),
+              0 0 0 var(--focus-ring-offset) var(--color-bg-surface),
+              0 0 0 calc(var(--focus-ring-offset) + var(--focus-ring-width)) var(--color-accent);
 }
 
 /* ===== Icons & Spinner ===== */
@@ -172,6 +229,7 @@
   font-family: var(--font-family-base);
   transition:
     border-color var(--transition-fast),
+    background-color var(--transition-fast),
     box-shadow var(--transition-fast);
 }
 
@@ -179,16 +237,18 @@
   color: var(--color-text-muted);
 }
 
-/* Focus state */
+/* Focus state - Replit風グロー効果 */
 .ds-input:focus {
   outline: none;
   border-color: var(--color-border-focus);
-  box-shadow: 0 0 0 var(--focus-ring-width) var(--focus-ring-color);
+  box-shadow: 0 0 0 3px var(--focus-ring-color-alpha),
+              0 0 12px -2px var(--focus-ring-color-alpha);
 }
 
 /* Hover state */
 .ds-input:hover:not(:focus):not(:disabled) {
   border-color: var(--color-border-strong);
+  background-color: var(--color-bg-surface-hover);
 }
 
 /* Disabled state */
@@ -209,7 +269,7 @@
 
 .ds-input-wrapper--invalid .ds-input:focus {
   border-color: var(--color-danger);
-  box-shadow: 0 0 0 var(--focus-ring-width) var(--color-danger-subtle);
+  box-shadow: 0 0 0 3px rgb(220 38 38 / 0.2);
 }
 
 /* ===== Size Variants ===== */
@@ -284,16 +344,41 @@
 .ds-card {
   background-color: var(--color-bg-surface);
   border-radius: var(--radius-card);
+  transition:
+    box-shadow var(--transition-normal),
+    border-color var(--transition-normal),
+    transform var(--transition-normal);
 }
 
-/* Shadow variant */
+/* Shadow variant - 控えめで上品なシャドウ */
 .ds-card--shadow {
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
 }
 
-/* Bordered variant */
+/* Bordered variant - 繊細なボーダー */
 .ds-card--bordered {
   border: 1px solid var(--color-border-default);
+}
+
+/* Shadow + Border combination for subtle depth */
+.ds-card--shadow.ds-card--bordered {
+  box-shadow: var(--shadow-sm);
+}
+
+/* Interactive variant - ホバーでエレベーション */
+.ds-card--interactive {
+  cursor: pointer;
+}
+
+.ds-card--interactive:hover {
+  border-color: var(--color-border-strong);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-2px);
+}
+
+.ds-card--interactive:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
 }
 
 /* ===== Padding Variants ===== */
@@ -337,4 +422,106 @@
 .ds-card--padding-none .ds-card__footer {
   padding: var(--spacing-md);
   margin: 0;
+}
+/* Heading Component */
+
+.ds-heading {
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  letter-spacing: var(--letter-spacing-tight);
+  text-align: center;
+}
+
+/* h1 - Page titles */
+.ds-heading--h1 {
+  font-size: var(--font-size-4xl);
+  line-height: var(--line-height-heading);
+  margin-top: 64px;
+  margin-bottom: 32px;
+}
+
+/* h2 - Section titles */
+.ds-heading--h2 {
+  font-size: var(--font-size-2xl);
+  line-height: var(--line-height-heading);
+  margin-top: 64px;
+  margin-bottom: 24px;
+}
+
+/* h3 - Subsection titles */
+.ds-heading--h3 {
+  font-size: var(--font-size-xl);
+  line-height: var(--line-height-heading);
+  margin-top: 48px;
+  margin-bottom: 16px;
+}
+
+/* h4 - Minor headings */
+.ds-heading--h4 {
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-heading);
+  margin-top: 32px;
+  margin-bottom: 12px;
+}
+
+/* h5 - Small headings */
+.ds-heading--h5 {
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-normal);
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+
+/* No margin modifier - removes top/bottom margins only */
+.ds-heading--no-margin {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* Left-aligned modifier - for headings that need left alignment */
+.ds-heading--left {
+  text-align: left;
+}
+/**
+ * Container Component Styles
+ * コンテンツの最大幅と中央揃えを担当
+ */
+
+.ds-container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Padding variant */
+.ds-container--padded {
+  padding-left: var(--spacing-lg);
+  padding-right: var(--spacing-lg);
+}
+
+/* ===== Max Width Variants (比率ベース) ===== */
+
+.ds-container--sm {
+  max-width: 50%;
+}
+
+.ds-container--md {
+  max-width: 65%;
+}
+
+.ds-container--lg {
+  max-width: 80%;
+}
+
+.ds-container--xl {
+  max-width: 90%;
+}
+
+.ds-container--2xl {
+  max-width: 95%;
+}
+
+.ds-container--full {
+  max-width: 100%;
 }
