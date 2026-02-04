@@ -19,15 +19,17 @@
     background-color var(--transition-fast),
     border-color var(--transition-fast),
     color var(--transition-fast),
-    box-shadow var(--transition-fast);
+    box-shadow var(--transition-fast),
+    transform var(--transition-fast);
   white-space: nowrap;
   user-select: none;
 }
 
-/* Focus state */
+/* Focus state - モダンなフォーカスリング */
 .ds-button:focus-visible {
-  outline: var(--focus-ring-width) solid var(--focus-ring-color);
-  outline-offset: var(--focus-ring-offset);
+  outline: none;
+  box-shadow: 0 0 0 var(--focus-ring-offset) var(--color-bg-surface),
+              0 0 0 calc(var(--focus-ring-offset) + var(--focus-ring-width)) var(--focus-ring-color);
 }
 
 /* Disabled state */
@@ -68,11 +70,15 @@
 .ds-button--primary:hover:not(:disabled) {
   background-color: var(--color-primary-hover);
   border-color: var(--color-primary-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-hover);
 }
 
 .ds-button--primary:active:not(:disabled) {
   background-color: var(--color-primary-active);
   border-color: var(--color-primary-active);
+  transform: translateY(0);
+  box-shadow: none;
 }
 
 /* Secondary */
@@ -85,10 +91,14 @@
 .ds-button--secondary:hover:not(:disabled) {
   background-color: var(--color-bg-surface-hover);
   border-color: var(--color-border-strong);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-hover);
 }
 
 .ds-button--secondary:active:not(:disabled) {
   background-color: var(--color-bg-muted);
+  transform: translateY(0);
+  box-shadow: none;
 }
 
 /* Ghost */
@@ -116,6 +126,13 @@
 .ds-button--danger:hover:not(:disabled) {
   background-color: var(--color-danger-hover);
   border-color: var(--color-danger-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-hover);
+}
+
+.ds-button--danger:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: none;
 }
 
 /* ===== Icons & Spinner ===== */
@@ -179,16 +196,17 @@
   color: var(--color-text-muted);
 }
 
-/* Focus state */
+/* Focus state - モダンなリングスタイル */
 .ds-input:focus {
   outline: none;
   border-color: var(--color-border-focus);
-  box-shadow: 0 0 0 var(--focus-ring-width) var(--focus-ring-color);
+  box-shadow: 0 0 0 3px var(--focus-ring-color-alpha);
 }
 
 /* Hover state */
 .ds-input:hover:not(:focus):not(:disabled) {
   border-color: var(--color-border-strong);
+  background-color: var(--color-bg-surface-hover);
 }
 
 /* Disabled state */
@@ -209,7 +227,7 @@
 
 .ds-input-wrapper--invalid .ds-input:focus {
   border-color: var(--color-danger);
-  box-shadow: 0 0 0 var(--focus-ring-width) var(--color-danger-subtle);
+  box-shadow: 0 0 0 3px rgb(220 38 38 / 0.2);
 }
 
 /* ===== Size Variants ===== */
@@ -284,16 +302,22 @@
 .ds-card {
   background-color: var(--color-bg-surface);
   border-radius: var(--radius-card);
+  transition: box-shadow var(--transition-normal);
 }
 
-/* Shadow variant */
+/* Shadow variant - 控えめで上品なシャドウ */
 .ds-card--shadow {
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
 }
 
-/* Bordered variant */
+/* Bordered variant - 繊細なボーダー */
 .ds-card--bordered {
   border: 1px solid var(--color-border-default);
+}
+
+/* Shadow + Border combination for subtle depth */
+.ds-card--shadow.ds-card--bordered {
+  box-shadow: var(--shadow-sm);
 }
 
 /* ===== Padding Variants ===== */

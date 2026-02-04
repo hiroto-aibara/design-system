@@ -5,16 +5,22 @@
 .ds-card {
   background-color: var(--color-bg-surface);
   border-radius: var(--radius-card);
+  transition: box-shadow var(--transition-normal);
 }
 
-/* Shadow variant */
+/* Shadow variant - 控えめで上品なシャドウ */
 .ds-card--shadow {
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
 }
 
-/* Bordered variant */
+/* Bordered variant - 繊細なボーダー */
 .ds-card--bordered {
   border: 1px solid var(--color-border-default);
+}
+
+/* Shadow + Border combination for subtle depth */
+.ds-card--shadow.ds-card--bordered {
+  box-shadow: var(--shadow-sm);
 }
 
 /* ===== Padding Variants ===== */
