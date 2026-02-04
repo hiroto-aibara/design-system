@@ -25,16 +25,17 @@
   color: var(--color-text-muted);
 }
 
-/* Focus state */
+/* Focus state - モダンなリングスタイル */
 .ds-input:focus {
   outline: none;
   border-color: var(--color-border-focus);
-  box-shadow: 0 0 0 var(--focus-ring-width) var(--focus-ring-color);
+  box-shadow: 0 0 0 3px var(--focus-ring-color-alpha);
 }
 
 /* Hover state */
 .ds-input:hover:not(:focus):not(:disabled) {
   border-color: var(--color-border-strong);
+  background-color: var(--color-bg-surface-hover);
 }
 
 /* Disabled state */
@@ -55,7 +56,7 @@
 
 .ds-input-wrapper--invalid .ds-input:focus {
   border-color: var(--color-danger);
-  box-shadow: 0 0 0 var(--focus-ring-width) var(--color-danger-subtle);
+  box-shadow: 0 0 0 3px rgb(220 38 38 / 0.2);
 }
 
 /* ===== Size Variants ===== */

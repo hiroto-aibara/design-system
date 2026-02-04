@@ -16,6 +16,10 @@ body {
   color: var(--color-text-primary);
   background-color: var(--color-bg-base);
   min-height: 100vh;
+  /* フォントスムージング - より洗練されたテキスト表示 */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 .app {
