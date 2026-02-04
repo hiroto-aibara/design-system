@@ -71,7 +71,7 @@
   background-color: var(--color-primary-hover);
   border-color: var(--color-primary-hover);
   transform: translateY(-1px);
-  box-shadow: var(--shadow-hover);
+  box-shadow: var(--shadow-glow), var(--shadow-hover);
 }
 
 .ds-button--primary:active:not(:disabled) {
@@ -79,6 +79,12 @@
   border-color: var(--color-primary-active);
   transform: translateY(0);
   box-shadow: none;
+}
+
+.ds-button--primary:focus-visible {
+  box-shadow: var(--shadow-glow),
+              0 0 0 var(--focus-ring-offset) var(--color-bg-surface),
+              0 0 0 calc(var(--focus-ring-offset) + var(--focus-ring-width)) var(--focus-ring-color);
 }
 
 /* Secondary */
@@ -121,18 +127,52 @@
   background-color: var(--color-danger);
   border-color: var(--color-danger);
   color: var(--color-primary-text);
+  --shadow-glow-danger: 0 0 20px -4px var(--color-danger);
 }
 
 .ds-button--danger:hover:not(:disabled) {
   background-color: var(--color-danger-hover);
   border-color: var(--color-danger-hover);
   transform: translateY(-1px);
-  box-shadow: var(--shadow-hover);
+  box-shadow: var(--shadow-glow-danger), var(--shadow-hover);
 }
 
 .ds-button--danger:active:not(:disabled) {
   transform: translateY(0);
   box-shadow: none;
+}
+
+.ds-button--danger:focus-visible {
+  box-shadow: var(--shadow-glow-danger),
+              0 0 0 var(--focus-ring-offset) var(--color-bg-surface),
+              0 0 0 calc(var(--focus-ring-offset) + var(--focus-ring-width)) var(--color-danger);
+}
+
+/* ===== Accent Variant (Replit Orange) ===== */
+
+.ds-button--accent {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--palette-white);
+  --shadow-glow-accent: 0 0 20px -4px var(--color-accent);
+}
+
+.ds-button--accent:hover:not(:disabled) {
+  background-color: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-glow-accent), var(--shadow-hover);
+}
+
+.ds-button--accent:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.ds-button--accent:focus-visible {
+  box-shadow: var(--shadow-glow-accent),
+              0 0 0 var(--focus-ring-offset) var(--color-bg-surface),
+              0 0 0 calc(var(--focus-ring-offset) + var(--focus-ring-width)) var(--color-accent);
 }
 
 /* ===== Icons & Spinner ===== */
@@ -189,6 +229,7 @@
   font-family: var(--font-family-base);
   transition:
     border-color var(--transition-fast),
+    background-color var(--transition-fast),
     box-shadow var(--transition-fast);
 }
 
@@ -196,11 +237,12 @@
   color: var(--color-text-muted);
 }
 
-/* Focus state - モダンなリングスタイル */
+/* Focus state - Replit風グロー効果 */
 .ds-input:focus {
   outline: none;
   border-color: var(--color-border-focus);
-  box-shadow: 0 0 0 3px var(--focus-ring-color-alpha);
+  box-shadow: 0 0 0 3px var(--focus-ring-color-alpha),
+              0 0 12px -2px var(--focus-ring-color-alpha);
 }
 
 /* Hover state */
@@ -302,7 +344,10 @@
 .ds-card {
   background-color: var(--color-bg-surface);
   border-radius: var(--radius-card);
-  transition: box-shadow var(--transition-normal);
+  transition:
+    box-shadow var(--transition-normal),
+    border-color var(--transition-normal),
+    transform var(--transition-normal);
 }
 
 /* Shadow variant - 控えめで上品なシャドウ */
@@ -317,6 +362,22 @@
 
 /* Shadow + Border combination for subtle depth */
 .ds-card--shadow.ds-card--bordered {
+  box-shadow: var(--shadow-sm);
+}
+
+/* Interactive variant - ホバーでエレベーション */
+.ds-card--interactive {
+  cursor: pointer;
+}
+
+.ds-card--interactive:hover {
+  border-color: var(--color-border-strong);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-2px);
+}
+
+.ds-card--interactive:active {
+  transform: translateY(0);
   box-shadow: var(--shadow-sm);
 }
 
