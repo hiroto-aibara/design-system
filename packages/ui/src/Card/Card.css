@@ -5,41 +5,16 @@
 .ds-card {
   background-color: var(--color-bg-surface);
   border-radius: var(--radius-card);
-  transition:
-    box-shadow var(--transition-normal),
-    border-color var(--transition-normal),
-    transform var(--transition-normal);
 }
 
-/* Shadow variant - 控えめで上品なシャドウ */
+/* Shadow variant */
 .ds-card--shadow {
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-md);
 }
 
-/* Bordered variant - 繊細なボーダー */
+/* Bordered variant */
 .ds-card--bordered {
   border: 1px solid var(--color-border-default);
-}
-
-/* Shadow + Border combination for subtle depth */
-.ds-card--shadow.ds-card--bordered {
-  box-shadow: var(--shadow-sm);
-}
-
-/* Interactive variant - ホバーでエレベーション */
-.ds-card--interactive {
-  cursor: pointer;
-}
-
-.ds-card--interactive:hover {
-  border-color: var(--color-border-strong);
-  box-shadow: var(--shadow-hover);
-  transform: translateY(-2px);
-}
-
-.ds-card--interactive:active {
-  transform: translateY(0);
-  box-shadow: var(--shadow-sm);
 }
 
 /* ===== Padding Variants ===== */

@@ -8,44 +8,18 @@
   --palette-white: #ffffff;
   --palette-black: #000000;
 
-  /* Gray Scale (Slate系 - より洗練された印象) */
-  --palette-gray-50: #f8fafc;
-  --palette-gray-100: #f1f5f9;
-  --palette-gray-200: #e2e8f0;
-  --palette-gray-300: #cbd5e1;
-  --palette-gray-400: #94a3b8;
-  --palette-gray-500: #64748b;
-  --palette-gray-600: #475569;
-  --palette-gray-700: #334155;
-  --palette-gray-800: #1e293b;
-  --palette-gray-900: #0f172a;
-  --palette-gray-950: #020617;
-
-  /* Indigo Scale (Primary) */
-  --palette-indigo-50: #eef2ff;
-  --palette-indigo-100: #e0e7ff;
-  --palette-indigo-200: #c7d2fe;
-  --palette-indigo-300: #a5b4fc;
-  --palette-indigo-400: #818cf8;
-  --palette-indigo-500: #6366f1;
-  --palette-indigo-600: #4f46e5;
-  --palette-indigo-700: #4338ca;
-  --palette-indigo-800: #3730a3;
-  --palette-indigo-900: #312e81;
-  --palette-indigo-950: #1e1b4b;
-
-  /* Violet Scale (Accent) */
-  --palette-violet-50: #f5f3ff;
-  --palette-violet-100: #ede9fe;
-  --palette-violet-200: #ddd6fe;
-  --palette-violet-300: #c4b5fd;
-  --palette-violet-400: #a78bfa;
-  --palette-violet-500: #8b5cf6;
-  --palette-violet-600: #7c3aed;
-  --palette-violet-700: #6d28d9;
-  --palette-violet-800: #5b21b6;
-  --palette-violet-900: #4c1d95;
-  --palette-violet-950: #2e1065;
+  /* Gray Scale */
+  --palette-gray-50: #f9fafb;
+  --palette-gray-100: #f3f4f6;
+  --palette-gray-200: #e5e7eb;
+  --palette-gray-300: #d1d5db;
+  --palette-gray-400: #9ca3af;
+  --palette-gray-500: #6b7280;
+  --palette-gray-600: #4b5563;
+  --palette-gray-700: #374151;
+  --palette-gray-800: #1f2937;
+  --palette-gray-900: #111827;
+  --palette-gray-950: #030712;
 
   /* Blue Scale (Primary候補) */
   --palette-blue-50: #eff6ff;
@@ -98,17 +72,4 @@
   --palette-yellow-800: #854d0e;
   --palette-yellow-900: #713f12;
   --palette-yellow-950: #422006;
-
-  /* Orange Scale (Replit Accent) */
-  --palette-orange-50: #fff7ed;
-  --palette-orange-100: #ffedd5;
-  --palette-orange-200: #fed7aa;
-  --palette-orange-300: #fdba74;
-  --palette-orange-400: #fb923c;
-  --palette-orange-500: #f97316;
-  --palette-orange-600: #ea580c;
-  --palette-orange-700: #c2410c;
-  --palette-orange-800: #9a3412;
-  --palette-orange-900: #7c2d12;
-  --palette-orange-950: #431407;
 }

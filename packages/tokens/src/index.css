@@ -23,5 +23,5 @@
 /* Brand overrides - import as needed */
 /* @import './brands/acme.css'; */
 
-/* Mode overrides (dark theme, etc.) */
-@import './modes/index.css';
+/* Mode overrides - import as needed */
+/* @import './modes/dark.css'; */

@@ -12,7 +12,6 @@
   --color-bg-surface: var(--palette-white);
   --color-bg-surface-hover: var(--palette-gray-50);
   --color-bg-muted: var(--palette-gray-100);
-  --color-bg-elevated: var(--palette-white);
 
   /* ===== Color: Text ===== */
   --color-text-primary: var(--palette-gray-900);
@@ -23,19 +22,14 @@
   /* ===== Color: Border ===== */
   --color-border-default: var(--palette-gray-200);
   --color-border-strong: var(--palette-gray-300);
-  --color-border-focus: var(--palette-indigo-500);
+  --color-border-focus: var(--palette-blue-500);
 
   /* ===== Color: Primary (Brand) ===== */
-  --color-primary: var(--palette-indigo-600);
-  --color-primary-hover: var(--palette-indigo-700);
-  --color-primary-active: var(--palette-indigo-800);
-  --color-primary-subtle: var(--palette-indigo-50);
+  --color-primary: var(--palette-blue-600);
+  --color-primary-hover: var(--palette-blue-700);
+  --color-primary-active: var(--palette-blue-800);
+  --color-primary-subtle: var(--palette-blue-50);
   --color-primary-text: var(--palette-white);
-
-  /* ===== Color: Accent ===== */
-  --color-accent: var(--palette-violet-600);
-  --color-accent-hover: var(--palette-violet-700);
-  --color-accent-subtle: var(--palette-violet-50);
 
   /* ===== Color: Status ===== */
   --color-success: var(--palette-green-600);
@@ -76,21 +70,18 @@
   --radius-input: var(--radius-md);
   --radius-card: var(--radius-lg);
 
-  /* ===== Shadow (控えめで上品なシャドウ) ===== */
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.03);
-  --shadow-md: 0 2px 4px -1px rgb(0 0 0 / 0.06), 0 1px 2px -1px rgb(0 0 0 / 0.04);
-  --shadow-lg: 0 4px 6px -2px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.03);
-  --shadow-hover: 0 4px 12px -2px rgb(0 0 0 / 0.08), 0 2px 4px -2px rgb(0 0 0 / 0.04);
-  --shadow-glow: 0 0 20px -4px var(--color-primary);
+  /* ===== Shadow ===== */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 
-  /* ===== Transition (スムーズなイージング) ===== */
-  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-normal: 200ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  /* ===== Transition ===== */
+  --transition-fast: 150ms ease;
+  --transition-normal: 200ms ease;
+  --transition-slow: 300ms ease;
 
-  /* ===== Focus Ring (モダンなフォーカススタイル) ===== */
+  /* ===== Focus Ring ===== */
   --focus-ring-width: 2px;
   --focus-ring-offset: 2px;
-  --focus-ring-color: var(--palette-indigo-500);
-  --focus-ring-color-alpha: rgb(79 70 229 / 0.4);
+  --focus-ring-color: var(--palette-blue-500);
 }
