@@ -1,0 +1,27 @@
+/**
+ * Design System Tokens
+ *
+ * Usage:
+ *   import '@ds/tokens';
+ *
+ * Theme switching:
+ *   <html data-brand="default" data-theme="light">
+ *
+ * Override brand:
+ *   document.documentElement.dataset.brand = 'acme';
+ *
+ * Override mode:
+ *   document.documentElement.dataset.theme = 'dark';
+ */
+
+/* Raw tokens (palette) */
+@import './raw/index.css';
+
+/* Semantic tokens (default theme) */
+@import './semantic/index.css';
+
+/* Brand overrides - import as needed */
+/* @import './brands/acme.css'; */
+
+/* Mode overrides - import as needed */
+/* @import './modes/dark.css'; */

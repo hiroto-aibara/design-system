@@ -1,0 +1,21 @@
+{
+  "name": "@ds/tokens",
+  "version": "0.0.1",
+  "description": "Design tokens for the design system",
+  "main": "./src/index.css",
+  "exports": {
+    ".": "./src/index.css",
+    "./raw": "./src/raw/index.css",
+    "./semantic": "./src/semantic/index.css",
+    "./brands/*": "./src/brands/*.css",
+    "./modes/*": "./src/modes/*.css"
+  },
+  "files": [
+    "src"
+  ],
+  "keywords": [
+    "design-tokens",
+    "css-variables",
+    "theming"
+  ]
+}

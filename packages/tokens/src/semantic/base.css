@@ -1,0 +1,87 @@
+/**
+ * Semantic Tokens - Base Theme
+ * デフォルトテーマ（Light Mode）
+ *
+ * [data-brand="xxx"] で上書き可能
+ * [data-theme="dark"] で上書き可能
+ */
+
+:root {
+  /* ===== Color: Background ===== */
+  --color-bg-base: var(--palette-gray-50);
+  --color-bg-surface: var(--palette-white);
+  --color-bg-surface-hover: var(--palette-gray-50);
+  --color-bg-muted: var(--palette-gray-100);
+
+  /* ===== Color: Text ===== */
+  --color-text-primary: var(--palette-gray-900);
+  --color-text-secondary: var(--palette-gray-600);
+  --color-text-muted: var(--palette-gray-400);
+  --color-text-inverse: var(--palette-white);
+
+  /* ===== Color: Border ===== */
+  --color-border-default: var(--palette-gray-200);
+  --color-border-strong: var(--palette-gray-300);
+  --color-border-focus: var(--palette-blue-500);
+
+  /* ===== Color: Primary (Brand) ===== */
+  --color-primary: var(--palette-blue-600);
+  --color-primary-hover: var(--palette-blue-700);
+  --color-primary-active: var(--palette-blue-800);
+  --color-primary-subtle: var(--palette-blue-50);
+  --color-primary-text: var(--palette-white);
+
+  /* ===== Color: Status ===== */
+  --color-success: var(--palette-green-600);
+  --color-success-subtle: var(--palette-green-50);
+  --color-success-text: var(--palette-green-700);
+
+  --color-warning: var(--palette-yellow-500);
+  --color-warning-subtle: var(--palette-yellow-50);
+  --color-warning-text: var(--palette-yellow-700);
+
+  --color-danger: var(--palette-red-600);
+  --color-danger-hover: var(--palette-red-700);
+  --color-danger-subtle: var(--palette-red-50);
+  --color-danger-text: var(--palette-red-700);
+
+  /* ===== Typography ===== */
+  --font-family-base: var(--font-family-sans);
+  --font-family-code: var(--font-family-mono);
+
+  --font-size-body: var(--font-size-md);
+  --font-size-small: var(--font-size-sm);
+  --font-size-heading-1: var(--font-size-3xl);
+  --font-size-heading-2: var(--font-size-2xl);
+  --font-size-heading-3: var(--font-size-xl);
+
+  --line-height-body: var(--line-height-normal);
+  --line-height-heading: var(--line-height-tight);
+
+  /* ===== Spacing (Semantic aliases) ===== */
+  --spacing-xs: var(--space-1);
+  --spacing-sm: var(--space-2);
+  --spacing-md: var(--space-4);
+  --spacing-lg: var(--space-6);
+  --spacing-xl: var(--space-8);
+
+  /* ===== Radius ===== */
+  --radius-button: var(--radius-md);
+  --radius-input: var(--radius-md);
+  --radius-card: var(--radius-lg);
+
+  /* ===== Shadow ===== */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+
+  /* ===== Transition ===== */
+  --transition-fast: 150ms ease;
+  --transition-normal: 200ms ease;
+  --transition-slow: 300ms ease;
+
+  /* ===== Focus Ring ===== */
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+  --focus-ring-color: var(--palette-blue-500);
+}

@@ -1,0 +1,8 @@
+# Theme mode overrides (e.g., dark mode)
+#
+# Example: dark.css
+# [data-theme="dark"] {
+#   --color-bg-base: var(--palette-gray-950);
+#   --color-bg-surface: var(--palette-gray-900);
+#   --color-text-primary: var(--palette-gray-50);
+# }

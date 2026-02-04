@@ -1,0 +1,340 @@
+/**
+ * Button Component Styles
+ * CSS変数（tokens）を使用してスタイリング
+ */
+
+.ds-button {
+  /* Base styles */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  border: 1px solid transparent;
+  border-radius: var(--radius-button);
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-medium);
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    box-shadow var(--transition-fast);
+  white-space: nowrap;
+  user-select: none;
+}
+
+/* Focus state */
+.ds-button:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* Disabled state */
+.ds-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* ===== Size Variants ===== */
+
+.ds-button--sm {
+  height: 32px;
+  padding: 0 var(--spacing-sm);
+  font-size: var(--font-size-sm);
+}
+
+.ds-button--md {
+  height: 40px;
+  padding: 0 var(--spacing-md);
+  font-size: var(--font-size-md);
+}
+
+.ds-button--lg {
+  height: 48px;
+  padding: 0 var(--spacing-lg);
+  font-size: var(--font-size-lg);
+}
+
+/* ===== Style Variants ===== */
+
+/* Primary */
+.ds-button--primary {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-primary-text);
+}
+
+.ds-button--primary:hover:not(:disabled) {
+  background-color: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+}
+
+.ds-button--primary:active:not(:disabled) {
+  background-color: var(--color-primary-active);
+  border-color: var(--color-primary-active);
+}
+
+/* Secondary */
+.ds-button--secondary {
+  background-color: var(--color-bg-surface);
+  border-color: var(--color-border-default);
+  color: var(--color-text-primary);
+}
+
+.ds-button--secondary:hover:not(:disabled) {
+  background-color: var(--color-bg-surface-hover);
+  border-color: var(--color-border-strong);
+}
+
+.ds-button--secondary:active:not(:disabled) {
+  background-color: var(--color-bg-muted);
+}
+
+/* Ghost */
+.ds-button--ghost {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--color-text-primary);
+}
+
+.ds-button--ghost:hover:not(:disabled) {
+  background-color: var(--color-bg-surface-hover);
+}
+
+.ds-button--ghost:active:not(:disabled) {
+  background-color: var(--color-bg-muted);
+}
+
+/* Danger */
+.ds-button--danger {
+  background-color: var(--color-danger);
+  border-color: var(--color-danger);
+  color: var(--color-primary-text);
+}
+
+.ds-button--danger:hover:not(:disabled) {
+  background-color: var(--color-danger-hover);
+  border-color: var(--color-danger-hover);
+}
+
+/* ===== Icons & Spinner ===== */
+
+.ds-button__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ds-button__icon svg {
+  width: 1em;
+  height: 1em;
+}
+
+.ds-button__spinner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ds-button__spinner-icon {
+  width: 1em;
+  height: 1em;
+  animation: ds-button-spin 1s linear infinite;
+}
+
+@keyframes ds-button-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+/**
+ * Input Component Styles
+ */
+
+.ds-input-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+}
+
+.ds-input {
+  width: 100%;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-input);
+  background-color: var(--color-bg-surface);
+  color: var(--color-text-primary);
+  font-family: var(--font-family-base);
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.ds-input::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* Focus state */
+.ds-input:focus {
+  outline: none;
+  border-color: var(--color-border-focus);
+  box-shadow: 0 0 0 var(--focus-ring-width) var(--focus-ring-color);
+}
+
+/* Hover state */
+.ds-input:hover:not(:focus):not(:disabled) {
+  border-color: var(--color-border-strong);
+}
+
+/* Disabled state */
+.ds-input-wrapper--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ds-input:disabled {
+  cursor: not-allowed;
+  background-color: var(--color-bg-muted);
+}
+
+/* Invalid state */
+.ds-input-wrapper--invalid .ds-input {
+  border-color: var(--color-danger);
+}
+
+.ds-input-wrapper--invalid .ds-input:focus {
+  border-color: var(--color-danger);
+  box-shadow: 0 0 0 var(--focus-ring-width) var(--color-danger-subtle);
+}
+
+/* ===== Size Variants ===== */
+
+.ds-input-wrapper--sm .ds-input {
+  height: 32px;
+  padding: 0 var(--spacing-sm);
+  font-size: var(--font-size-sm);
+}
+
+.ds-input-wrapper--md .ds-input {
+  height: 40px;
+  padding: 0 var(--spacing-md);
+  font-size: var(--font-size-md);
+}
+
+.ds-input-wrapper--lg .ds-input {
+  height: 48px;
+  padding: 0 var(--spacing-lg);
+  font-size: var(--font-size-lg);
+}
+
+/* ===== Icons ===== */
+
+.ds-input__icon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-secondary);
+  pointer-events: none;
+}
+
+.ds-input__icon svg {
+  width: 1em;
+  height: 1em;
+}
+
+.ds-input__icon--left {
+  left: var(--spacing-sm);
+}
+
+.ds-input__icon--right {
+  right: var(--spacing-sm);
+}
+
+/* Size adjustments for icons */
+.ds-input-wrapper--sm .ds-input__icon {
+  font-size: var(--font-size-sm);
+}
+
+.ds-input-wrapper--md .ds-input__icon {
+  font-size: var(--font-size-md);
+}
+
+.ds-input-wrapper--lg .ds-input__icon {
+  font-size: var(--font-size-lg);
+}
+
+/* Padding adjustments when icons present */
+.ds-input--has-left-icon {
+  padding-left: calc(var(--spacing-md) + 1em + var(--spacing-xs)) !important;
+}
+
+.ds-input--has-right-icon {
+  padding-right: calc(var(--spacing-md) + 1em + var(--spacing-xs)) !important;
+}
+/**
+ * Card Component Styles
+ */
+
+.ds-card {
+  background-color: var(--color-bg-surface);
+  border-radius: var(--radius-card);
+}
+
+/* Shadow variant */
+.ds-card--shadow {
+  box-shadow: var(--shadow-md);
+}
+
+/* Bordered variant */
+.ds-card--bordered {
+  border: 1px solid var(--color-border-default);
+}
+
+/* ===== Padding Variants ===== */
+
+.ds-card--padding-none {
+  padding: 0;
+}
+
+.ds-card--padding-sm {
+  padding: var(--spacing-sm);
+}
+
+.ds-card--padding-md {
+  padding: var(--spacing-md);
+}
+
+.ds-card--padding-lg {
+  padding: var(--spacing-lg);
+}
+
+/* ===== Card Sections ===== */
+
+.ds-card__header {
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--color-border-default);
+  margin-bottom: var(--spacing-md);
+}
+
+.ds-card__body {
+  /* Default body styles */
+}
+
+.ds-card__footer {
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--color-border-default);
+  margin-top: var(--spacing-md);
+}
+
+/* Remove borders when card has no padding */
+.ds-card--padding-none .ds-card__header,
+.ds-card--padding-none .ds-card__footer {
+  padding: var(--spacing-md);
+  margin: 0;
+}

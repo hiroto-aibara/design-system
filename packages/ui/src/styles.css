@@ -1,0 +1,21 @@
+/* Component styles */
+@import './Button/Button.css';
+@import './Input/Input.css';
+@import './Card/Card.css';
+
+/**
+ * Design System UI Styles
+ *
+ * Usage:
+ *   import '@ds/ui/styles.css';
+ *
+ * Note: Make sure to also import tokens:
+ *   import '@ds/tokens';
+ */
+
+/* Reset for DS components */
+.ds-button,
+.ds-input,
+.ds-card {
+  box-sizing: border-box;
+}

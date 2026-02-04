@@ -1,0 +1,75 @@
+/**
+ * Raw Color Tokens
+ * パレット（生値）- 全ブランド共通のカラースケール
+ */
+
+:root {
+  /* White & Black */
+  --palette-white: #ffffff;
+  --palette-black: #000000;
+
+  /* Gray Scale */
+  --palette-gray-50: #f9fafb;
+  --palette-gray-100: #f3f4f6;
+  --palette-gray-200: #e5e7eb;
+  --palette-gray-300: #d1d5db;
+  --palette-gray-400: #9ca3af;
+  --palette-gray-500: #6b7280;
+  --palette-gray-600: #4b5563;
+  --palette-gray-700: #374151;
+  --palette-gray-800: #1f2937;
+  --palette-gray-900: #111827;
+  --palette-gray-950: #030712;
+
+  /* Blue Scale (Primary候補) */
+  --palette-blue-50: #eff6ff;
+  --palette-blue-100: #dbeafe;
+  --palette-blue-200: #bfdbfe;
+  --palette-blue-300: #93c5fd;
+  --palette-blue-400: #60a5fa;
+  --palette-blue-500: #3b82f6;
+  --palette-blue-600: #2563eb;
+  --palette-blue-700: #1d4ed8;
+  --palette-blue-800: #1e40af;
+  --palette-blue-900: #1e3a8a;
+  --palette-blue-950: #172554;
+
+  /* Green Scale (Success) */
+  --palette-green-50: #f0fdf4;
+  --palette-green-100: #dcfce7;
+  --palette-green-200: #bbf7d0;
+  --palette-green-300: #86efac;
+  --palette-green-400: #4ade80;
+  --palette-green-500: #22c55e;
+  --palette-green-600: #16a34a;
+  --palette-green-700: #15803d;
+  --palette-green-800: #166534;
+  --palette-green-900: #14532d;
+  --palette-green-950: #052e16;
+
+  /* Red Scale (Danger/Error) */
+  --palette-red-50: #fef2f2;
+  --palette-red-100: #fee2e2;
+  --palette-red-200: #fecaca;
+  --palette-red-300: #fca5a5;
+  --palette-red-400: #f87171;
+  --palette-red-500: #ef4444;
+  --palette-red-600: #dc2626;
+  --palette-red-700: #b91c1c;
+  --palette-red-800: #991b1b;
+  --palette-red-900: #7f1d1d;
+  --palette-red-950: #450a0a;
+
+  /* Yellow Scale (Warning) */
+  --palette-yellow-50: #fefce8;
+  --palette-yellow-100: #fef9c3;
+  --palette-yellow-200: #fef08a;
+  --palette-yellow-300: #fde047;
+  --palette-yellow-400: #facc15;
+  --palette-yellow-500: #eab308;
+  --palette-yellow-600: #ca8a04;
+  --palette-yellow-700: #a16207;
+  --palette-yellow-800: #854d0e;
+  --palette-yellow-900: #713f12;
+  --palette-yellow-950: #422006;
+}

@@ -1,0 +1,50 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+build/
+.next/
+out/
+
+# dist/ - パッケージのdistはコミットする（GitHub直接参照のため）
+# apps/のdistは除外
+apps/*/dist/
+
+# Storybook
+storybook-static/
+
+# Cache
+.cache/
+.turbo/
+*.tsbuildinfo
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Testing
+coverage/
+
+# Misc
+*.bak
+*.tmp

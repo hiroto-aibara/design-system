@@ -1,0 +1,125 @@
+/**
+ * Input Component Styles
+ */
+
+.ds-input-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+}
+
+.ds-input {
+  width: 100%;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-input);
+  background-color: var(--color-bg-surface);
+  color: var(--color-text-primary);
+  font-family: var(--font-family-base);
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.ds-input::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* Focus state */
+.ds-input:focus {
+  outline: none;
+  border-color: var(--color-border-focus);
+  box-shadow: 0 0 0 var(--focus-ring-width) var(--focus-ring-color);
+}
+
+/* Hover state */
+.ds-input:hover:not(:focus):not(:disabled) {
+  border-color: var(--color-border-strong);
+}
+
+/* Disabled state */
+.ds-input-wrapper--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ds-input:disabled {
+  cursor: not-allowed;
+  background-color: var(--color-bg-muted);
+}
+
+/* Invalid state */
+.ds-input-wrapper--invalid .ds-input {
+  border-color: var(--color-danger);
+}
+
+.ds-input-wrapper--invalid .ds-input:focus {
+  border-color: var(--color-danger);
+  box-shadow: 0 0 0 var(--focus-ring-width) var(--color-danger-subtle);
+}
+
+/* ===== Size Variants ===== */
+
+.ds-input-wrapper--sm .ds-input {
+  height: 32px;
+  padding: 0 var(--spacing-sm);
+  font-size: var(--font-size-sm);
+}
+
+.ds-input-wrapper--md .ds-input {
+  height: 40px;
+  padding: 0 var(--spacing-md);
+  font-size: var(--font-size-md);
+}
+
+.ds-input-wrapper--lg .ds-input {
+  height: 48px;
+  padding: 0 var(--spacing-lg);
+  font-size: var(--font-size-lg);
+}
+
+/* ===== Icons ===== */
+
+.ds-input__icon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-secondary);
+  pointer-events: none;
+}
+
+.ds-input__icon svg {
+  width: 1em;
+  height: 1em;
+}
+
+.ds-input__icon--left {
+  left: var(--spacing-sm);
+}
+
+.ds-input__icon--right {
+  right: var(--spacing-sm);
+}
+
+/* Size adjustments for icons */
+.ds-input-wrapper--sm .ds-input__icon {
+  font-size: var(--font-size-sm);
+}
+
+.ds-input-wrapper--md .ds-input__icon {
+  font-size: var(--font-size-md);
+}
+
+.ds-input-wrapper--lg .ds-input__icon {
+  font-size: var(--font-size-lg);
+}
+
+/* Padding adjustments when icons present */
+.ds-input--has-left-icon {
+  padding-left: calc(var(--spacing-md) + 1em + var(--spacing-xs)) !important;
+}
+
+.ds-input--has-right-icon {
+  padding-right: calc(var(--spacing-md) + 1em + var(--spacing-xs)) !important;
+}

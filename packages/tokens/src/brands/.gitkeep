@@ -1,0 +1,7 @@
+# Brand-specific theme overrides
+#
+# Example: acme.css
+# [data-brand="acme"] {
+#   --color-primary: var(--palette-green-600);
+#   --radius-button: var(--radius-lg);
+# }
