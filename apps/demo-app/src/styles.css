@@ -20,6 +20,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  /* テーマ切り替え時のスムーズなトランジション */
+  transition:
+    background-color var(--transition-slow),
+    color var(--transition-slow);
 }
 
 .app {

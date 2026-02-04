@@ -141,6 +141,12 @@ function App() {
                   <Button variant="danger" size="lg">Large</Button>
                 </div>
                 <div className="button-row">
+                  <span className="label">Accent:</span>
+                  <Button variant="accent" size="sm">Small</Button>
+                  <Button variant="accent" size="md">Medium</Button>
+                  <Button variant="accent" size="lg">Large</Button>
+                </div>
+                <div className="button-row">
                   <span className="label">States:</span>
                   <Button variant="primary" disabled>Disabled</Button>
                   <Button variant="primary" isLoading>Loading</Button>

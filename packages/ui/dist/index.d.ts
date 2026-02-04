@@ -1,7 +1,7 @@
 import * as react from 'react';
 import { ButtonHTMLAttributes, ReactNode, InputHTMLAttributes, HTMLAttributes } from 'react';
 
-type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger';
+type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger' | 'accent';
 type ButtonSize = 'sm' | 'md' | 'lg';
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     /** ボタンのスタイルバリアント */
