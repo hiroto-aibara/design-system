@@ -19,15 +19,17 @@
     background-color var(--transition-fast),
     border-color var(--transition-fast),
     color var(--transition-fast),
-    box-shadow var(--transition-fast);
+    box-shadow var(--transition-fast),
+    transform var(--transition-fast);
   white-space: nowrap;
   user-select: none;
 }
 
-/* Focus state */
+/* Focus state - モダンなフォーカスリング */
 .ds-button:focus-visible {
-  outline: var(--focus-ring-width) solid var(--focus-ring-color);
-  outline-offset: var(--focus-ring-offset);
+  outline: none;
+  box-shadow: 0 0 0 var(--focus-ring-offset) var(--color-bg-surface),
+              0 0 0 calc(var(--focus-ring-offset) + var(--focus-ring-width)) var(--focus-ring-color);
 }
 
 /* Disabled state */
@@ -68,11 +70,21 @@
 .ds-button--primary:hover:not(:disabled) {
   background-color: var(--color-primary-hover);
   border-color: var(--color-primary-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-glow), var(--shadow-hover);
 }
 
 .ds-button--primary:active:not(:disabled) {
   background-color: var(--color-primary-active);
   border-color: var(--color-primary-active);
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.ds-button--primary:focus-visible {
+  box-shadow: var(--shadow-glow),
+              0 0 0 var(--focus-ring-offset) var(--color-bg-surface),
+              0 0 0 calc(var(--focus-ring-offset) + var(--focus-ring-width)) var(--focus-ring-color);
 }
 
 /* Secondary */
@@ -85,10 +97,14 @@
 .ds-button--secondary:hover:not(:disabled) {
   background-color: var(--color-bg-surface-hover);
   border-color: var(--color-border-strong);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-hover);
 }
 
 .ds-button--secondary:active:not(:disabled) {
   background-color: var(--color-bg-muted);
+  transform: translateY(0);
+  box-shadow: none;
 }
 
 /* Ghost */
@@ -111,11 +127,52 @@
   background-color: var(--color-danger);
   border-color: var(--color-danger);
   color: var(--color-primary-text);
+  --shadow-glow-danger: 0 0 20px -4px var(--color-danger);
 }
 
 .ds-button--danger:hover:not(:disabled) {
   background-color: var(--color-danger-hover);
   border-color: var(--color-danger-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-glow-danger), var(--shadow-hover);
+}
+
+.ds-button--danger:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.ds-button--danger:focus-visible {
+  box-shadow: var(--shadow-glow-danger),
+              0 0 0 var(--focus-ring-offset) var(--color-bg-surface),
+              0 0 0 calc(var(--focus-ring-offset) + var(--focus-ring-width)) var(--color-danger);
+}
+
+/* ===== Accent Variant (Replit Orange) ===== */
+
+.ds-button--accent {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--palette-white);
+  --shadow-glow-accent: 0 0 20px -4px var(--color-accent);
+}
+
+.ds-button--accent:hover:not(:disabled) {
+  background-color: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-glow-accent), var(--shadow-hover);
+}
+
+.ds-button--accent:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.ds-button--accent:focus-visible {
+  box-shadow: var(--shadow-glow-accent),
+              0 0 0 var(--focus-ring-offset) var(--color-bg-surface),
+              0 0 0 calc(var(--focus-ring-offset) + var(--focus-ring-width)) var(--color-accent);
 }
 
 /* ===== Icons & Spinner ===== */
