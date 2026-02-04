@@ -18,7 +18,7 @@
   ],
   "scripts": {
     "build": "tsup && npm run build:css",
-    "build:css": "cat src/Button/Button.css src/Input/Input.css src/Card/Card.css > dist/styles.css",
+    "build:css": "cat src/Button/Button.css src/Input/Input.css src/Card/Card.css src/Heading/Heading.css > dist/styles.css",
     "dev": "tsup --watch"
   },
   "peerDependencies": {
