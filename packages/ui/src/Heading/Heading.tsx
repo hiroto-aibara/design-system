@@ -8,17 +8,20 @@ export interface HeadingProps extends HTMLAttributes<HTMLHeadingElement> {
   level: HeadingLevel
   /** Remove default margins */
   noMargin?: boolean
+  /** Left-align the heading (default is centered) */
+  leftAlign?: boolean
   children: ReactNode
 }
 
 export const Heading = forwardRef<HTMLHeadingElement, HeadingProps>(
-  ({ level, noMargin = false, className = '', children, ...props }, ref) => {
+  ({ level, noMargin = false, leftAlign = false, className = '', children, ...props }, ref) => {
     const Tag = level
 
     const classes = [
       'ds-heading',
       `ds-heading--${level}`,
       noMargin && 'ds-heading--no-margin',
+      leftAlign && 'ds-heading--left',
       className,
     ]
       .filter(Boolean)

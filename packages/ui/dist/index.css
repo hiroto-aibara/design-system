@@ -4,10 +4,10 @@
   font-weight: var(--font-weight-semibold);
   color: var(--color-text-primary);
   letter-spacing: var(--letter-spacing-tight);
-  padding-left: 16px;
+  text-align: center;
 }
 .ds-heading--h1 {
-  font-size: var(--font-size-3xl);
+  font-size: var(--font-size-4xl);
   line-height: var(--line-height-heading);
   margin-top: 64px;
   margin-bottom: 32px;
@@ -39,5 +39,36 @@
 .ds-heading--no-margin {
   margin-top: 0;
   margin-bottom: 0;
-  padding-left: 0;
+}
+.ds-heading--left {
+  text-align: left;
+}
+
+/* src/Container/Container.css */
+.ds-container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.ds-container--padded {
+  padding-left: var(--spacing-lg);
+  padding-right: var(--spacing-lg);
+}
+.ds-container--sm {
+  max-width: 50%;
+}
+.ds-container--md {
+  max-width: 65%;
+}
+.ds-container--lg {
+  max-width: 80%;
+}
+.ds-container--xl {
+  max-width: 90%;
+}
+.ds-container--2xl {
+  max-width: 95%;
+}
+.ds-container--full {
+  max-width: 100%;
 }

@@ -1,0 +1,42 @@
+/**
+ * Container Component Styles
+ * コンテンツの最大幅と中央揃えを担当
+ */
+
+.ds-container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Padding variant */
+.ds-container--padded {
+  padding-left: var(--spacing-lg);
+  padding-right: var(--spacing-lg);
+}
+
+/* ===== Max Width Variants (比率ベース) ===== */
+
+.ds-container--sm {
+  max-width: 50%;
+}
+
+.ds-container--md {
+  max-width: 65%;
+}
+
+.ds-container--lg {
+  max-width: 80%;
+}
+
+.ds-container--xl {
+  max-width: 90%;
+}
+
+.ds-container--2xl {
+  max-width: 95%;
+}
+
+.ds-container--full {
+  max-width: 100%;
+}
