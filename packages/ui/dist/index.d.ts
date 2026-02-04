@@ -63,9 +63,41 @@ interface HeadingProps extends HTMLAttributes<HTMLHeadingElement> {
     level: HeadingLevel;
     /** Remove default margins */
     noMargin?: boolean;
+    /** Left-align the heading (default is centered) */
+    leftAlign?: boolean;
     children: ReactNode;
 }
 declare const Heading: React__default.ForwardRefExoticComponent<HeadingProps & React__default.RefAttributes<HTMLHeadingElement>>;
+
+type ContainerMaxWidth = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'full';
+interface ContainerProps extends HTMLAttributes<HTMLDivElement> {
+    /** Maximum width of the container (preset or custom value) */
+    maxWidth?: ContainerMaxWidth;
+    /** Width as ratio/percentage (e.g., '80%', '90%') - overrides maxWidth */
+    width?: string;
+    /** Horizontal padding */
+    padding?: boolean;
+    children: ReactNode;
+}
+declare const Container: React.ForwardRefExoticComponent<ContainerProps & React.RefAttributes<HTMLDivElement>>;
+
+interface AppShellProps {
+    /** Global navigation component */
+    nav?: ReactNode;
+    /** Sidebar component */
+    sidebar?: ReactNode;
+    /** Footer component */
+    footer?: ReactNode;
+    /** Sidebar width (default: 260px) */
+    sidebarWidth?: string;
+    /** Nav height for sticky sidebar calculation (default: 60px) */
+    navHeight?: string;
+    /** Main content */
+    children: ReactNode;
+    /** Additional className */
+    className?: string;
+}
+declare const AppShell: React__default.FC<AppShellProps>;
 
 interface GlobalNavProps {
     children?: React__default.ReactNode;
@@ -136,4 +168,4 @@ interface FooterLinkProps {
 }
 declare const FooterLink: React__default.FC<FooterLinkProps>;
 
-export { Button, type ButtonProps, type ButtonSize, type ButtonVariant, Card, CardBody, type CardBodyProps, CardFooter, type CardFooterProps, CardHeader, type CardHeaderProps, type CardPadding, type CardProps, Footer, FooterLink, type FooterLinkProps, type FooterProps, GlobalNav, type GlobalNavProps, Heading, type HeadingLevel, type HeadingProps, Input, type InputProps, type InputSize, NavItem, type NavItemProps, NavLogo, type NavLogoProps, Sidebar, SidebarItem, type SidebarItemProps, type SidebarProps, SidebarSection, type SidebarSectionProps };
+export { AppShell, type AppShellProps, Button, type ButtonProps, type ButtonSize, type ButtonVariant, Card, CardBody, type CardBodyProps, CardFooter, type CardFooterProps, CardHeader, type CardHeaderProps, type CardPadding, type CardProps, Container, type ContainerMaxWidth, type ContainerProps, Footer, FooterLink, type FooterLinkProps, type FooterProps, GlobalNav, type GlobalNavProps, Heading, type HeadingLevel, type HeadingProps, Input, type InputProps, type InputSize, NavItem, type NavItemProps, NavLogo, type NavLogoProps, Sidebar, SidebarItem, type SidebarItemProps, type SidebarProps, SidebarSection, type SidebarSectionProps };

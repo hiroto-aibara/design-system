@@ -5,12 +5,12 @@
   font-weight: var(--font-weight-semibold);
   color: var(--color-text-primary);
   letter-spacing: var(--letter-spacing-tight);
-  padding-left: 16px;
+  text-align: center;
 }
 
 /* h1 - Page titles */
 .ds-heading--h1 {
-  font-size: var(--font-size-3xl);
+  font-size: var(--font-size-4xl);
   line-height: var(--line-height-heading);
   margin-top: 64px;
   margin-bottom: 32px;
@@ -48,9 +48,13 @@
   margin-bottom: 8px;
 }
 
-/* No margin modifier */
+/* No margin modifier - removes top/bottom margins only */
 .ds-heading--no-margin {
   margin-top: 0;
   margin-bottom: 0;
-  padding-left: 0;
+}
+
+/* Left-aligned modifier - for headings that need left alignment */
+.ds-heading--left {
+  text-align: left;
 }

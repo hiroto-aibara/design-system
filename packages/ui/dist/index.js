@@ -146,12 +146,13 @@ CardFooter.displayName = "CardFooter";
 import { forwardRef as forwardRef4 } from "react";
 import { jsx as jsx4 } from "react/jsx-runtime";
 var Heading = forwardRef4(
-  ({ level, noMargin = false, className = "", children, ...props }, ref) => {
+  ({ level, noMargin = false, leftAlign = false, className = "", children, ...props }, ref) => {
     const Tag = level;
     const classes = [
       "ds-heading",
       `ds-heading--${level}`,
       noMargin && "ds-heading--no-margin",
+      leftAlign && "ds-heading--left",
       className
     ].filter(Boolean).join(" ");
     return /* @__PURE__ */ jsx4(Tag, { ref, className: classes, ...props, children });
@@ -159,8 +160,104 @@ var Heading = forwardRef4(
 );
 Heading.displayName = "Heading";
 
+// src/Container/Container.tsx
+import { forwardRef as forwardRef5 } from "react";
+import { jsx as jsx5 } from "react/jsx-runtime";
+var Container = forwardRef5(
+  ({ maxWidth = "lg", width, padding = true, className = "", style, children, ...props }, ref) => {
+    const classes = [
+      "ds-container",
+      !width && `ds-container--${maxWidth}`,
+      padding && "ds-container--padded",
+      className
+    ].filter(Boolean).join(" ");
+    const containerStyle = width ? { ...style, width, maxWidth: width } : style;
+    return /* @__PURE__ */ jsx5("div", { ref, className: classes, style: containerStyle, ...props, children });
+  }
+);
+Container.displayName = "Container";
+
+// src/AppShell/AppShell.tsx
+import { jsx as jsx6, jsxs as jsxs3 } from "react/jsx-runtime";
+var AppShell = ({
+  nav,
+  sidebar,
+  footer,
+  sidebarWidth = "260px",
+  navHeight = "60px",
+  children,
+  className = ""
+}) => {
+  return /* @__PURE__ */ jsxs3(
+    "div",
+    {
+      className: `ds-app-shell ${className}`,
+      style: {
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        backgroundColor: "var(--color-bg-base)"
+      },
+      children: [
+        nav,
+        /* @__PURE__ */ jsxs3(
+          "div",
+          {
+            style: {
+              flex: 1,
+              overflowY: "auto"
+            },
+            children: [
+              /* @__PURE__ */ jsxs3(
+                "div",
+                {
+                  style: {
+                    display: "flex",
+                    minHeight: "100%"
+                  },
+                  children: [
+                    sidebar && /* @__PURE__ */ jsx6(
+                      "aside",
+                      {
+                        style: {
+                          width: sidebarWidth,
+                          flexShrink: 0,
+                          position: "sticky",
+                          top: 0,
+                          alignSelf: "flex-start",
+                          height: `calc(100vh - ${navHeight})`,
+                          overflowY: "auto",
+                          borderRight: "1px solid var(--color-border-default)",
+                          backgroundColor: "var(--color-bg-surface)"
+                        },
+                        children: sidebar
+                      }
+                    ),
+                    /* @__PURE__ */ jsx6(
+                      "main",
+                      {
+                        style: {
+                          flex: 1,
+                          minWidth: 0
+                        },
+                        children
+                      }
+                    )
+                  ]
+                }
+              ),
+              footer
+            ]
+          }
+        )
+      ]
+    }
+  );
+};
+AppShell.displayName = "AppShell";
+
 // src/GlobalNav/GlobalNav.tsx
-import { jsx as jsx5, jsxs as jsxs3 } from "react/jsx-runtime";
+import { jsx as jsx7, jsxs as jsxs4 } from "react/jsx-runtime";
 var GlobalNav = ({
   children,
   logo,
@@ -168,7 +265,7 @@ var GlobalNav = ({
   actions,
   className = ""
 }) => {
-  return /* @__PURE__ */ jsxs3(
+  return /* @__PURE__ */ jsxs4(
     "nav",
     {
       className: `ds-global-nav ${className}`,
@@ -185,11 +282,11 @@ var GlobalNav = ({
         backgroundColor: "var(--color-bg-surface)"
       },
       children: [
-        /* @__PURE__ */ jsxs3("div", { style: { display: "flex", alignItems: "center" }, children: [
-          logo && /* @__PURE__ */ jsx5("div", { style: { display: "flex", alignItems: "center", flexShrink: 0 }, children: logo }),
-          navigation && /* @__PURE__ */ jsx5("div", { style: { display: "flex", alignItems: "center", gap: "32px", marginLeft: "48px" }, children: navigation })
+        /* @__PURE__ */ jsxs4("div", { style: { display: "flex", alignItems: "center" }, children: [
+          logo && /* @__PURE__ */ jsx7("div", { style: { display: "flex", alignItems: "center", flexShrink: 0 }, children: logo }),
+          navigation && /* @__PURE__ */ jsx7("div", { style: { display: "flex", alignItems: "center", gap: "32px", marginLeft: "48px" }, children: navigation })
         ] }),
-        actions && /* @__PURE__ */ jsx5("div", { style: { display: "flex", alignItems: "center", gap: "16px" }, children: actions }),
+        actions && /* @__PURE__ */ jsx7("div", { style: { display: "flex", alignItems: "center", gap: "16px" }, children: actions }),
         children
       ]
     }
@@ -201,7 +298,7 @@ var NavItem = ({
   onClick,
   className = ""
 }) => {
-  return /* @__PURE__ */ jsx5(
+  return /* @__PURE__ */ jsx7(
     "button",
     {
       onClick,
@@ -235,8 +332,8 @@ var NavLogo = ({
   title,
   className = ""
 }) => {
-  return /* @__PURE__ */ jsxs3("div", { className, style: { display: "flex", alignItems: "center", gap: "12px" }, children: [
-    icon && /* @__PURE__ */ jsx5(
+  return /* @__PURE__ */ jsxs4("div", { className, style: { display: "flex", alignItems: "center", gap: "12px" }, children: [
+    icon && /* @__PURE__ */ jsx7(
       "div",
       {
         style: {
@@ -254,7 +351,7 @@ var NavLogo = ({
         children: icon
       }
     ),
-    title && /* @__PURE__ */ jsx5(
+    title && /* @__PURE__ */ jsx7(
       "span",
       {
         style: {
@@ -270,13 +367,13 @@ var NavLogo = ({
 };
 
 // src/Sidebar/Sidebar.tsx
-import { jsx as jsx6, jsxs as jsxs4 } from "react/jsx-runtime";
+import { jsx as jsx8, jsxs as jsxs5 } from "react/jsx-runtime";
 var Sidebar = ({
   children,
   width = "260px",
   className = ""
 }) => {
-  return /* @__PURE__ */ jsx6(
+  return /* @__PURE__ */ jsx8(
     "aside",
     {
       className: `ds-sidebar ${className}`,
@@ -297,8 +394,8 @@ var SidebarSection = ({
   title,
   className = ""
 }) => {
-  return /* @__PURE__ */ jsxs4("div", { className, style: { marginBottom: "24px" }, children: [
-    title && /* @__PURE__ */ jsx6(
+  return /* @__PURE__ */ jsxs5("div", { className, style: { marginBottom: "24px" }, children: [
+    title && /* @__PURE__ */ jsx8(
       "div",
       {
         style: {
@@ -310,7 +407,7 @@ var SidebarSection = ({
         children: title
       }
     ),
-    /* @__PURE__ */ jsx6("div", { style: { marginTop: "8px", display: "flex", flexDirection: "column", gap: "0" }, children })
+    /* @__PURE__ */ jsx8("div", { style: { marginTop: "8px", display: "flex", flexDirection: "column", gap: "0" }, children })
   ] });
 };
 var SidebarItem = ({
@@ -327,7 +424,7 @@ var SidebarItem = ({
       onClick();
     }
   };
-  return /* @__PURE__ */ jsxs4(
+  return /* @__PURE__ */ jsxs5(
     "a",
     {
       href,
@@ -359,22 +456,22 @@ var SidebarItem = ({
         }
       },
       children: [
-        icon && /* @__PURE__ */ jsx6("span", { style: { width: "20px", height: "20px", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }, children: icon }),
-        /* @__PURE__ */ jsx6("span", { children })
+        icon && /* @__PURE__ */ jsx8("span", { style: { width: "20px", height: "20px", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }, children: icon }),
+        /* @__PURE__ */ jsx8("span", { children })
       ]
     }
   );
 };
 
 // src/Footer/Footer.tsx
-import { jsx as jsx7, jsxs as jsxs5 } from "react/jsx-runtime";
+import { jsx as jsx9, jsxs as jsxs6 } from "react/jsx-runtime";
 var Footer = ({
   children,
   left,
   right,
   className = ""
 }) => {
-  return /* @__PURE__ */ jsx7(
+  return /* @__PURE__ */ jsx9(
     "footer",
     {
       className: `ds-footer ${className}`,
@@ -383,9 +480,9 @@ var Footer = ({
         padding: "40px 24px",
         backgroundColor: "var(--color-bg-surface)"
       },
-      children: /* @__PURE__ */ jsxs5("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between" }, children: [
-        left && /* @__PURE__ */ jsx7("div", { style: { fontSize: "13px", color: "var(--color-text-muted)" }, children: left }),
-        right && /* @__PURE__ */ jsx7("div", { style: { display: "flex", alignItems: "center", gap: "12px" }, children: right }),
+      children: /* @__PURE__ */ jsxs6("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between" }, children: [
+        left && /* @__PURE__ */ jsx9("div", { style: { fontSize: "13px", color: "var(--color-text-muted)" }, children: left }),
+        right && /* @__PURE__ */ jsx9("div", { style: { display: "flex", alignItems: "center", gap: "12px" }, children: right }),
         children
       ] })
     }
@@ -403,7 +500,7 @@ var FooterLink = ({
       onClick();
     }
   };
-  return /* @__PURE__ */ jsx7(
+  return /* @__PURE__ */ jsx9(
     "a",
     {
       href,
@@ -429,11 +526,13 @@ var FooterLink = ({
   );
 };
 export {
+  AppShell,
   Button,
   Card,
   CardBody,
   CardFooter,
   CardHeader,
+  Container,
   Footer,
   FooterLink,
   GlobalNav,

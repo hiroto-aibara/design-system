@@ -7,10 +7,11 @@ import {
   CardBody,
   CardFooter,
   Heading,
+  Container,
+  AppShell,
   GlobalNav,
   NavLogo,
   NavItem,
-  Sidebar,
   SidebarSection,
   SidebarItem,
   Footer,
@@ -70,252 +71,254 @@ function App() {
     setTimeout(() => setIsLoading(false), 2000)
   }
 
-  return (
-    <div className="min-h-screen flex flex-col" style={{ backgroundColor: 'var(--color-bg-base)' }}>
-      {/* Global Navigation */}
-      <GlobalNav
-        logo={<NavLogo icon="DS" title="Design System" />}
-        navigation={
-          <>
-            <NavItem isActive={activeNav === 'home'} onClick={() => setActiveNav('home')}>
-              Home
-            </NavItem>
-            <NavItem isActive={activeNav === 'components'} onClick={() => setActiveNav('components')}>
-              Components
-            </NavItem>
-            <NavItem isActive={activeNav === 'tokens'} onClick={() => setActiveNav('tokens')}>
-              Tokens
-            </NavItem>
-            <NavItem isActive={activeNav === 'docs'} onClick={() => setActiveNav('docs')}>
-              Docs
-            </NavItem>
-          </>
-        }
-        actions={
-          <>
-            <Button variant="ghost" size="sm" onClick={toggleTheme}>
-              {theme === 'light' ? <MoonIcon /> : <SunIcon />}
-            </Button>
-            <Button variant="primary" size="sm">Get Started</Button>
-          </>
-        }
-      />
+  const navContent = (
+    <GlobalNav
+      logo={<NavLogo icon="DS" title="Design System" />}
+      navigation={
+        <>
+          <NavItem isActive={activeNav === 'home'} onClick={() => setActiveNav('home')}>
+            Home
+          </NavItem>
+          <NavItem isActive={activeNav === 'components'} onClick={() => setActiveNav('components')}>
+            Components
+          </NavItem>
+          <NavItem isActive={activeNav === 'tokens'} onClick={() => setActiveNav('tokens')}>
+            Tokens
+          </NavItem>
+          <NavItem isActive={activeNav === 'docs'} onClick={() => setActiveNav('docs')}>
+            Docs
+          </NavItem>
+        </>
+      }
+      actions={
+        <>
+          <Button variant="ghost" size="sm" onClick={toggleTheme}>
+            {theme === 'light' ? <MoonIcon /> : <SunIcon />}
+          </Button>
+          <Button variant="primary" size="sm">Get Started</Button>
+        </>
+      }
+    />
+  )
 
-      <div className="flex flex-1 overflow-hidden">
-        {/* Sidebar */}
-        <Sidebar>
-          <SidebarSection title="Getting Started">
-            <SidebarItem
-              icon={<HomeIcon />}
-              isActive={activeSidebar === 'intro'}
-              onClick={() => setActiveSidebar('intro')}
-            >
-              Introduction
-            </SidebarItem>
-            <SidebarItem
-              icon={<BoxIcon />}
-              isActive={activeSidebar === 'button'}
-              onClick={() => setActiveSidebar('button')}
-            >
-              Button
-            </SidebarItem>
-            <SidebarItem
-              icon={<BoxIcon />}
-              isActive={activeSidebar === 'input'}
-              onClick={() => setActiveSidebar('input')}
-            >
-              Input
-            </SidebarItem>
-            <SidebarItem
-              icon={<BoxIcon />}
-              isActive={activeSidebar === 'card'}
-              onClick={() => setActiveSidebar('card')}
-            >
-              Card
-            </SidebarItem>
-          </SidebarSection>
-        </Sidebar>
-
-        {/* Main Content */}
-        <main className="flex-1 overflow-y-auto">
-          <div className="max-w-4xl mx-auto px-8 py-10">
-            {/* Hero Section */}
-            <section className="text-center py-12 mb-12">
-              <Heading
-                level="h1"
-                className="text-5xl"
-                style={{
-                  background: 'linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent'
-                }}
-              >
-                Design System
-              </Heading>
-              <p
-                className="text-lg mb-8 max-w-2xl mx-auto leading-relaxed"
-                style={{ color: 'var(--color-text-secondary)' }}
-              >
-                A modern, Replit-inspired design system with dark mode support,
-                beautiful animations, and accessible components.
-              </p>
-              <div className="flex gap-4 justify-center">
-                <Button variant="primary" size="lg">Get Started</Button>
-                <Button variant="secondary" size="lg">View on GitHub</Button>
-              </div>
-            </section>
-
-            {/* Registration Form */}
-            <section className="mb-12">
-              <Heading level="h2">
-                Registration Form
-              </Heading>
-              <Card>
-                <CardHeader>
-                  <Heading level="h3" noMargin>
-                    Create Account
-                  </Heading>
-                </CardHeader>
-                <CardBody>
-                  <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-                    <div className="flex flex-col gap-2">
-                      <label className="text-sm font-medium" style={{ color: 'var(--color-text-secondary)' }}>
-                        Name
-                      </label>
-                      <Input type="text" placeholder="Enter your name" />
-                    </div>
-                    <div className="flex flex-col gap-2">
-                      <label className="text-sm font-medium" style={{ color: 'var(--color-text-secondary)' }}>
-                        Email
-                      </label>
-                      <Input type="email" placeholder="Enter your email" />
-                    </div>
-                    <div className="flex flex-col gap-2">
-                      <label className="text-sm font-medium" style={{ color: 'var(--color-text-secondary)' }}>
-                        Password
-                      </label>
-                      <Input type="password" placeholder="Enter your password" />
-                    </div>
-                    <div className="flex flex-col gap-2">
-                      <label className="text-sm font-medium" style={{ color: 'var(--color-text-secondary)' }}>
-                        Invalid Example
-                      </label>
-                      <Input type="text" placeholder="This field has an error" isInvalid />
-                      <span className="text-sm" style={{ color: 'var(--color-danger-text)' }}>
-                        This field is required
-                      </span>
-                    </div>
-                  </form>
-                </CardBody>
-                <CardFooter>
-                  <div className="flex justify-end gap-2">
-                    <Button variant="ghost">Cancel</Button>
-                    <Button variant="primary" isLoading={isLoading} onClick={handleSubmit}>
-                      Register
-                    </Button>
-                  </div>
-                </CardFooter>
-              </Card>
-            </section>
-
-            {/* Button Variants */}
-            <section className="mb-12">
-              <Heading level="h2">
-                Button Variants
-              </Heading>
-              <Card>
-                <CardBody>
-                  <div className="flex flex-col gap-5">
-                    <div className="flex items-center gap-3 flex-wrap">
-                      <span className="w-28 text-sm font-medium" style={{ color: 'var(--color-text-secondary)' }}>Primary:</span>
-                      <Button variant="primary" size="sm">Small</Button>
-                      <Button variant="primary" size="md">Medium</Button>
-                      <Button variant="primary" size="lg">Large</Button>
-                    </div>
-                    <div className="flex items-center gap-3 flex-wrap">
-                      <span className="w-28 text-sm font-medium" style={{ color: 'var(--color-text-secondary)' }}>Secondary:</span>
-                      <Button variant="secondary" size="sm">Small</Button>
-                      <Button variant="secondary" size="md">Medium</Button>
-                      <Button variant="secondary" size="lg">Large</Button>
-                    </div>
-                    <div className="flex items-center gap-3 flex-wrap">
-                      <span className="w-28 text-sm font-medium" style={{ color: 'var(--color-text-secondary)' }}>Ghost:</span>
-                      <Button variant="ghost" size="sm">Small</Button>
-                      <Button variant="ghost" size="md">Medium</Button>
-                      <Button variant="ghost" size="lg">Large</Button>
-                    </div>
-                    <div className="flex items-center gap-3 flex-wrap">
-                      <span className="w-28 text-sm font-medium" style={{ color: 'var(--color-text-secondary)' }}>Danger:</span>
-                      <Button variant="danger" size="sm">Small</Button>
-                      <Button variant="danger" size="md">Medium</Button>
-                      <Button variant="danger" size="lg">Large</Button>
-                    </div>
-                    <div className="flex items-center gap-3 flex-wrap">
-                      <span className="w-28 text-sm font-medium" style={{ color: 'var(--color-text-secondary)' }}>Accent:</span>
-                      <Button variant="accent" size="sm">Small</Button>
-                      <Button variant="accent" size="md">Medium</Button>
-                      <Button variant="accent" size="lg">Large</Button>
-                    </div>
-                    <div className="flex items-center gap-3 flex-wrap">
-                      <span className="w-28 text-sm font-medium" style={{ color: 'var(--color-text-secondary)' }}>States:</span>
-                      <Button variant="primary" disabled>Disabled</Button>
-                      <Button variant="primary" isLoading>Loading</Button>
-                    </div>
-                  </div>
-                </CardBody>
-              </Card>
-            </section>
-
-            {/* Input Sizes */}
-            <section className="mb-12">
-              <Heading level="h2">
-                Input Sizes
-              </Heading>
-              <Card>
-                <CardBody>
-                  <div className="flex flex-col gap-5">
-                    <div className="flex items-center gap-4">
-                      <span className="w-28 text-sm font-medium" style={{ color: 'var(--color-text-secondary)' }}>Small:</span>
-                      <div className="flex-1 max-w-sm">
-                        <Input size="sm" placeholder="Small input" />
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-4">
-                      <span className="w-28 text-sm font-medium" style={{ color: 'var(--color-text-secondary)' }}>Medium:</span>
-                      <div className="flex-1 max-w-sm">
-                        <Input size="md" placeholder="Medium input" />
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-4">
-                      <span className="w-28 text-sm font-medium" style={{ color: 'var(--color-text-secondary)' }}>Large:</span>
-                      <div className="flex-1 max-w-sm">
-                        <Input size="lg" placeholder="Large input" />
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-4">
-                      <span className="w-28 text-sm font-medium" style={{ color: 'var(--color-text-secondary)' }}>Disabled:</span>
-                      <div className="flex-1 max-w-sm">
-                        <Input placeholder="Disabled input" disabled />
-                      </div>
-                    </div>
-                  </div>
-                </CardBody>
-              </Card>
-            </section>
-          </div>
-        </main>
-      </div>
-
-      {/* Footer - Full width */}
-      <Footer
-        left="© 2024 Design System. All rights reserved."
-        right={
-          <FooterLink href="https://github.com">
-            <GitHubIcon />
-          </FooterLink>
-        }
-      />
+  const sidebarContent = (
+    <div style={{ padding: '20px 16px' }}>
+      <SidebarSection title="Getting Started">
+        <SidebarItem
+          icon={<HomeIcon />}
+          isActive={activeSidebar === 'intro'}
+          onClick={() => setActiveSidebar('intro')}
+        >
+          Introduction
+        </SidebarItem>
+        <SidebarItem
+          icon={<BoxIcon />}
+          isActive={activeSidebar === 'button'}
+          onClick={() => setActiveSidebar('button')}
+        >
+          Button
+        </SidebarItem>
+        <SidebarItem
+          icon={<BoxIcon />}
+          isActive={activeSidebar === 'input'}
+          onClick={() => setActiveSidebar('input')}
+        >
+          Input
+        </SidebarItem>
+        <SidebarItem
+          icon={<BoxIcon />}
+          isActive={activeSidebar === 'card'}
+          onClick={() => setActiveSidebar('card')}
+        >
+          Card
+        </SidebarItem>
+      </SidebarSection>
     </div>
+  )
+
+  const footerContent = (
+    <Footer
+      left="© 2024 Design System. All rights reserved."
+      right={
+        <FooterLink href="https://github.com">
+          <GitHubIcon />
+        </FooterLink>
+      }
+    />
+  )
+
+  return (
+    <AppShell
+      nav={navContent}
+      sidebar={sidebarContent}
+      footer={footerContent}
+    >
+      <Container maxWidth="md" className="py-10">
+        {/* Hero Section */}
+        <section className="text-center py-12 mb-12">
+          <Heading
+            level="h1"
+            className="text-5xl"
+            style={{
+              background: 'linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent'
+            }}
+          >
+            Design System
+          </Heading>
+          <p
+            className="text-lg mb-8 max-w-2xl mx-auto leading-relaxed"
+            style={{ color: 'var(--color-text-secondary)' }}
+          >
+            A modern, Replit-inspired design system with dark mode support,
+            beautiful animations, and accessible components.
+          </p>
+          <div className="flex gap-4 justify-center">
+            <Button variant="primary" size="lg">Get Started</Button>
+            <Button variant="secondary" size="lg">View on GitHub</Button>
+          </div>
+        </section>
+
+        {/* Registration Form */}
+        <section className="mb-12">
+          <Heading level="h2">
+            Registration Form
+          </Heading>
+          <Card>
+            <CardHeader>
+              <Heading level="h3" noMargin>
+                Create Account
+              </Heading>
+            </CardHeader>
+            <CardBody>
+              <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+                <div className="flex flex-col gap-2">
+                  <label className="text-sm font-medium" style={{ color: 'var(--color-text-secondary)' }}>
+                    Name
+                  </label>
+                  <Input type="text" placeholder="Enter your name" />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <label className="text-sm font-medium" style={{ color: 'var(--color-text-secondary)' }}>
+                    Email
+                  </label>
+                  <Input type="email" placeholder="Enter your email" />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <label className="text-sm font-medium" style={{ color: 'var(--color-text-secondary)' }}>
+                    Password
+                  </label>
+                  <Input type="password" placeholder="Enter your password" />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <label className="text-sm font-medium" style={{ color: 'var(--color-text-secondary)' }}>
+                    Invalid Example
+                  </label>
+                  <Input type="text" placeholder="This field has an error" isInvalid />
+                  <span className="text-sm" style={{ color: 'var(--color-danger-text)' }}>
+                    This field is required
+                  </span>
+                </div>
+              </form>
+            </CardBody>
+            <CardFooter>
+              <div className="flex justify-end gap-2">
+                <Button variant="ghost">Cancel</Button>
+                <Button variant="primary" isLoading={isLoading} onClick={handleSubmit}>
+                  Register
+                </Button>
+              </div>
+            </CardFooter>
+          </Card>
+        </section>
+
+        {/* Button Variants */}
+        <section className="mb-12">
+          <Heading level="h2">
+            Button Variants
+          </Heading>
+          <Card>
+            <CardBody>
+              <div className="flex flex-col gap-5">
+                <div className="flex items-center gap-3 flex-wrap">
+                  <span className="w-28 text-sm font-medium" style={{ color: 'var(--color-text-secondary)' }}>Primary:</span>
+                  <Button variant="primary" size="sm">Small</Button>
+                  <Button variant="primary" size="md">Medium</Button>
+                  <Button variant="primary" size="lg">Large</Button>
+                </div>
+                <div className="flex items-center gap-3 flex-wrap">
+                  <span className="w-28 text-sm font-medium" style={{ color: 'var(--color-text-secondary)' }}>Secondary:</span>
+                  <Button variant="secondary" size="sm">Small</Button>
+                  <Button variant="secondary" size="md">Medium</Button>
+                  <Button variant="secondary" size="lg">Large</Button>
+                </div>
+                <div className="flex items-center gap-3 flex-wrap">
+                  <span className="w-28 text-sm font-medium" style={{ color: 'var(--color-text-secondary)' }}>Ghost:</span>
+                  <Button variant="ghost" size="sm">Small</Button>
+                  <Button variant="ghost" size="md">Medium</Button>
+                  <Button variant="ghost" size="lg">Large</Button>
+                </div>
+                <div className="flex items-center gap-3 flex-wrap">
+                  <span className="w-28 text-sm font-medium" style={{ color: 'var(--color-text-secondary)' }}>Danger:</span>
+                  <Button variant="danger" size="sm">Small</Button>
+                  <Button variant="danger" size="md">Medium</Button>
+                  <Button variant="danger" size="lg">Large</Button>
+                </div>
+                <div className="flex items-center gap-3 flex-wrap">
+                  <span className="w-28 text-sm font-medium" style={{ color: 'var(--color-text-secondary)' }}>Accent:</span>
+                  <Button variant="accent" size="sm">Small</Button>
+                  <Button variant="accent" size="md">Medium</Button>
+                  <Button variant="accent" size="lg">Large</Button>
+                </div>
+                <div className="flex items-center gap-3 flex-wrap">
+                  <span className="w-28 text-sm font-medium" style={{ color: 'var(--color-text-secondary)' }}>States:</span>
+                  <Button variant="primary" disabled>Disabled</Button>
+                  <Button variant="primary" isLoading>Loading</Button>
+                </div>
+              </div>
+            </CardBody>
+          </Card>
+        </section>
+
+        {/* Input Sizes */}
+        <section className="mb-12">
+          <Heading level="h2">
+            Input Sizes
+          </Heading>
+          <Card>
+            <CardBody>
+              <div className="flex flex-col gap-5">
+                <div className="flex items-center gap-4">
+                  <span className="w-28 text-sm font-medium" style={{ color: 'var(--color-text-secondary)' }}>Small:</span>
+                  <div className="flex-1 max-w-sm">
+                    <Input size="sm" placeholder="Small input" />
+                  </div>
+                </div>
+                <div className="flex items-center gap-4">
+                  <span className="w-28 text-sm font-medium" style={{ color: 'var(--color-text-secondary)' }}>Medium:</span>
+                  <div className="flex-1 max-w-sm">
+                    <Input size="md" placeholder="Medium input" />
+                  </div>
+                </div>
+                <div className="flex items-center gap-4">
+                  <span className="w-28 text-sm font-medium" style={{ color: 'var(--color-text-secondary)' }}>Large:</span>
+                  <div className="flex-1 max-w-sm">
+                    <Input size="lg" placeholder="Large input" />
+                  </div>
+                </div>
+                <div className="flex items-center gap-4">
+                  <span className="w-28 text-sm font-medium" style={{ color: 'var(--color-text-secondary)' }}>Disabled:</span>
+                  <div className="flex-1 max-w-sm">
+                    <Input placeholder="Disabled input" disabled />
+                  </div>
+                </div>
+              </div>
+            </CardBody>
+          </Card>
+        </section>
+      </Container>
+    </AppShell>
   )
 }
 
