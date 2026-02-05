@@ -216,3 +216,129 @@ export const AllCharts: StoryObj = {
     </div>
   ),
 }
+
+// Animation Examples
+export const SlowAnimation: StoryObj = {
+  name: 'Slow Animation (1.5s ease-in-out)',
+  render: () => (
+    <BarChart
+      data={barData}
+      xKey="category"
+      yKey="count"
+      color="primary"
+      height={300}
+      animationConfig={{
+        duration: 1500,
+        easing: 'ease-in-out',
+      }}
+    />
+  ),
+}
+
+export const NoAnimation: StoryObj = {
+  render: () => (
+    <LineChart
+      data={lineData}
+      xKey="month"
+      yKey="value"
+      animate={false}
+      height={300}
+    />
+  ),
+}
+
+export const HoverEffects: StoryObj = {
+  name: 'Hover Effects (try hovering)',
+  render: () => (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '32px' }}>
+      <div>
+        <h4 style={{ marginBottom: '12px', color: 'var(--color-text-secondary)' }}>Bar Chart - Hover to highlight</h4>
+        <BarChart
+          data={barData}
+          xKey="category"
+          yKey="count"
+          color="accent"
+          height={250}
+          hoverEffect
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBottom: '12px', color: 'var(--color-text-secondary)' }}>Pie Chart - Hover to expand</h4>
+        <PieChart
+          data={pieData}
+          nameKey="label"
+          valueKey="value"
+          height={250}
+          hoverEffect
+        />
+      </div>
+    </div>
+  ),
+}
+
+export const NoHoverEffects: StoryObj = {
+  render: () => (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '32px' }}>
+      <div>
+        <h4 style={{ marginBottom: '12px', color: 'var(--color-text-secondary)' }}>Bar Chart - No hover</h4>
+        <BarChart
+          data={barData}
+          xKey="category"
+          yKey="count"
+          height={250}
+          hoverEffect={false}
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBottom: '12px', color: 'var(--color-text-secondary)' }}>Pie Chart - No hover</h4>
+        <PieChart
+          data={pieData}
+          nameKey="label"
+          valueKey="value"
+          height={250}
+          hoverEffect={false}
+        />
+      </div>
+    </div>
+  ),
+}
+
+export const CustomAnimationConfig: StoryObj = {
+  name: 'Custom Animation Config',
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+      <div>
+        <h4 style={{ marginBottom: '12px', color: 'var(--color-text-secondary)' }}>
+          Fast animation (400ms, linear)
+        </h4>
+        <AreaChart
+          data={areaData}
+          xKey="date"
+          yKey="amount"
+          color="success"
+          height={200}
+          animationConfig={{
+            duration: 400,
+            easing: 'linear',
+          }}
+        />
+      </div>
+      <div>
+        <h4 style={{ marginBottom: '12px', color: 'var(--color-text-secondary)' }}>
+          Slow animation (2000ms, ease-in)
+        </h4>
+        <AreaChart
+          data={areaData}
+          xKey="date"
+          yKey="amount"
+          color="danger"
+          height={200}
+          animationConfig={{
+            duration: 2000,
+            easing: 'ease-in',
+          }}
+        />
+      </div>
+    </div>
+  ),
+}

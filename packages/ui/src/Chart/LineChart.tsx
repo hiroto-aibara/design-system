@@ -11,6 +11,7 @@ import {
 import {
   type BaseChartProps,
   getChartColor,
+  getAnimationConfig,
   tooltipStyle,
   tooltipLabelStyle,
   tooltipItemStyle,
@@ -36,6 +37,8 @@ export function LineChart<T extends Record<string, unknown>>({
   height = 300,
   color = 'primary',
   animate = true,
+  animationConfig,
+  hoverEffect = true,
   showGrid = true,
   showLegend = false,
   showTooltip = true,
@@ -45,6 +48,7 @@ export function LineChart<T extends Record<string, unknown>>({
   style,
 }: LineChartProps<T>) {
   const chartColor = getChartColor(color)
+  const anim = getAnimationConfig(animate, animationConfig)
 
   return (
     <div className={`ds-chart ${className || ''}`} style={style}>
@@ -84,9 +88,16 @@ export function LineChart<T extends Record<string, unknown>>({
             stroke={chartColor}
             strokeWidth={2}
             dot={showDots ? { fill: chartColor, strokeWidth: 2, r: 4 } : false}
-            activeDot={{ r: 6, stroke: chartColor, strokeWidth: 2 }}
-            isAnimationActive={animate}
-            animationDuration={500}
+            activeDot={hoverEffect ? {
+              r: 8,
+              stroke: chartColor,
+              strokeWidth: 2,
+              fill: 'var(--color-bg-surface)',
+              className: 'ds-chart__active-dot',
+            } : { r: 6, stroke: chartColor, strokeWidth: 2 }}
+            isAnimationActive={anim.enabled}
+            animationDuration={anim.duration}
+            animationEasing={anim.easing}
           />
         </RechartsLineChart>
       </ResponsiveContainer>

@@ -589,6 +589,23 @@ var Td = forwardRef6(
 Td.displayName = "Td";
 
 // src/Chart/Chart.tsx
+var defaultAnimationConfig = {
+  enabled: true,
+  duration: 800,
+  easing: "ease-out",
+  staggered: true,
+  staggerDelay: 50
+};
+var getAnimationConfig = (animate, config) => {
+  const base = { ...defaultAnimationConfig };
+  if (animate === false) {
+    base.enabled = false;
+  }
+  if (config) {
+    return { ...base, ...config };
+  }
+  return base;
+};
 var getChartColor = (color) => {
   const colorMap = {
     primary: "var(--color-primary)",
@@ -644,6 +661,8 @@ function LineChart({
   height = 300,
   color = "primary",
   animate = true,
+  animationConfig,
+  hoverEffect = true,
   showGrid = true,
   showLegend = false,
   showTooltip = true,
@@ -653,6 +672,7 @@ function LineChart({
   style
 }) {
   const chartColor = getChartColor(color);
+  const anim = getAnimationConfig(animate, animationConfig);
   return /* @__PURE__ */ jsx11("div", { className: `ds-chart ${className || ""}`, style, children: /* @__PURE__ */ jsx11(ResponsiveContainer, { width, height, children: /* @__PURE__ */ jsxs7(RechartsLineChart, { data, margin: { top: 5, right: 20, left: 0, bottom: 5 }, children: [
     showGrid && /* @__PURE__ */ jsx11(
       CartesianGrid,
@@ -698,9 +718,16 @@ function LineChart({
         stroke: chartColor,
         strokeWidth: 2,
         dot: showDots ? { fill: chartColor, strokeWidth: 2, r: 4 } : false,
-        activeDot: { r: 6, stroke: chartColor, strokeWidth: 2 },
-        isAnimationActive: animate,
-        animationDuration: 500
+        activeDot: hoverEffect ? {
+          r: 8,
+          stroke: chartColor,
+          strokeWidth: 2,
+          fill: "var(--color-bg-surface)",
+          className: "ds-chart__active-dot"
+        } : { r: 6, stroke: chartColor, strokeWidth: 2 },
+        isAnimationActive: anim.enabled,
+        animationDuration: anim.duration,
+        animationEasing: anim.easing
       }
     )
   ] }) }) });
@@ -708,9 +735,11 @@ function LineChart({
 LineChart.displayName = "LineChart";
 
 // src/Chart/BarChart.tsx
+import { useState } from "react";
 import {
   BarChart as RechartsBarChart,
   Bar,
+  Cell,
   XAxis as XAxis2,
   YAxis as YAxis2,
   CartesianGrid as CartesianGrid2,
@@ -727,6 +756,8 @@ function BarChart({
   height = 300,
   color = "primary",
   animate = true,
+  animationConfig,
+  hoverEffect = true,
   showGrid = true,
   showLegend = false,
   showTooltip = true,
@@ -736,64 +767,89 @@ function BarChart({
   style
 }) {
   const chartColor = getChartColor(color);
-  return /* @__PURE__ */ jsx12("div", { className: `ds-chart ${className || ""}`, style, children: /* @__PURE__ */ jsx12(ResponsiveContainer2, { width, height, children: /* @__PURE__ */ jsxs8(RechartsBarChart, { data, margin: { top: 5, right: 20, left: 0, bottom: 5 }, children: [
-    showGrid && /* @__PURE__ */ jsx12(
-      CartesianGrid2,
-      {
-        strokeDasharray: "3 3",
-        stroke: "var(--color-border-default)",
-        vertical: false
-      }
-    ),
-    /* @__PURE__ */ jsx12(
-      XAxis2,
-      {
-        dataKey: xKey,
-        stroke: "var(--color-text-muted)",
-        tick: { fill: "var(--color-text-secondary)", fontSize: 12 },
-        tickLine: { stroke: "var(--color-border-default)" },
-        axisLine: { stroke: "var(--color-border-default)" }
-      }
-    ),
-    /* @__PURE__ */ jsx12(
-      YAxis2,
-      {
-        stroke: "var(--color-text-muted)",
-        tick: { fill: "var(--color-text-secondary)", fontSize: 12 },
-        tickLine: { stroke: "var(--color-border-default)" },
-        axisLine: { stroke: "var(--color-border-default)" }
-      }
-    ),
-    showTooltip && /* @__PURE__ */ jsx12(
-      Tooltip2,
-      {
-        contentStyle: tooltipStyle,
-        labelStyle: tooltipLabelStyle,
-        itemStyle: tooltipItemStyle,
-        cursor: { fill: "var(--color-bg-muted)", opacity: 0.5 }
-      }
-    ),
-    showLegend && /* @__PURE__ */ jsx12(Legend2, {}),
-    /* @__PURE__ */ jsx12(
-      Bar,
-      {
-        dataKey: yKey,
-        fill: chartColor,
-        radius: [radius, radius, 0, 0],
-        maxBarSize: barSize,
-        isAnimationActive: animate,
-        animationDuration: 500
-      }
-    )
-  ] }) }) });
+  const anim = getAnimationConfig(animate, animationConfig);
+  const [activeIndex, setActiveIndex] = useState(null);
+  return /* @__PURE__ */ jsx12("div", { className: `ds-chart ${className || ""}`, style, children: /* @__PURE__ */ jsx12(ResponsiveContainer2, { width, height, children: /* @__PURE__ */ jsxs8(
+    RechartsBarChart,
+    {
+      data,
+      margin: { top: 5, right: 20, left: 0, bottom: 5 },
+      onMouseLeave: () => setActiveIndex(null),
+      children: [
+        showGrid && /* @__PURE__ */ jsx12(
+          CartesianGrid2,
+          {
+            strokeDasharray: "3 3",
+            stroke: "var(--color-border-default)",
+            vertical: false
+          }
+        ),
+        /* @__PURE__ */ jsx12(
+          XAxis2,
+          {
+            dataKey: xKey,
+            stroke: "var(--color-text-muted)",
+            tick: { fill: "var(--color-text-secondary)", fontSize: 12 },
+            tickLine: { stroke: "var(--color-border-default)" },
+            axisLine: { stroke: "var(--color-border-default)" }
+          }
+        ),
+        /* @__PURE__ */ jsx12(
+          YAxis2,
+          {
+            stroke: "var(--color-text-muted)",
+            tick: { fill: "var(--color-text-secondary)", fontSize: 12 },
+            tickLine: { stroke: "var(--color-border-default)" },
+            axisLine: { stroke: "var(--color-border-default)" }
+          }
+        ),
+        showTooltip && /* @__PURE__ */ jsx12(
+          Tooltip2,
+          {
+            contentStyle: tooltipStyle,
+            labelStyle: tooltipLabelStyle,
+            itemStyle: tooltipItemStyle,
+            cursor: { fill: "var(--color-bg-muted)", opacity: 0.3 }
+          }
+        ),
+        showLegend && /* @__PURE__ */ jsx12(Legend2, {}),
+        /* @__PURE__ */ jsx12(
+          Bar,
+          {
+            dataKey: yKey,
+            fill: chartColor,
+            radius: [radius, radius, 0, 0],
+            maxBarSize: barSize,
+            isAnimationActive: anim.enabled,
+            animationDuration: anim.duration,
+            animationEasing: anim.easing,
+            onMouseEnter: (_, index) => hoverEffect && setActiveIndex(index),
+            children: data.map((_, index) => /* @__PURE__ */ jsx12(
+              Cell,
+              {
+                fill: chartColor,
+                opacity: hoverEffect && activeIndex !== null && activeIndex !== index ? 0.5 : 1,
+                style: {
+                  transition: "opacity 0.2s ease-out",
+                  animationDelay: anim.staggered ? `${index * anim.staggerDelay}ms` : "0ms"
+                }
+              },
+              `cell-${index}`
+            ))
+          }
+        )
+      ]
+    }
+  ) }) });
 }
 BarChart.displayName = "BarChart";
 
 // src/Chart/PieChart.tsx
+import { useState as useState2, useCallback } from "react";
 import {
   PieChart as RechartsPieChart,
   Pie,
-  Cell,
+  Cell as Cell2,
   Tooltip as Tooltip3,
   Legend as Legend3,
   ResponsiveContainer as ResponsiveContainer3
@@ -806,6 +862,8 @@ function PieChart({
   width = "100%",
   height = 300,
   animate = true,
+  animationConfig,
+  hoverEffect = true,
   showLegend = true,
   showTooltip = true,
   innerRadius = 0,
@@ -815,6 +873,16 @@ function PieChart({
   style
 }) {
   const colors = getChartColors();
+  const anim = getAnimationConfig(animate, animationConfig);
+  const [activeIndex, setActiveIndex] = useState2(void 0);
+  const onPieEnter = useCallback((_, index) => {
+    if (hoverEffect) {
+      setActiveIndex(index);
+    }
+  }, [hoverEffect]);
+  const onPieLeave = useCallback(() => {
+    setActiveIndex(void 0);
+  }, []);
   return /* @__PURE__ */ jsx13("div", { className: `ds-chart ${className || ""}`, style, children: /* @__PURE__ */ jsx13(ResponsiveContainer3, { width, height, children: /* @__PURE__ */ jsxs9(RechartsPieChart, { children: [
     showTooltip && /* @__PURE__ */ jsx13(
       Tooltip3,
@@ -841,21 +909,36 @@ function PieChart({
         cx: "50%",
         cy: "50%",
         innerRadius,
-        outerRadius,
+        outerRadius: hoverEffect && activeIndex !== void 0 ? outerRadius : outerRadius,
         paddingAngle: 2,
-        isAnimationActive: animate,
-        animationDuration: 500,
+        isAnimationActive: anim.enabled,
+        animationDuration: anim.duration,
+        animationEasing: anim.easing,
+        animationBegin: 0,
         label: showLabels ? ({ name, percent }) => `${name}: ${((percent ?? 0) * 100).toFixed(0)}%` : false,
         labelLine: showLabels,
-        children: data.map((_, index) => /* @__PURE__ */ jsx13(
-          Cell,
-          {
-            fill: colors[index % colors.length],
-            stroke: "var(--color-bg-surface)",
-            strokeWidth: 2
-          },
-          `cell-${index}`
-        ))
+        onMouseEnter: onPieEnter,
+        onMouseLeave: onPieLeave,
+        children: data.map((_, index) => {
+          const isActive = activeIndex === index;
+          const isInactive = hoverEffect && activeIndex !== void 0 && activeIndex !== index;
+          return /* @__PURE__ */ jsx13(
+            Cell2,
+            {
+              fill: colors[index % colors.length],
+              stroke: "var(--color-bg-surface)",
+              strokeWidth: 2,
+              opacity: isInactive ? 0.4 : 1,
+              style: {
+                transition: "all 0.2s ease-out",
+                transform: isActive ? "scale(1.05)" : "scale(1)",
+                transformOrigin: "center",
+                filter: isActive ? "drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2))" : "none"
+              }
+            },
+            `cell-${index}`
+          );
+        })
       }
     )
   ] }) }) });
@@ -863,6 +946,7 @@ function PieChart({
 PieChart.displayName = "PieChart";
 
 // src/Chart/AreaChart.tsx
+import { useId } from "react";
 import {
   AreaChart as RechartsAreaChart,
   Area,
@@ -882,6 +966,8 @@ function AreaChart({
   height = 300,
   color = "primary",
   animate = true,
+  animationConfig,
+  hoverEffect = true,
   showGrid = true,
   showLegend = false,
   showTooltip = true,
@@ -891,7 +977,9 @@ function AreaChart({
   style
 }) {
   const chartColor = getChartColor(color);
-  const gradientId = `gradient-${color}`;
+  const id = useId();
+  const gradientId = `gradient-${color}-${id}`;
+  const anim = getAnimationConfig(animate, animationConfig);
   return /* @__PURE__ */ jsx14("div", { className: `ds-chart ${className || ""}`, style, children: /* @__PURE__ */ jsx14(ResponsiveContainer4, { width, height, children: /* @__PURE__ */ jsxs10(RechartsAreaChart, { data, margin: { top: 5, right: 20, left: 0, bottom: 5 }, children: [
     /* @__PURE__ */ jsx14("defs", { children: /* @__PURE__ */ jsxs10("linearGradient", { id: gradientId, x1: "0", y1: "0", x2: "0", y2: "1", children: [
       /* @__PURE__ */ jsx14("stop", { offset: "5%", stopColor: chartColor, stopOpacity: 0.3 }),
@@ -942,8 +1030,15 @@ function AreaChart({
         strokeWidth: 2,
         fill: gradient ? `url(#${gradientId})` : chartColor,
         fillOpacity: gradient ? 1 : 0.2,
-        isAnimationActive: animate,
-        animationDuration: 500
+        activeDot: hoverEffect ? {
+          r: 6,
+          stroke: chartColor,
+          strokeWidth: 2,
+          fill: "var(--color-bg-surface)"
+        } : void 0,
+        isAnimationActive: anim.enabled,
+        animationDuration: anim.duration,
+        animationEasing: anim.easing
       }
     )
   ] }) }) });
@@ -1047,13 +1142,13 @@ import {
   forwardRef as forwardRef9,
   createContext,
   useContext,
-  useState
+  useState as useState3
 } from "react";
 import { jsx as jsx17, jsxs as jsxs13 } from "react/jsx-runtime";
 var RadioGroupContext = createContext(null);
 var RadioGroup = forwardRef9(
   ({ name, value, defaultValue, onChange, disabled, children, className, ...props }, ref) => {
-    const [internalValue, setInternalValue] = useState(defaultValue);
+    const [internalValue, setInternalValue] = useState3(defaultValue);
     const isControlled = value !== void 0;
     const currentValue = isControlled ? value : internalValue;
     const handleChange = (newValue) => {
@@ -1118,7 +1213,7 @@ Radio.displayName = "Radio";
 import {
   forwardRef as forwardRef10,
   useEffect,
-  useCallback
+  useCallback as useCallback2
 } from "react";
 import { createPortal } from "react-dom";
 import { jsx as jsx18, jsxs as jsxs14 } from "react/jsx-runtime";
@@ -1134,7 +1229,7 @@ var Modal = forwardRef10(
     className,
     ...props
   }, ref) => {
-    const handleKeyDown = useCallback(
+    const handleKeyDown = useCallback2(
       (e) => {
         if (closeOnEsc && e.key === "Escape") {
           onClose();
@@ -1237,8 +1332,8 @@ Toast.displayName = "Toast";
 import {
   createContext as createContext2,
   useContext as useContext2,
-  useState as useState2,
-  useCallback as useCallback2
+  useState as useState4,
+  useCallback as useCallback3
 } from "react";
 import { createPortal as createPortal2 } from "react-dom";
 import { jsx as jsx20, jsxs as jsxs16 } from "react/jsx-runtime";
@@ -1248,11 +1343,11 @@ var ToastProvider = ({
   defaultDuration = 5e3,
   maxToasts = 5
 }) => {
-  const [toasts, setToasts] = useState2([]);
-  const removeToast = useCallback2((id) => {
+  const [toasts, setToasts] = useState4([]);
+  const removeToast = useCallback3((id) => {
     setToasts((prev) => prev.filter((t) => t.id !== id));
   }, []);
-  const toast = useCallback2(
+  const toast = useCallback3(
     (options) => {
       const id = `toast-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
       const duration = options.duration ?? defaultDuration;
@@ -1339,6 +1434,7 @@ export {
   Toast,
   ToastProvider,
   Tr,
+  defaultAnimationConfig,
   getChartColor,
   getChartColors,
   useToast

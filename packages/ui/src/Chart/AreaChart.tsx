@@ -1,3 +1,4 @@
+import { useId } from 'react'
 import {
   AreaChart as RechartsAreaChart,
   Area,
@@ -11,6 +12,7 @@ import {
 import {
   type BaseChartProps,
   getChartColor,
+  getAnimationConfig,
   tooltipStyle,
   tooltipLabelStyle,
   tooltipItemStyle,
@@ -36,6 +38,8 @@ export function AreaChart<T extends Record<string, unknown>>({
   height = 300,
   color = 'primary',
   animate = true,
+  animationConfig,
+  hoverEffect = true,
   showGrid = true,
   showLegend = false,
   showTooltip = true,
@@ -45,7 +49,9 @@ export function AreaChart<T extends Record<string, unknown>>({
   style,
 }: AreaChartProps<T>) {
   const chartColor = getChartColor(color)
-  const gradientId = `gradient-${color}`
+  const id = useId()
+  const gradientId = `gradient-${color}-${id}`
+  const anim = getAnimationConfig(animate, animationConfig)
 
   return (
     <div className={`ds-chart ${className || ''}`} style={style}>
@@ -92,8 +98,15 @@ export function AreaChart<T extends Record<string, unknown>>({
             strokeWidth={2}
             fill={gradient ? `url(#${gradientId})` : chartColor}
             fillOpacity={gradient ? 1 : 0.2}
-            isAnimationActive={animate}
-            animationDuration={500}
+            activeDot={hoverEffect ? {
+              r: 6,
+              stroke: chartColor,
+              strokeWidth: 2,
+              fill: 'var(--color-bg-surface)',
+            } : undefined}
+            isAnimationActive={anim.enabled}
+            animationDuration={anim.duration}
+            animationEasing={anim.easing}
           />
         </RechartsAreaChart>
       </ResponsiveContainer>

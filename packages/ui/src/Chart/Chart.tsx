@@ -2,6 +2,21 @@ import { type CSSProperties } from 'react'
 
 export type ChartColor = 'primary' | 'accent' | 'success' | 'warning' | 'danger'
 
+export type AnimationEasing = 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear'
+
+export interface AnimationConfig {
+  /** アニメーションを有効化 */
+  enabled?: boolean
+  /** アニメーション時間 (ms) */
+  duration?: number
+  /** イージング関数 */
+  easing?: AnimationEasing
+  /** 順次アニメーション（Bar/Pieで各要素を順番に表示） */
+  staggered?: boolean
+  /** 順次アニメーションの遅延間隔 (ms) */
+  staggerDelay?: number
+}
+
 export interface BaseChartProps<T = Record<string, unknown>> {
   /** データ配列 */
   data: T[]
@@ -11,8 +26,12 @@ export interface BaseChartProps<T = Record<string, unknown>> {
   height?: number
   /** カラーテーマ */
   color?: ChartColor
-  /** アニメーションを有効化 */
+  /** アニメーションを有効化（簡易設定、詳細はanimationConfigを使用） */
   animate?: boolean
+  /** アニメーション詳細設定 */
+  animationConfig?: AnimationConfig
+  /** ホバーエフェクトを有効化 */
+  hoverEffect?: boolean
   /** グリッドを表示 */
   showGrid?: boolean
   /** 凡例を表示 */
@@ -23,6 +42,39 @@ export interface BaseChartProps<T = Record<string, unknown>> {
   className?: string
   /** カスタムスタイル */
   style?: CSSProperties
+}
+
+/**
+ * デフォルトのアニメーション設定
+ */
+export const defaultAnimationConfig: Required<AnimationConfig> = {
+  enabled: true,
+  duration: 800,
+  easing: 'ease-out',
+  staggered: true,
+  staggerDelay: 50,
+}
+
+/**
+ * アニメーション設定をマージ
+ */
+export const getAnimationConfig = (
+  animate?: boolean,
+  config?: AnimationConfig
+): Required<AnimationConfig> => {
+  const base = { ...defaultAnimationConfig }
+
+  // animate prop が false なら無効化
+  if (animate === false) {
+    base.enabled = false
+  }
+
+  // config で上書き
+  if (config) {
+    return { ...base, ...config }
+  }
+
+  return base
 }
 
 /**

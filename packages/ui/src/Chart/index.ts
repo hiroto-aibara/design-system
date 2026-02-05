@@ -1,6 +1,9 @@
 export {
   type BaseChartProps,
   type ChartColor,
+  type AnimationConfig,
+  type AnimationEasing,
+  defaultAnimationConfig,
   getChartColor,
   getChartColors,
 } from './Chart'

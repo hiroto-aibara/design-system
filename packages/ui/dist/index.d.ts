@@ -209,6 +209,19 @@ interface TdProps extends TdHTMLAttributes<HTMLTableCellElement> {
 declare const Td: react.ForwardRefExoticComponent<TdProps & react.RefAttributes<HTMLTableCellElement>>;
 
 type ChartColor = 'primary' | 'accent' | 'success' | 'warning' | 'danger';
+type AnimationEasing = 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear';
+interface AnimationConfig {
+    /** アニメーションを有効化 */
+    enabled?: boolean;
+    /** アニメーション時間 (ms) */
+    duration?: number;
+    /** イージング関数 */
+    easing?: AnimationEasing;
+    /** 順次アニメーション（Bar/Pieで各要素を順番に表示） */
+    staggered?: boolean;
+    /** 順次アニメーションの遅延間隔 (ms) */
+    staggerDelay?: number;
+}
 interface BaseChartProps<T = Record<string, unknown>> {
     /** データ配列 */
     data: T[];
@@ -218,8 +231,12 @@ interface BaseChartProps<T = Record<string, unknown>> {
     height?: number;
     /** カラーテーマ */
     color?: ChartColor;
-    /** アニメーションを有効化 */
+    /** アニメーションを有効化（簡易設定、詳細はanimationConfigを使用） */
     animate?: boolean;
+    /** アニメーション詳細設定 */
+    animationConfig?: AnimationConfig;
+    /** ホバーエフェクトを有効化 */
+    hoverEffect?: boolean;
     /** グリッドを表示 */
     showGrid?: boolean;
     /** 凡例を表示 */
@@ -231,6 +248,10 @@ interface BaseChartProps<T = Record<string, unknown>> {
     /** カスタムスタイル */
     style?: CSSProperties;
 }
+/**
+ * デフォルトのアニメーション設定
+ */
+declare const defaultAnimationConfig: Required<AnimationConfig>;
 /**
  * CSS変数からカラー値を取得するユーティリティ
  */
@@ -250,7 +271,7 @@ interface LineChartProps<T = Record<string, unknown>> extends BaseChartProps<T> 
     /** ドットを表示 */
     showDots?: boolean;
 }
-declare function LineChart<T extends Record<string, unknown>>({ data, xKey, yKey, width, height, color, animate, showGrid, showLegend, showTooltip, smooth, showDots, className, style, }: LineChartProps<T>): react_jsx_runtime.JSX.Element;
+declare function LineChart<T extends Record<string, unknown>>({ data, xKey, yKey, width, height, color, animate, animationConfig, hoverEffect, showGrid, showLegend, showTooltip, smooth, showDots, className, style, }: LineChartProps<T>): react_jsx_runtime.JSX.Element;
 declare namespace LineChart {
     var displayName: string;
 }
@@ -265,7 +286,7 @@ interface BarChartProps<T = Record<string, unknown>> extends BaseChartProps<T> {
     /** バーの最大幅 */
     barSize?: number;
 }
-declare function BarChart<T extends Record<string, unknown>>({ data, xKey, yKey, width, height, color, animate, showGrid, showLegend, showTooltip, radius, barSize, className, style, }: BarChartProps<T>): react_jsx_runtime.JSX.Element;
+declare function BarChart<T extends Record<string, unknown>>({ data, xKey, yKey, width, height, color, animate, animationConfig, hoverEffect, showGrid, showLegend, showTooltip, radius, barSize, className, style, }: BarChartProps<T>): react_jsx_runtime.JSX.Element;
 declare namespace BarChart {
     var displayName: string;
 }
@@ -282,7 +303,7 @@ interface PieChartProps<T = Record<string, unknown>> extends BaseChartProps<T> {
     /** ラベルを表示 */
     showLabels?: boolean;
 }
-declare function PieChart<T extends Record<string, unknown>>({ data, nameKey, valueKey, width, height, animate, showLegend, showTooltip, innerRadius, outerRadius, showLabels, className, style, }: PieChartProps<T>): react_jsx_runtime.JSX.Element;
+declare function PieChart<T extends Record<string, unknown>>({ data, nameKey, valueKey, width, height, animate, animationConfig, hoverEffect, showLegend, showTooltip, innerRadius, outerRadius, showLabels, className, style, }: PieChartProps<T>): react_jsx_runtime.JSX.Element;
 declare namespace PieChart {
     var displayName: string;
 }
@@ -297,7 +318,7 @@ interface AreaChartProps<T = Record<string, unknown>> extends BaseChartProps<T> 
     /** グラデーションを有効化 */
     gradient?: boolean;
 }
-declare function AreaChart<T extends Record<string, unknown>>({ data, xKey, yKey, width, height, color, animate, showGrid, showLegend, showTooltip, smooth, gradient, className, style, }: AreaChartProps<T>): react_jsx_runtime.JSX.Element;
+declare function AreaChart<T extends Record<string, unknown>>({ data, xKey, yKey, width, height, color, animate, animationConfig, hoverEffect, showGrid, showLegend, showTooltip, smooth, gradient, className, style, }: AreaChartProps<T>): react_jsx_runtime.JSX.Element;
 declare namespace AreaChart {
     var displayName: string;
 }
@@ -417,4 +438,4 @@ declare const ToastProvider: {
 };
 declare const useToast: () => ToastContextValue;
 
-export { AppShell, type AppShellProps, AreaChart, type AreaChartProps, BarChart, type BarChartProps, type BaseChartProps, Button, type ButtonProps, type ButtonSize, type ButtonVariant, Card, CardBody, type CardBodyProps, CardFooter, type CardFooterProps, CardHeader, type CardHeaderProps, type CardPadding, type CardProps, type ChartColor, Checkbox, type CheckboxProps, Container, type ContainerMaxWidth, type ContainerProps, Footer, FooterLink, type FooterLinkProps, type FooterProps, GlobalNav, type GlobalNavProps, Heading, type HeadingLevel, type HeadingProps, Input, type InputProps, type InputSize, LineChart, type LineChartProps, Modal, ModalFooter, type ModalFooterProps, type ModalProps, type ModalSize, NavItem, type NavItemProps, NavLogo, type NavLogoProps, Option, type OptionProps, PieChart, type PieChartProps, Radio, RadioGroup, type RadioGroupProps, type RadioProps, Select, type SelectProps, type SelectSize, Sidebar, SidebarItem, type SidebarItemProps, type SidebarProps, SidebarSection, type SidebarSectionProps, Table, type TableProps, type TableSize, Tbody, type TbodyProps, Td, type TdProps, Tfoot, type TfootProps, Th, type ThProps, Thead, type TheadProps, Toast, type ToastOptions, type ToastProps, ToastProvider, type ToastProviderProps, type ToastVariant, Tr, type TrProps, getChartColor, getChartColors, useToast };
+export { type AnimationConfig, type AnimationEasing, AppShell, type AppShellProps, AreaChart, type AreaChartProps, BarChart, type BarChartProps, type BaseChartProps, Button, type ButtonProps, type ButtonSize, type ButtonVariant, Card, CardBody, type CardBodyProps, CardFooter, type CardFooterProps, CardHeader, type CardHeaderProps, type CardPadding, type CardProps, type ChartColor, Checkbox, type CheckboxProps, Container, type ContainerMaxWidth, type ContainerProps, Footer, FooterLink, type FooterLinkProps, type FooterProps, GlobalNav, type GlobalNavProps, Heading, type HeadingLevel, type HeadingProps, Input, type InputProps, type InputSize, LineChart, type LineChartProps, Modal, ModalFooter, type ModalFooterProps, type ModalProps, type ModalSize, NavItem, type NavItemProps, NavLogo, type NavLogoProps, Option, type OptionProps, PieChart, type PieChartProps, Radio, RadioGroup, type RadioGroupProps, type RadioProps, Select, type SelectProps, type SelectSize, Sidebar, SidebarItem, type SidebarItemProps, type SidebarProps, SidebarSection, type SidebarSectionProps, Table, type TableProps, type TableSize, Tbody, type TbodyProps, Td, type TdProps, Tfoot, type TfootProps, Th, type ThProps, Thead, type TheadProps, Toast, type ToastOptions, type ToastProps, ToastProvider, type ToastProviderProps, type ToastVariant, Tr, type TrProps, defaultAnimationConfig, getChartColor, getChartColors, useToast };

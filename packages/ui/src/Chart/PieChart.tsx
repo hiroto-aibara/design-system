@@ -1,3 +1,4 @@
+import { useState, useCallback } from 'react'
 import {
   PieChart as RechartsPieChart,
   Pie,
@@ -9,6 +10,7 @@ import {
 import {
   type BaseChartProps,
   getChartColors,
+  getAnimationConfig,
   tooltipStyle,
   tooltipLabelStyle,
   tooltipItemStyle,
@@ -35,6 +37,8 @@ export function PieChart<T extends Record<string, unknown>>({
   width = '100%',
   height = 300,
   animate = true,
+  animationConfig,
+  hoverEffect = true,
   showLegend = true,
   showTooltip = true,
   innerRadius = 0,
@@ -44,6 +48,18 @@ export function PieChart<T extends Record<string, unknown>>({
   style,
 }: PieChartProps<T>) {
   const colors = getChartColors()
+  const anim = getAnimationConfig(animate, animationConfig)
+  const [activeIndex, setActiveIndex] = useState<number | undefined>(undefined)
+
+  const onPieEnter = useCallback((_: unknown, index: number) => {
+    if (hoverEffect) {
+      setActiveIndex(index)
+    }
+  }, [hoverEffect])
+
+  const onPieLeave = useCallback(() => {
+    setActiveIndex(undefined)
+  }, [])
 
   return (
     <div className={`ds-chart ${className || ''}`} style={style}>
@@ -72,21 +88,36 @@ export function PieChart<T extends Record<string, unknown>>({
             cx="50%"
             cy="50%"
             innerRadius={innerRadius}
-            outerRadius={outerRadius}
+            outerRadius={hoverEffect && activeIndex !== undefined ? outerRadius : outerRadius}
             paddingAngle={2}
-            isAnimationActive={animate}
-            animationDuration={500}
+            isAnimationActive={anim.enabled}
+            animationDuration={anim.duration}
+            animationEasing={anim.easing}
+            animationBegin={0}
             label={showLabels ? ({ name, percent }) => `${name}: ${((percent ?? 0) * 100).toFixed(0)}%` : false}
             labelLine={showLabels}
+            onMouseEnter={onPieEnter}
+            onMouseLeave={onPieLeave}
           >
-            {data.map((_, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={colors[index % colors.length]}
-                stroke="var(--color-bg-surface)"
-                strokeWidth={2}
-              />
-            ))}
+            {data.map((_, index) => {
+              const isActive = activeIndex === index
+              const isInactive = hoverEffect && activeIndex !== undefined && activeIndex !== index
+              return (
+                <Cell
+                  key={`cell-${index}`}
+                  fill={colors[index % colors.length]}
+                  stroke="var(--color-bg-surface)"
+                  strokeWidth={2}
+                  opacity={isInactive ? 0.4 : 1}
+                  style={{
+                    transition: 'all 0.2s ease-out',
+                    transform: isActive ? 'scale(1.05)' : 'scale(1)',
+                    transformOrigin: 'center',
+                    filter: isActive ? 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2))' : 'none',
+                  }}
+                />
+              )
+            })}
           </Pie>
         </RechartsPieChart>
       </ResponsiveContainer>
