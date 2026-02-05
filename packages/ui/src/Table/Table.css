@@ -1,0 +1,80 @@
+/* Table */
+.ds-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-md);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-surface);
+}
+
+/* Size variants */
+.ds-table--sm .ds-table__header-cell,
+.ds-table--sm .ds-table__cell {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-size: var(--font-size-sm);
+}
+
+.ds-table--md .ds-table__header-cell,
+.ds-table--md .ds-table__cell {
+  padding: var(--spacing-sm) var(--spacing-md);
+}
+
+.ds-table--lg .ds-table__header-cell,
+.ds-table--lg .ds-table__cell {
+  padding: var(--spacing-md) var(--spacing-lg);
+  font-size: var(--font-size-lg);
+}
+
+/* Head */
+.ds-table__head {
+  background-color: var(--color-bg-muted);
+}
+
+.ds-table__header-cell {
+  text-align: left;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  border-bottom: 2px solid var(--color-border-default);
+}
+
+/* Body */
+.ds-table__cell {
+  border-bottom: 1px solid var(--color-border-default);
+}
+
+/* Foot */
+.ds-table__foot {
+  background-color: var(--color-bg-muted);
+}
+
+.ds-table__foot .ds-table__cell {
+  border-bottom: none;
+  border-top: 2px solid var(--color-border-default);
+  font-weight: 500;
+}
+
+/* Striped */
+.ds-table--striped .ds-table__body .ds-table__row:nth-child(even) {
+  background-color: var(--color-bg-muted);
+}
+
+/* Hoverable */
+.ds-table--hoverable .ds-table__body .ds-table__row:hover {
+  background-color: var(--color-bg-surface-hover);
+}
+
+/* Bordered */
+.ds-table--bordered {
+  border: 1px solid var(--color-border-default);
+}
+
+.ds-table--bordered .ds-table__header-cell,
+.ds-table--bordered .ds-table__cell {
+  border: 1px solid var(--color-border-default);
+}
+
+/* Row styles */
+.ds-table__row {
+  transition: background-color var(--transition-fast);
+}

@@ -37,6 +37,7 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@ds/tokens": "workspace:*"
+    "@ds/tokens": "workspace:*",
+    "recharts": "^3.7.0"
   }
 }

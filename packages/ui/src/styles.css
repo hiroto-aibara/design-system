@@ -3,6 +3,19 @@
 @import './Input/Input.css';
 @import './Card/Card.css';
 
+/* Data Display */
+@import './Table/Table.css';
+@import './Chart/Chart.css';
+
+/* Form Components */
+@import './Select/Select.css';
+@import './Checkbox/Checkbox.css';
+@import './Radio/Radio.css';
+
+/* Feedback Components */
+@import './Modal/Modal.css';
+@import './Toast/Toast.css';
+
 /**
  * Design System UI Styles
  *
@@ -16,6 +29,12 @@
 /* Reset for DS components */
 .ds-button,
 .ds-input,
-.ds-card {
+.ds-card,
+.ds-table,
+.ds-select,
+.ds-checkbox,
+.ds-radio,
+.ds-modal,
+.ds-toast {
   box-sizing: border-box;
 }
