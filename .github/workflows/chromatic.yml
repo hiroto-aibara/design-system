@@ -10,6 +10,7 @@ jobs:
   chromatic:
     name: Visual Regression
     runs-on: ubuntu-latest
+    if: ${{ vars.CHROMATIC_ENABLED == 'true' }}
     steps:
       - uses: actions/checkout@v4
         with:
