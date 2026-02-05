@@ -18,6 +18,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       className={`ds-sidebar ${className}`}
       style={{
         width,
+        height: '100%',
         flexShrink: 0,
         borderRight: '1px solid var(--color-border-default)',
         overflowY: 'auto',
