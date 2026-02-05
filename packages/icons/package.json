@@ -1,0 +1,28 @@
+{
+  "name": "@ds/icons",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "Design System Icons",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.48",
+    "tsup": "^8.5.1",
+    "typescript": "^5.3.3"
+  }
+}

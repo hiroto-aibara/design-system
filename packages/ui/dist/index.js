@@ -1396,6 +1396,358 @@ var useToast = () => {
   }
   return context;
 };
+
+// src/patterns/FormField/FormField.tsx
+import { useId as useId2, cloneElement, isValidElement } from "react";
+import { jsx as jsx21, jsxs as jsxs17 } from "react/jsx-runtime";
+function FormField({
+  label,
+  required,
+  error,
+  description,
+  children,
+  className
+}) {
+  const id = useId2();
+  const inputId = `${id}-input`;
+  const errorId = `${id}-error`;
+  const descriptionId = `${id}-description`;
+  const describedByIds = [];
+  if (error) describedByIds.push(errorId);
+  if (description) describedByIds.push(descriptionId);
+  const ariaDescribedBy = describedByIds.length > 0 ? describedByIds.join(" ") : void 0;
+  const enhancedChildren = isValidElement(children) ? cloneElement(children, {
+    id: inputId,
+    "aria-describedby": ariaDescribedBy,
+    "aria-invalid": error ? true : void 0,
+    "aria-required": required || void 0,
+    isInvalid: error ? true : void 0
+  }) : children;
+  return /* @__PURE__ */ jsxs17("div", { className: `ds-form-field ${error ? "ds-form-field--error" : ""} ${className || ""}`, children: [
+    /* @__PURE__ */ jsxs17("label", { htmlFor: inputId, className: "ds-form-field__label", children: [
+      label,
+      required && /* @__PURE__ */ jsx21("span", { className: "ds-form-field__required", children: "*" })
+    ] }),
+    description && /* @__PURE__ */ jsx21("p", { id: descriptionId, className: "ds-form-field__description", children: description }),
+    /* @__PURE__ */ jsx21("div", { className: "ds-form-field__input", children: enhancedChildren }),
+    error && /* @__PURE__ */ jsx21("p", { id: errorId, className: "ds-form-field__error", role: "alert", children: error })
+  ] });
+}
+
+// src/patterns/DataTable/DataTable.tsx
+import { useCallback as useCallback4 } from "react";
+import { jsx as jsx22, jsxs as jsxs18 } from "react/jsx-runtime";
+var SortIcon = ({ direction }) => /* @__PURE__ */ jsx22("span", { className: `ds-data-table__sort-icon ${direction ? `ds-data-table__sort-icon--${direction}` : ""}`, children: /* @__PURE__ */ jsxs18("svg", { width: "16", height: "16", viewBox: "0 0 16 16", fill: "currentColor", children: [
+  /* @__PURE__ */ jsx22("path", { d: "M8 3.5l4 5H4l4-5z", className: "ds-data-table__sort-up" }),
+  /* @__PURE__ */ jsx22("path", { d: "M8 12.5l-4-5h8l-4 5z", className: "ds-data-table__sort-down" })
+] }) });
+function DataTable({
+  columns,
+  data,
+  pagination,
+  sortKey,
+  sortDirection,
+  onSort,
+  onPageChange,
+  emptyState,
+  loadingState,
+  isLoading,
+  getRowKey = (_, index) => index,
+  size = "md",
+  striped = true,
+  hoverable = true,
+  className
+}) {
+  const handleSort = useCallback4(
+    (key) => {
+      if (!onSort) return;
+      let newDirection = "asc";
+      if (sortKey === key) {
+        if (sortDirection === "asc") newDirection = "desc";
+        else if (sortDirection === "desc") newDirection = null;
+      }
+      onSort(key, newDirection);
+    },
+    [onSort, sortKey, sortDirection]
+  );
+  const totalPages = pagination ? Math.ceil(pagination.total / pagination.pageSize) : 0;
+  const startItem = pagination ? (pagination.page - 1) * pagination.pageSize + 1 : 0;
+  const endItem = pagination ? Math.min(pagination.page * pagination.pageSize, pagination.total) : 0;
+  if (isLoading && loadingState) {
+    return /* @__PURE__ */ jsx22("div", { className: "ds-data-table__state", children: loadingState });
+  }
+  if (!isLoading && data.length === 0 && emptyState) {
+    return /* @__PURE__ */ jsx22("div", { className: "ds-data-table__state", children: emptyState });
+  }
+  return /* @__PURE__ */ jsxs18("div", { className: `ds-data-table ${className || ""}`, children: [
+    /* @__PURE__ */ jsx22("div", { className: "ds-data-table__wrapper", children: /* @__PURE__ */ jsxs18(Table, { size, striped, hoverable, children: [
+      /* @__PURE__ */ jsx22(Thead, { children: /* @__PURE__ */ jsx22(Tr, { children: columns.map((column) => /* @__PURE__ */ jsx22(
+        Th,
+        {
+          style: {
+            width: column.width,
+            textAlign: column.align
+          },
+          "aria-sort": sortKey === column.key && sortDirection ? sortDirection === "asc" ? "ascending" : "descending" : void 0,
+          children: column.sortable ? /* @__PURE__ */ jsxs18(
+            "button",
+            {
+              type: "button",
+              className: "ds-data-table__sort-button",
+              onClick: () => handleSort(String(column.key)),
+              children: [
+                column.label,
+                /* @__PURE__ */ jsx22(
+                  SortIcon,
+                  {
+                    direction: sortKey === column.key ? sortDirection ?? null : null
+                  }
+                )
+              ]
+            }
+          ) : column.label
+        },
+        String(column.key)
+      )) }) }),
+      /* @__PURE__ */ jsx22(Tbody, { children: data.map((row, rowIndex) => /* @__PURE__ */ jsx22(Tr, { children: columns.map((column) => {
+        const value = row[column.key];
+        return /* @__PURE__ */ jsx22(
+          Td,
+          {
+            style: { textAlign: column.align },
+            children: column.render ? column.render(value, row, rowIndex) : String(value ?? "")
+          },
+          String(column.key)
+        );
+      }) }, getRowKey(row, rowIndex))) })
+    ] }) }),
+    pagination && totalPages > 0 && /* @__PURE__ */ jsxs18("div", { className: "ds-data-table__pagination", children: [
+      /* @__PURE__ */ jsxs18("span", { className: "ds-data-table__pagination-info", children: [
+        startItem,
+        "\u301C",
+        endItem,
+        " / ",
+        pagination.total,
+        "\u4EF6"
+      ] }),
+      /* @__PURE__ */ jsxs18("div", { className: "ds-data-table__pagination-controls", children: [
+        /* @__PURE__ */ jsx22(
+          Button,
+          {
+            variant: "ghost",
+            size: "sm",
+            onClick: () => onPageChange?.(pagination.page - 1),
+            disabled: pagination.page <= 1,
+            "aria-label": "\u524D\u306E\u30DA\u30FC\u30B8",
+            children: "\u2039"
+          }
+        ),
+        /* @__PURE__ */ jsxs18("span", { className: "ds-data-table__pagination-pages", children: [
+          pagination.page,
+          " / ",
+          totalPages
+        ] }),
+        /* @__PURE__ */ jsx22(
+          Button,
+          {
+            variant: "ghost",
+            size: "sm",
+            onClick: () => onPageChange?.(pagination.page + 1),
+            disabled: pagination.page >= totalPages,
+            "aria-label": "\u6B21\u306E\u30DA\u30FC\u30B8",
+            children: "\u203A"
+          }
+        )
+      ] })
+    ] })
+  ] });
+}
+
+// src/patterns/StateDisplay/EmptyState.tsx
+import { jsx as jsx23, jsxs as jsxs19 } from "react/jsx-runtime";
+function EmptyState({
+  icon,
+  title,
+  message,
+  action,
+  className
+}) {
+  return /* @__PURE__ */ jsxs19("div", { className: `ds-state-display ds-empty-state ${className || ""}`, children: [
+    icon && /* @__PURE__ */ jsx23("div", { className: "ds-state-display__icon", children: icon }),
+    title && /* @__PURE__ */ jsx23("h3", { className: "ds-state-display__title", children: title }),
+    message && /* @__PURE__ */ jsx23("p", { className: "ds-state-display__message", children: message }),
+    action && /* @__PURE__ */ jsx23("div", { className: "ds-state-display__action", children: action })
+  ] });
+}
+
+// src/patterns/StateDisplay/LoadingState.tsx
+import { jsx as jsx24, jsxs as jsxs20 } from "react/jsx-runtime";
+function LoadingState({
+  message = "\u8AAD\u307F\u8FBC\u307F\u4E2D...",
+  size = "md",
+  className
+}) {
+  return /* @__PURE__ */ jsxs20(
+    "div",
+    {
+      className: `ds-state-display ds-loading-state ${className || ""}`,
+      role: "status",
+      "aria-live": "polite",
+      children: [
+        /* @__PURE__ */ jsx24("div", { className: `ds-loading-state__spinner ds-loading-state__spinner--${size}` }),
+        message && /* @__PURE__ */ jsx24("p", { className: "ds-state-display__message", children: message })
+      ]
+    }
+  );
+}
+
+// src/patterns/StateDisplay/ErrorState.tsx
+import { jsx as jsx25, jsxs as jsxs21 } from "react/jsx-runtime";
+var ErrorIcon = () => /* @__PURE__ */ jsx25("svg", { width: "48", height: "48", viewBox: "0 0 48 48", fill: "var(--color-danger)", children: /* @__PURE__ */ jsx25("path", { d: "M24 4C12.96 4 4 12.96 4 24s8.96 20 20 20 20-8.96 20-20S35.04 4 24 4Zm2 30h-4v-4h4v4Zm0-8h-4V14h4v12Z" }) });
+function ErrorState({
+  title = "\u30A8\u30E9\u30FC\u304C\u767A\u751F\u3057\u307E\u3057\u305F",
+  message,
+  action,
+  className
+}) {
+  return /* @__PURE__ */ jsxs21(
+    "div",
+    {
+      className: `ds-state-display ds-error-state ${className || ""}`,
+      role: "alert",
+      children: [
+        /* @__PURE__ */ jsx25("div", { className: "ds-state-display__icon", children: /* @__PURE__ */ jsx25(ErrorIcon, {}) }),
+        /* @__PURE__ */ jsx25("h3", { className: "ds-state-display__title ds-error-state__title", children: title }),
+        message && /* @__PURE__ */ jsx25("p", { className: "ds-state-display__message", children: message }),
+        action && /* @__PURE__ */ jsx25("div", { className: "ds-state-display__action", children: action })
+      ]
+    }
+  );
+}
+
+// src/hooks/useModal.ts
+import { useEffect as useEffect2, useCallback as useCallback5, useRef } from "react";
+function useModal({
+  isOpen,
+  onClose,
+  closeOnEsc = true,
+  closeOnOverlayClick = true
+}) {
+  const modalRef = useRef(null);
+  useEffect2(() => {
+    if (!isOpen || !closeOnEsc) return;
+    const handleEsc = (e) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+    document.addEventListener("keydown", handleEsc);
+    return () => document.removeEventListener("keydown", handleEsc);
+  }, [isOpen, onClose, closeOnEsc]);
+  useEffect2(() => {
+    if (!isOpen) return;
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [isOpen]);
+  useEffect2(() => {
+    if (!isOpen || !modalRef.current) return;
+    const modal = modalRef.current;
+    const focusableElements = modal.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    if (focusableElements.length === 0) return;
+    const firstElement = focusableElements[0];
+    const lastElement = focusableElements[focusableElements.length - 1];
+    firstElement?.focus();
+    const handleTab = (e) => {
+      if (e.key !== "Tab") return;
+      if (e.shiftKey) {
+        if (document.activeElement === firstElement) {
+          e.preventDefault();
+          lastElement?.focus();
+        }
+      } else {
+        if (document.activeElement === lastElement) {
+          e.preventDefault();
+          firstElement?.focus();
+        }
+      }
+    };
+    modal.addEventListener("keydown", handleTab);
+    return () => modal.removeEventListener("keydown", handleTab);
+  }, [isOpen]);
+  const handleOverlayClick = useCallback5(
+    (e) => {
+      if (closeOnOverlayClick && e.target === e.currentTarget) {
+        onClose();
+      }
+    },
+    [closeOnOverlayClick, onClose]
+  );
+  return {
+    isOpen,
+    close: onClose,
+    handleOverlayClick,
+    modalRef
+  };
+}
+
+// src/hooks/useFormField.ts
+import { useId as useId3, useMemo } from "react";
+function useFormField({
+  error,
+  description,
+  required,
+  id: customId
+}) {
+  const generatedId = useId3();
+  const fieldId = customId || `field-${generatedId}`;
+  const errorId = `${fieldId}-error`;
+  const descriptionId = `${fieldId}-description`;
+  const hasError = Boolean(error);
+  const hasDescription = Boolean(description);
+  const ariaDescribedBy = useMemo(() => {
+    const ids = [];
+    if (hasError) ids.push(errorId);
+    if (hasDescription) ids.push(descriptionId);
+    return ids.length > 0 ? ids.join(" ") : void 0;
+  }, [hasError, hasDescription, errorId, descriptionId]);
+  const ariaInvalid = hasError;
+  const ariaRequired = required || void 0;
+  const inputProps = {
+    id: fieldId,
+    "aria-describedby": ariaDescribedBy,
+    "aria-invalid": ariaInvalid || void 0,
+    "aria-required": ariaRequired
+  };
+  const labelProps = {
+    htmlFor: fieldId
+  };
+  const errorProps = {
+    id: errorId,
+    role: "alert"
+  };
+  const descriptionProps = {
+    id: descriptionId
+  };
+  return {
+    fieldId,
+    errorId,
+    descriptionId,
+    ariaDescribedBy,
+    ariaInvalid,
+    ariaRequired,
+    hasError,
+    hasDescription,
+    inputProps,
+    labelProps,
+    errorProps,
+    descriptionProps
+  };
+}
 export {
   AppShell,
   AreaChart,
@@ -1407,12 +1759,17 @@ export {
   CardHeader,
   Checkbox,
   Container,
+  DataTable,
+  EmptyState,
+  ErrorState,
   Footer,
   FooterLink,
+  FormField,
   GlobalNav,
   Heading,
   Input,
   LineChart,
+  LoadingState,
   Modal,
   ModalFooter,
   NavItem,
@@ -1437,5 +1794,7 @@ export {
   defaultAnimationConfig,
   getChartColor,
   getChartColors,
+  useFormField,
+  useModal,
   useToast
 };

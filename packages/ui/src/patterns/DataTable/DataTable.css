@@ -1,0 +1,98 @@
+.ds-data-table {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ds-data-table__wrapper {
+  overflow-x: auto;
+  border: 1px solid var(--color-border-default);
+  border-radius: 8px;
+}
+
+.ds-data-table__wrapper .ds-table {
+  margin: 0;
+}
+
+.ds-data-table__state {
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Sort Button */
+.ds-data-table__sort-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  text-align: inherit;
+}
+
+.ds-data-table__sort-button:hover {
+  color: var(--color-primary);
+}
+
+.ds-data-table__sort-button:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Sort Icon */
+.ds-data-table__sort-icon {
+  display: inline-flex;
+  flex-direction: column;
+  opacity: 0.4;
+}
+
+.ds-data-table__sort-icon--asc,
+.ds-data-table__sort-icon--desc {
+  opacity: 1;
+}
+
+.ds-data-table__sort-up,
+.ds-data-table__sort-down {
+  opacity: 0.4;
+}
+
+.ds-data-table__sort-icon--asc .ds-data-table__sort-up {
+  opacity: 1;
+}
+
+.ds-data-table__sort-icon--desc .ds-data-table__sort-down {
+  opacity: 1;
+}
+
+/* Pagination */
+.ds-data-table__pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+}
+
+.ds-data-table__pagination-info {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.ds-data-table__pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ds-data-table__pagination-pages {
+  font-size: 14px;
+  color: var(--color-text-primary);
+  min-width: 60px;
+  text-align: center;
+}

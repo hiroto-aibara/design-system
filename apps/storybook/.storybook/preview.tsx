@@ -1,5 +1,6 @@
 import type { Preview } from '@storybook/react-vite'
 import { withThemeByDataAttribute } from '@storybook/addon-themes'
+import { INITIAL_VIEWPORTS } from 'storybook/viewport'
 import { useEffect } from 'react'
 import '../../../packages/tokens/src/index.css'
 import '../../../packages/ui/src/styles.css'
@@ -12,20 +13,25 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
-  },
-  globalTypes: {
-    theme: {
-      description: 'Global theme for components',
-      toolbar: {
-        title: 'Theme',
-        icon: 'circlehollow',
-        items: [
-          { value: 'light', icon: 'sun', title: 'Light' },
-          { value: 'dark', icon: 'moon', title: 'Dark' },
+    viewport: {
+      options: INITIAL_VIEWPORTS,
+    },
+    a11y: {
+      test: {
+        enable: true,
+      },
+      config: {
+        rules: [
+          {
+            // Storybookのiframe構造に対応
+            id: 'region',
+            enabled: false,
+          },
         ],
-        dynamicTitle: true,
       },
     },
+  },
+  globalTypes: {
     brand: {
       description: 'Brand theme',
       toolbar: {
@@ -37,7 +43,6 @@ const preview: Preview = {
     },
   },
   initialGlobals: {
-    theme: 'light',
     brand: 'default',
   },
   decorators: [
@@ -51,15 +56,13 @@ const preview: Preview = {
     }),
     (Story, context) => {
       const brand = context.globals.brand || 'default'
-      const theme = context.globals.theme || 'light'
 
       useEffect(() => {
         document.documentElement.setAttribute('data-brand', brand)
-        document.documentElement.setAttribute('data-theme', theme)
         document.body.style.backgroundColor = 'var(--color-bg-base)'
         document.body.style.color = 'var(--color-text-primary)'
         document.body.style.transition = 'background-color 0.2s, color 0.2s'
-      }, [brand, theme])
+      }, [brand])
 
       return <Story />
     },

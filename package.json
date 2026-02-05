@@ -2,6 +2,7 @@
   "name": "design-system",
   "version": "0.0.1",
   "private": true,
+  "type": "module",
   "description": "Multi-brand design system with theme support",
   "packageManager": "pnpm@9.15.4",
   "scripts": {
@@ -18,6 +19,11 @@
     "docker:down": "docker compose down"
   },
   "devDependencies": {
-    "typescript": "^5.3.3"
+    "@eslint/js": "^9.39.2",
+    "eslint": "^9.39.2",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "typescript": "^5.3.3",
+    "typescript-eslint": "^8.54.0"
   }
 }

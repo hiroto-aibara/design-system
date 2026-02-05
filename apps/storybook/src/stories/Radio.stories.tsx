@@ -1,5 +1,6 @@
 import { useState, useId } from 'react'
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import { expect, userEvent, within } from 'storybook/test'
 import { Radio, RadioGroup } from '@ds/ui'
 
 const meta = {
@@ -148,4 +149,105 @@ const FormExampleComponent = () => {
 
 export const FormExample: Story = {
   render: () => <FormExampleComponent />,
+}
+
+/* Coverage Tests - RadioGroup and Radio onChange */
+
+const RadioClickExample = () => {
+  const [value, setValue] = useState('')
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      <RadioGroup name="click-test" value={value} onChange={setValue}>
+        <Radio value="apple">Apple</Radio>
+        <Radio value="banana">Banana</Radio>
+        <Radio value="cherry">Cherry</Radio>
+      </RadioGroup>
+      <p style={{ margin: 0, fontSize: '14px' }}>
+        Selected: {value || 'none'}
+      </p>
+    </div>
+  )
+}
+
+export const RadioClick: Story = {
+  render: () => <RadioClickExample />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+
+    // Click on Apple using getByRole
+    await userEvent.click(canvas.getByRole('radio', { name: 'Apple' }))
+    await expect(canvas.getByText('Selected: apple')).toBeInTheDocument()
+
+    // Click on Banana
+    await userEvent.click(canvas.getByRole('radio', { name: 'Banana' }))
+    await expect(canvas.getByText('Selected: banana')).toBeInTheDocument()
+
+    // Click on Cherry
+    await userEvent.click(canvas.getByRole('radio', { name: 'Cherry' }))
+    await expect(canvas.getByText('Selected: cherry')).toBeInTheDocument()
+  },
+}
+
+const UncontrolledRadioExample = () => {
+  const id = useId()
+  return (
+    <RadioGroup name={`uncontrolled-${id}`} defaultValue="first">
+      <Radio value="first">First</Radio>
+      <Radio value="second">Second</Radio>
+      <Radio value="third">Third</Radio>
+    </RadioGroup>
+  )
+}
+
+export const UncontrolledRadio: Story = {
+  render: () => <UncontrolledRadioExample />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+
+    // Default value is "first", click on second
+    const secondRadio = canvas.getByRole('radio', { name: 'Second' })
+    await userEvent.click(secondRadio)
+
+    // Verify the radio input is checked
+    await expect(secondRadio).toBeChecked()
+
+    // Click on third
+    const thirdRadio = canvas.getByRole('radio', { name: 'Third' })
+    await userEvent.click(thirdRadio)
+
+    await expect(thirdRadio).toBeChecked()
+  },
+}
+
+const RadioHoverExample = () => {
+  const id = useId()
+  return (
+    <RadioGroup name={`hover-${id}`} defaultValue="opt1">
+      <Radio value="opt1">Option 1</Radio>
+      <Radio value="opt2">Option 2</Radio>
+      <Radio value="opt3" disabled>Disabled Option</Radio>
+    </RadioGroup>
+  )
+}
+
+export const RadioHover: Story = {
+  render: () => <RadioHoverExample />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+
+    // Hover over normal radio - use the label text
+    const label1 = canvas.getByText('Option 1')
+    await userEvent.hover(label1)
+    await userEvent.unhover(label1)
+
+    // Hover over another radio
+    const label2 = canvas.getByText('Option 2')
+    await userEvent.hover(label2)
+    await userEvent.unhover(label2)
+
+    // Hover over disabled radio
+    const disabledLabel = canvas.getByText('Disabled Option')
+    await userEvent.hover(disabledLabel)
+    await userEvent.unhover(disabledLabel)
+  },
 }

@@ -16,6 +16,11 @@
 @import './Modal/Modal.css';
 @import './Toast/Toast.css';
 
+/* Patterns */
+@import './patterns/FormField/FormField.css';
+@import './patterns/DataTable/DataTable.css';
+@import './patterns/StateDisplay/StateDisplay.css';
+
 /**
  * Design System UI Styles
  *

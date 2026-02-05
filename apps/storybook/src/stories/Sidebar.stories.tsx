@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import { expect, userEvent, within } from 'storybook/test'
 import { Sidebar, SidebarSection, SidebarItem } from '@ds/ui'
 
 const meta = {
@@ -136,6 +138,98 @@ export const FullExample: Story = {
         </SidebarSection>
         <SidebarSection title="Settings">
           <SidebarItem icon={<SettingsIcon />}>Preferences</SidebarItem>
+        </SidebarSection>
+      </Sidebar>
+    </div>
+  ),
+}
+
+/* Coverage Tests - SidebarItem onClick and hover */
+
+const SidebarItemClickExample = () => {
+  const [selected, setSelected] = useState('Dashboard')
+  return (
+    <div style={{ height: '400px' }}>
+      <Sidebar>
+        <SidebarSection title="Navigation">
+          <SidebarItem
+            isActive={selected === 'Dashboard'}
+            onClick={() => setSelected('Dashboard')}
+          >
+            Dashboard
+          </SidebarItem>
+          <SidebarItem
+            isActive={selected === 'Projects'}
+            onClick={() => setSelected('Projects')}
+          >
+            Projects
+          </SidebarItem>
+          <SidebarItem
+            isActive={selected === 'Settings'}
+            onClick={() => setSelected('Settings')}
+          >
+            Settings
+          </SidebarItem>
+        </SidebarSection>
+        <div style={{ padding: '12px', fontSize: '12px', color: 'var(--color-text-muted)' }}>
+          Selected: {selected}
+        </div>
+      </Sidebar>
+    </div>
+  )
+}
+
+export const SidebarItemClick: Story = {
+  render: () => <SidebarItemClickExample />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+
+    // Click on Projects using getByRole
+    const projectsItem = canvas.getByRole('link', { name: 'Projects' })
+    await userEvent.click(projectsItem)
+    await expect(canvas.getByText('Selected: Projects')).toBeInTheDocument()
+
+    // Click on Settings
+    const settingsItem = canvas.getByRole('link', { name: 'Settings' })
+    await userEvent.click(settingsItem)
+    await expect(canvas.getByText('Selected: Settings')).toBeInTheDocument()
+  },
+}
+
+export const SidebarItemHover: Story = {
+  render: () => (
+    <div style={{ height: '400px' }}>
+      <Sidebar>
+        <SidebarSection title="Navigation">
+          <SidebarItem>Hover Me</SidebarItem>
+          <SidebarItem isActive>Active Item</SidebarItem>
+        </SidebarSection>
+      </Sidebar>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+
+    // Hover over non-active item
+    const hoverItem = canvas.getByRole('link', { name: 'Hover Me' })
+    await userEvent.hover(hoverItem)
+    await userEvent.unhover(hoverItem)
+
+    // Hover over active item (should not change styles)
+    const activeItem = canvas.getByRole('link', { name: 'Active Item' })
+    await userEvent.hover(activeItem)
+    await userEvent.unhover(activeItem)
+  },
+}
+
+/* SidebarSection without title */
+export const SectionWithoutTitle: Story = {
+  render: () => (
+    <div style={{ height: '400px' }}>
+      <Sidebar>
+        <SidebarSection>
+          <SidebarItem icon={<HomeIcon />}>Dashboard</SidebarItem>
+          <SidebarItem icon={<FolderIcon />}>Projects</SidebarItem>
         </SidebarSection>
       </Sidebar>
     </div>

@@ -438,4 +438,226 @@ declare const ToastProvider: {
 };
 declare const useToast: () => ToastContextValue;
 
-export { type AnimationConfig, type AnimationEasing, AppShell, type AppShellProps, AreaChart, type AreaChartProps, BarChart, type BarChartProps, type BaseChartProps, Button, type ButtonProps, type ButtonSize, type ButtonVariant, Card, CardBody, type CardBodyProps, CardFooter, type CardFooterProps, CardHeader, type CardHeaderProps, type CardPadding, type CardProps, type ChartColor, Checkbox, type CheckboxProps, Container, type ContainerMaxWidth, type ContainerProps, Footer, FooterLink, type FooterLinkProps, type FooterProps, GlobalNav, type GlobalNavProps, Heading, type HeadingLevel, type HeadingProps, Input, type InputProps, type InputSize, LineChart, type LineChartProps, Modal, ModalFooter, type ModalFooterProps, type ModalProps, type ModalSize, NavItem, type NavItemProps, NavLogo, type NavLogoProps, Option, type OptionProps, PieChart, type PieChartProps, Radio, RadioGroup, type RadioGroupProps, type RadioProps, Select, type SelectProps, type SelectSize, Sidebar, SidebarItem, type SidebarItemProps, type SidebarProps, SidebarSection, type SidebarSectionProps, Table, type TableProps, type TableSize, Tbody, type TbodyProps, Td, type TdProps, Tfoot, type TfootProps, Th, type ThProps, Thead, type TheadProps, Toast, type ToastOptions, type ToastProps, ToastProvider, type ToastProviderProps, type ToastVariant, Tr, type TrProps, defaultAnimationConfig, getChartColor, getChartColors, useToast };
+interface FormFieldProps {
+    /** ラベルテキスト */
+    label: string;
+    /** 必須マーク表示 */
+    required?: boolean;
+    /** エラーメッセージ */
+    error?: string;
+    /** 補足説明 */
+    description?: string;
+    /** フォーム要素 */
+    children: ReactNode;
+    /** カスタムクラス名 */
+    className?: string;
+}
+declare function FormField({ label, required, error, description, children, className, }: FormFieldProps): react_jsx_runtime.JSX.Element;
+
+type SortDirection = 'asc' | 'desc' | null;
+interface Column<T> {
+    /** カラムのキー */
+    key: keyof T | string;
+    /** カラムのラベル */
+    label: string;
+    /** ソート可能 */
+    sortable?: boolean;
+    /** カスタムレンダラー */
+    render?: (value: T[keyof T], row: T, index: number) => ReactNode;
+    /** カラムの幅 */
+    width?: string | number;
+    /** 配置 */
+    align?: 'left' | 'center' | 'right';
+}
+interface PaginationProps {
+    /** 現在のページ */
+    page: number;
+    /** 1ページあたりの件数 */
+    pageSize: number;
+    /** 総件数 */
+    total: number;
+}
+interface DataTableProps<T extends Record<string, unknown>> {
+    /** カラム定義 */
+    columns: Column<T>[];
+    /** データ配列 */
+    data: T[];
+    /** ページネーション設定 */
+    pagination?: PaginationProps;
+    /** 現在のソートキー */
+    sortKey?: string;
+    /** 現在のソート方向 */
+    sortDirection?: SortDirection;
+    /** ソート時のコールバック */
+    onSort?: (key: string, direction: SortDirection) => void;
+    /** ページ変更時のコールバック */
+    onPageChange?: (page: number) => void;
+    /** 空状態の表示 */
+    emptyState?: ReactNode;
+    /** 読み込み中の表示 */
+    loadingState?: ReactNode;
+    /** 読み込み中フラグ */
+    isLoading?: boolean;
+    /** 行のキー取得関数 */
+    getRowKey?: (row: T, index: number) => string | number;
+    /** テーブルサイズ */
+    size?: 'sm' | 'md' | 'lg';
+    /** ストライプ表示 */
+    striped?: boolean;
+    /** ホバー効果 */
+    hoverable?: boolean;
+    /** カスタムクラス名 */
+    className?: string;
+}
+declare function DataTable<T extends Record<string, unknown>>({ columns, data, pagination, sortKey, sortDirection, onSort, onPageChange, emptyState, loadingState, isLoading, getRowKey, size, striped, hoverable, className, }: DataTableProps<T>): react_jsx_runtime.JSX.Element;
+
+interface EmptyStateProps {
+    /** アイコン */
+    icon?: ReactNode;
+    /** タイトル */
+    title?: string;
+    /** メッセージ */
+    message?: string;
+    /** アクション（ボタンなど） */
+    action?: ReactNode;
+    /** カスタムクラス名 */
+    className?: string;
+}
+declare function EmptyState({ icon, title, message, action, className, }: EmptyStateProps): react_jsx_runtime.JSX.Element;
+
+interface LoadingStateProps {
+    /** メッセージ */
+    message?: string;
+    /** スピナーのサイズ */
+    size?: 'sm' | 'md' | 'lg';
+    /** カスタムクラス名 */
+    className?: string;
+}
+declare function LoadingState({ message, size, className, }: LoadingStateProps): react_jsx_runtime.JSX.Element;
+
+interface ErrorStateProps {
+    /** タイトル */
+    title?: string;
+    /** エラーメッセージ */
+    message?: string;
+    /** アクション（再試行ボタンなど） */
+    action?: ReactNode;
+    /** カスタムクラス名 */
+    className?: string;
+}
+declare function ErrorState({ title, message, action, className, }: ErrorStateProps): react_jsx_runtime.JSX.Element;
+
+interface UseModalOptions {
+    /** モーダルが開いているか */
+    isOpen: boolean;
+    /** モーダルを閉じるコールバック */
+    onClose: () => void;
+    /** ESCキーで閉じる */
+    closeOnEsc?: boolean;
+    /** オーバーレイクリックで閉じる */
+    closeOnOverlayClick?: boolean;
+}
+interface UseModalReturn {
+    /** モーダルが開いているか */
+    isOpen: boolean;
+    /** モーダルを閉じる関数 */
+    close: () => void;
+    /** オーバーレイのクリックハンドラー */
+    handleOverlayClick: (e: React.MouseEvent) => void;
+    /** モーダルコンテンツのref */
+    modalRef: React.RefObject<HTMLDivElement | null>;
+}
+/**
+ * モーダルの振る舞いを管理するヘッドレスフック
+ *
+ * @example
+ * ```tsx
+ * const { isOpen, close, handleOverlayClick, modalRef } = useModal({
+ *   isOpen: props.isOpen,
+ *   onClose: props.onClose,
+ *   closeOnEsc: true,
+ *   closeOnOverlayClick: true,
+ * })
+ * ```
+ */
+declare function useModal({ isOpen, onClose, closeOnEsc, closeOnOverlayClick, }: UseModalOptions): UseModalReturn;
+
+interface UseFormFieldOptions {
+    /** エラーメッセージ */
+    error?: string;
+    /** 補足説明 */
+    description?: string;
+    /** 必須フィールド */
+    required?: boolean;
+    /** カスタムID（省略時は自動生成） */
+    id?: string;
+}
+interface UseFormFieldReturn {
+    /** フィールドのID */
+    fieldId: string;
+    /** エラーメッセージのID */
+    errorId: string;
+    /** 説明文のID */
+    descriptionId: string;
+    /** aria-describedby の値 */
+    ariaDescribedBy: string | undefined;
+    /** aria-invalid の値 */
+    ariaInvalid: boolean;
+    /** aria-required の値 */
+    ariaRequired: boolean | undefined;
+    /** エラーがあるか */
+    hasError: boolean;
+    /** 説明があるか */
+    hasDescription: boolean;
+    /** 入力要素に渡すprops */
+    inputProps: {
+        id: string;
+        'aria-describedby': string | undefined;
+        'aria-invalid': boolean | undefined;
+        'aria-required': boolean | undefined;
+    };
+    /** ラベル要素に渡すprops */
+    labelProps: {
+        htmlFor: string;
+    };
+    /** エラー要素に渡すprops */
+    errorProps: {
+        id: string;
+        role: 'alert';
+    };
+    /** 説明要素に渡すprops */
+    descriptionProps: {
+        id: string;
+    };
+}
+/**
+ * フォームフィールドのa11y属性を管理するヘッドレスフック
+ *
+ * @example
+ * ```tsx
+ * const {
+ *   inputProps,
+ *   labelProps,
+ *   errorProps,
+ *   descriptionProps,
+ *   hasError,
+ *   hasDescription,
+ * } = useFormField({
+ *   error: 'エラーメッセージ',
+ *   description: '補足説明',
+ *   required: true,
+ * })
+ *
+ * return (
+ *   <div>
+ *     <label {...labelProps}>ラベル</label>
+ *     {hasDescription && <p {...descriptionProps}>補足説明</p>}
+ *     <input {...inputProps} />
+ *     {hasError && <p {...errorProps}>エラーメッセージ</p>}
+ *   </div>
+ * )
+ * ```
+ */
+declare function useFormField({ error, description, required, id: customId, }: UseFormFieldOptions): UseFormFieldReturn;
+
+export { type AnimationConfig, type AnimationEasing, AppShell, type AppShellProps, AreaChart, type AreaChartProps, BarChart, type BarChartProps, type BaseChartProps, Button, type ButtonProps, type ButtonSize, type ButtonVariant, Card, CardBody, type CardBodyProps, CardFooter, type CardFooterProps, CardHeader, type CardHeaderProps, type CardPadding, type CardProps, type ChartColor, Checkbox, type CheckboxProps, type Column, Container, type ContainerMaxWidth, type ContainerProps, DataTable, type DataTableProps, EmptyState, type EmptyStateProps, ErrorState, type ErrorStateProps, Footer, FooterLink, type FooterLinkProps, type FooterProps, FormField, type FormFieldProps, GlobalNav, type GlobalNavProps, Heading, type HeadingLevel, type HeadingProps, Input, type InputProps, type InputSize, LineChart, type LineChartProps, LoadingState, type LoadingStateProps, Modal, ModalFooter, type ModalFooterProps, type ModalProps, type ModalSize, NavItem, type NavItemProps, NavLogo, type NavLogoProps, Option, type OptionProps, type PaginationProps, PieChart, type PieChartProps, Radio, RadioGroup, type RadioGroupProps, type RadioProps, Select, type SelectProps, type SelectSize, Sidebar, SidebarItem, type SidebarItemProps, type SidebarProps, SidebarSection, type SidebarSectionProps, type SortDirection, Table, type TableProps, type TableSize, Tbody, type TbodyProps, Td, type TdProps, Tfoot, type TfootProps, Th, type ThProps, Thead, type TheadProps, Toast, type ToastOptions, type ToastProps, ToastProvider, type ToastProviderProps, type ToastVariant, Tr, type TrProps, type UseFormFieldOptions, type UseFormFieldReturn, type UseModalOptions, type UseModalReturn, defaultAnimationConfig, getChartColor, getChartColors, useFormField, useModal, useToast };

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import { expect, userEvent, within, waitFor } from 'storybook/test'
 import { Modal, ModalFooter, Button } from '@ds/ui'
 
 const meta = {
@@ -177,4 +178,282 @@ const NoTitleExample = () => {
 
 export const NoTitle: Story = {
   render: () => <NoTitleExample />,
+}
+
+/* Coverage Tests - ESC key and overlay click */
+
+const ModalWithCloseTests = () => {
+  const [isOpen, setIsOpen] = useState(false)
+  const [closeMethod, setCloseMethod] = useState('')
+  return (
+    <>
+      <div>
+        <Button onClick={() => setIsOpen(true)} data-testid="open-button">
+          Open Modal
+        </Button>
+        {closeMethod && (
+          <p data-testid="close-method" style={{ marginTop: '8px' }}>
+            Closed by: {closeMethod}
+          </p>
+        )}
+      </div>
+      <Modal
+        isOpen={isOpen}
+        onClose={() => {
+          setIsOpen(false)
+          setCloseMethod('close handler')
+        }}
+        title="Test Modal"
+        data-testid="test-modal"
+      >
+        <p>Press ESC or click overlay to close.</p>
+        <ModalFooter>
+          <Button
+            variant="ghost"
+            onClick={() => {
+              setIsOpen(false)
+              setCloseMethod('cancel button')
+            }}
+            data-testid="cancel-button"
+          >
+            Cancel
+          </Button>
+        </ModalFooter>
+      </Modal>
+    </>
+  )
+}
+
+export const CloseWithButton: Story = {
+  render: () => <ModalWithCloseTests />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+
+    // Open modal
+    await userEvent.click(canvas.getByTestId('open-button'))
+
+    // Wait for modal to appear in document body
+    await waitFor(() => {
+      expect(document.querySelector('[role="dialog"]')).toBeInTheDocument()
+    })
+
+    // Click cancel button
+    const cancelButton = document.querySelector('[data-testid="cancel-button"]') as HTMLElement
+    await userEvent.click(cancelButton)
+
+    // Verify modal closed
+    await waitFor(() => {
+      expect(document.querySelector('[role="dialog"]')).not.toBeInTheDocument()
+    })
+  },
+}
+
+export const CloseWithCloseButton: Story = {
+  render: () => <ModalWithCloseTests />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+
+    // Open modal
+    await userEvent.click(canvas.getByTestId('open-button'))
+
+    // Wait for modal
+    await waitFor(() => {
+      expect(document.querySelector('[role="dialog"]')).toBeInTheDocument()
+    })
+
+    // Click the X close button in header
+    const closeButton = document.querySelector('.ds-modal__close') as HTMLElement
+    if (closeButton) {
+      await userEvent.click(closeButton)
+    }
+
+    // Verify modal closed
+    await waitFor(() => {
+      expect(document.querySelector('[role="dialog"]')).not.toBeInTheDocument()
+    })
+  },
+}
+
+export const CloseWithOverlayClick: Story = {
+  render: () => <ModalWithCloseTests />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+
+    // Open modal
+    await userEvent.click(canvas.getByTestId('open-button'))
+
+    // Wait for modal
+    await waitFor(() => {
+      expect(document.querySelector('.ds-modal-overlay')).toBeInTheDocument()
+    })
+
+    // Click the overlay (not the modal content)
+    const overlay = document.querySelector('.ds-modal-overlay') as HTMLElement
+    // Click at position that's on overlay but not on modal content
+    await userEvent.click(overlay)
+
+    // Verify modal closed
+    await waitFor(() => {
+      expect(document.querySelector('[role="dialog"]')).not.toBeInTheDocument()
+    })
+  },
+}
+
+export const CloseWithEscapeKey: Story = {
+  render: () => <ModalWithCloseTests />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+
+    // Open modal
+    await userEvent.click(canvas.getByTestId('open-button'))
+
+    // Wait for modal
+    await waitFor(() => {
+      expect(document.querySelector('[role="dialog"]')).toBeInTheDocument()
+    })
+
+    // Press Escape key
+    await userEvent.keyboard('{Escape}')
+
+    // Verify modal closed
+    await waitFor(() => {
+      expect(document.querySelector('[role="dialog"]')).not.toBeInTheDocument()
+    })
+  },
+}
+
+/* Test closeOnOverlayClick=false */
+const ModalNoOverlayClose = () => {
+  const [isOpen, setIsOpen] = useState(false)
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)} data-testid="open-button">
+        Open Modal
+      </Button>
+      <Modal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        title="No Overlay Close"
+        closeOnOverlayClick={false}
+      >
+        <p>Overlay click disabled. Use button to close.</p>
+        <ModalFooter>
+          <Button variant="primary" onClick={() => setIsOpen(false)} data-testid="close-button">
+            Close
+          </Button>
+        </ModalFooter>
+      </Modal>
+    </>
+  )
+}
+
+export const NoOverlayClose: Story = {
+  render: () => <ModalNoOverlayClose />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+
+    // Open modal
+    await userEvent.click(canvas.getByTestId('open-button'))
+
+    // Wait for modal
+    await waitFor(() => {
+      expect(document.querySelector('.ds-modal-overlay')).toBeInTheDocument()
+    })
+
+    // Click overlay - should NOT close
+    const overlay = document.querySelector('.ds-modal-overlay') as HTMLElement
+    await userEvent.click(overlay)
+
+    // Modal should still be open
+    await waitFor(() => {
+      expect(document.querySelector('[role="dialog"]')).toBeInTheDocument()
+    })
+
+    // Close with button
+    const closeButton = document.querySelector('[data-testid="close-button"]') as HTMLElement
+    await userEvent.click(closeButton)
+
+    await waitFor(() => {
+      expect(document.querySelector('[role="dialog"]')).not.toBeInTheDocument()
+    })
+  },
+}
+
+/* Test closeOnEsc=false */
+const ModalNoEscClose = () => {
+  const [isOpen, setIsOpen] = useState(false)
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)} data-testid="open-button">
+        Open Modal
+      </Button>
+      <Modal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        title="No ESC Close"
+        closeOnEsc={false}
+      >
+        <p>ESC key disabled. Use button to close.</p>
+        <ModalFooter>
+          <Button variant="primary" onClick={() => setIsOpen(false)} data-testid="close-button">
+            Close
+          </Button>
+        </ModalFooter>
+      </Modal>
+    </>
+  )
+}
+
+export const NoEscClose: Story = {
+  render: () => <ModalNoEscClose />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+
+    // Open modal
+    await userEvent.click(canvas.getByTestId('open-button'))
+
+    // Wait for modal
+    await waitFor(() => {
+      expect(document.querySelector('[role="dialog"]')).toBeInTheDocument()
+    })
+
+    // Press ESC - should NOT close
+    await userEvent.keyboard('{Escape}')
+
+    // Modal should still be open
+    await waitFor(() => {
+      expect(document.querySelector('[role="dialog"]')).toBeInTheDocument()
+    })
+
+    // Close with button
+    const closeButton = document.querySelector('[data-testid="close-button"]') as HTMLElement
+    await userEvent.click(closeButton)
+
+    await waitFor(() => {
+      expect(document.querySelector('[role="dialog"]')).not.toBeInTheDocument()
+    })
+  },
+}
+
+/* Auto-open modal for body scroll lock test */
+const AutoOpenModal = () => {
+  const [isOpen, setIsOpen] = useState(true)
+  return (
+    <Modal
+      isOpen={isOpen}
+      onClose={() => setIsOpen(false)}
+      title="Auto Open Modal"
+    >
+      <p>This modal opens automatically to test body scroll lock.</p>
+      <ModalFooter>
+        <Button variant="primary" onClick={() => setIsOpen(false)}>
+          Close
+        </Button>
+      </ModalFooter>
+    </Modal>
+  )
+}
+
+export const AutoOpen: Story = {
+  render: () => <AutoOpenModal />,
 }

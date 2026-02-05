@@ -586,3 +586,194 @@
   outline: none;
   box-shadow: 0 0 0 2px var(--focus-ring-color);
 }
+
+/* src/patterns/FormField/FormField.css */
+.ds-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.ds-form-field__label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+.ds-form-field__required {
+  color: var(--color-danger);
+  margin-left: 2px;
+}
+.ds-form-field__description {
+  margin: 0;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+.ds-form-field__input {
+  margin-top: 4px;
+}
+.ds-form-field__error {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: var(--color-danger);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.ds-form-field__error::before {
+  content: "";
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23dc2626'%3E%3Cpath fill-rule='evenodd' d='M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-8-5a.75.75 0 0 1 .75.75v4.5a.75.75 0 0 1-1.5 0v-4.5A.75.75 0 0 1 10 5Zm0 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z' clip-rule='evenodd'/%3E%3C/svg%3E");
+  background-size: contain;
+  flex-shrink: 0;
+}
+.ds-form-field--error .ds-input {
+  border-color: var(--color-danger);
+}
+.ds-form-field--error .ds-input:focus {
+  border-color: var(--color-danger);
+  box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.2);
+}
+
+/* src/patterns/DataTable/DataTable.css */
+.ds-data-table {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.ds-data-table__wrapper {
+  overflow-x: auto;
+  border: 1px solid var(--color-border-default);
+  border-radius: 8px;
+}
+.ds-data-table__wrapper .ds-table {
+  margin: 0;
+}
+.ds-data-table__state {
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ds-data-table__sort-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  text-align: inherit;
+}
+.ds-data-table__sort-button:hover {
+  color: var(--color-primary);
+}
+.ds-data-table__sort-button:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+.ds-data-table__sort-icon {
+  display: inline-flex;
+  flex-direction: column;
+  opacity: 0.4;
+}
+.ds-data-table__sort-icon--asc,
+.ds-data-table__sort-icon--desc {
+  opacity: 1;
+}
+.ds-data-table__sort-up,
+.ds-data-table__sort-down {
+  opacity: 0.4;
+}
+.ds-data-table__sort-icon--asc .ds-data-table__sort-up {
+  opacity: 1;
+}
+.ds-data-table__sort-icon--desc .ds-data-table__sort-down {
+  opacity: 1;
+}
+.ds-data-table__pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+}
+.ds-data-table__pagination-info {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+.ds-data-table__pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ds-data-table__pagination-pages {
+  font-size: 14px;
+  color: var(--color-text-primary);
+  min-width: 60px;
+  text-align: center;
+}
+
+/* src/patterns/StateDisplay/StateDisplay.css */
+.ds-state-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  text-align: center;
+}
+.ds-state-display__icon {
+  margin-bottom: 16px;
+  color: var(--color-text-muted);
+}
+.ds-state-display__title {
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+.ds-state-display__message {
+  margin: 0;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  max-width: 400px;
+}
+.ds-state-display__action {
+  margin-top: 24px;
+}
+.ds-empty-state__icon {
+  color: var(--color-text-muted);
+}
+.ds-loading-state__spinner {
+  border: 3px solid var(--color-border-default);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: ds-spin 0.8s linear infinite;
+}
+.ds-loading-state__spinner--sm {
+  width: 24px;
+  height: 24px;
+  border-width: 2px;
+}
+.ds-loading-state__spinner--md {
+  width: 40px;
+  height: 40px;
+  border-width: 3px;
+}
+.ds-loading-state__spinner--lg {
+  width: 56px;
+  height: 56px;
+  border-width: 4px;
+}
+@keyframes ds-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.ds-error-state__title {
+  color: var(--color-danger);
+}

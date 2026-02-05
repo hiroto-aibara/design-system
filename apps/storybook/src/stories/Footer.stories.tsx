@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import { expect, userEvent, within } from 'storybook/test'
 import { Footer, FooterLink } from '@ds/ui'
 
 const meta = {
@@ -130,4 +132,54 @@ export const SimpleFooter: Story = {
       </div>
     </Footer>
   ),
+}
+
+/* Coverage Tests - FooterLink onClick and hover */
+
+const FooterLinkClickExample = () => {
+  const [clicked, setClicked] = useState(false)
+  return (
+    <Footer
+      left={clicked ? 'Link was clicked!' : 'Click the link'}
+      right={
+        <FooterLink onClick={() => setClicked(true)}>
+          Click Me
+        </FooterLink>
+      }
+    />
+  )
+}
+
+export const FooterLinkClick: Story = {
+  render: () => <FooterLinkClickExample />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const link = canvas.getByRole('link', { name: 'Click Me' })
+
+    // Click the link
+    await userEvent.click(link)
+
+    // Verify click was handled
+    await expect(canvas.getByText('Link was clicked!')).toBeInTheDocument()
+  },
+}
+
+export const FooterLinkHover: Story = {
+  render: () => (
+    <Footer
+      right={
+        <FooterLink>Hover Me</FooterLink>
+      }
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const link = canvas.getByRole('link', { name: 'Hover Me' })
+
+    // Hover over the link
+    await userEvent.hover(link)
+
+    // Unhover
+    await userEvent.unhover(link)
+  },
 }
