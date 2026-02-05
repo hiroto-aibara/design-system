@@ -1,0 +1,115 @@
+/* Toast container */
+.ds-toast-container {
+  position: fixed;
+  bottom: var(--spacing-lg);
+  right: var(--spacing-lg);
+  z-index: 1100;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  max-width: 400px;
+  pointer-events: none;
+}
+
+/* Toast */
+.ds-toast {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  background-color: var(--color-bg-elevated);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  border-left: 4px solid;
+  pointer-events: auto;
+  animation: ds-toast-slide-in 0.3s ease-out;
+}
+
+@keyframes ds-toast-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Variants */
+.ds-toast--info {
+  border-left-color: var(--color-primary);
+}
+
+.ds-toast--info .ds-toast__icon {
+  color: var(--color-primary);
+}
+
+.ds-toast--success {
+  border-left-color: var(--color-success);
+}
+
+.ds-toast--success .ds-toast__icon {
+  color: var(--color-success);
+}
+
+.ds-toast--warning {
+  border-left-color: var(--color-warning);
+}
+
+.ds-toast--warning .ds-toast__icon {
+  color: var(--color-warning);
+}
+
+.ds-toast--error {
+  border-left-color: var(--color-danger);
+}
+
+.ds-toast--error .ds-toast__icon {
+  color: var(--color-danger);
+}
+
+/* Icon */
+.ds-toast__icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Message */
+.ds-toast__message {
+  flex: 1;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  line-height: 1.5;
+}
+
+/* Close button */
+.ds-toast__close {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin: -4px -4px -4px 0;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.ds-toast__close:hover {
+  background-color: var(--color-bg-muted);
+  color: var(--color-text-primary);
+}
+
+.ds-toast__close:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--focus-ring-color);
+}

@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react-vite'
 import { Card, CardHeader, CardBody, CardFooter, Button } from '@ds/ui'
 
 const meta = {
@@ -148,6 +148,38 @@ export const AllPaddings: Story = {
       </Card>
       <Card padding="lg" bordered style={{ width: '150px' }}>
         <p style={{ margin: 0 }}>Large</p>
+      </Card>
+    </div>
+  ),
+}
+
+export const WithShadowAndBorder: Story = {
+  args: {
+    shadow: true,
+    bordered: true,
+    children: 'Card with both shadow and border',
+    style: { width: '300px' },
+  },
+}
+
+export const StyleCombinations: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+      <Card style={{ width: '180px' }}>
+        <p style={{ margin: 0, fontWeight: 500 }}>Default</p>
+        <p style={{ margin: '4px 0 0', fontSize: '12px', opacity: 0.7 }}>No shadow, no border</p>
+      </Card>
+      <Card shadow style={{ width: '180px' }}>
+        <p style={{ margin: 0, fontWeight: 500 }}>Shadow Only</p>
+        <p style={{ margin: '4px 0 0', fontSize: '12px', opacity: 0.7 }}>shadow=true</p>
+      </Card>
+      <Card bordered style={{ width: '180px' }}>
+        <p style={{ margin: 0, fontWeight: 500 }}>Border Only</p>
+        <p style={{ margin: '4px 0 0', fontSize: '12px', opacity: 0.7 }}>bordered=true</p>
+      </Card>
+      <Card shadow bordered style={{ width: '180px' }}>
+        <p style={{ margin: 0, fontWeight: 500 }}>Both</p>
+        <p style={{ margin: '4px 0 0', fontSize: '12px', opacity: 0.7 }}>shadow + bordered</p>
       </Card>
     </div>
   ),
