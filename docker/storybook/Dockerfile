@@ -12,5 +12,5 @@ EXPOSE 6006
 # docker-compose.ymlで上書き可能
 ENV STORYBOOK_CLIENT_PORT=13004
 
-# Install dependencies and start storybook
-CMD ["sh", "-c", "pnpm install && cd apps/storybook && pnpm exec storybook dev -p 6006 --host 0.0.0.0 --no-open"]
+# Install dependencies, build packages, and start storybook
+CMD ["sh", "-c", "pnpm install && pnpm build && cd apps/storybook && pnpm exec storybook dev -p 6006 --host 0.0.0.0 --no-open"]
