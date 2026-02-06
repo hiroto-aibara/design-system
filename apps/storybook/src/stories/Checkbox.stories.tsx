@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import { expect, within } from 'storybook/test'
 import { Checkbox } from '@ds/ui'
 
 const meta = {
@@ -97,4 +98,23 @@ export const MultipleOptions: Story = {
       <Checkbox disabled>Option D (disabled)</Checkbox>
     </div>
   ),
+}
+
+/* isInvalid / aria-invalid tests */
+export const InvalidAriaTest: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+      <Checkbox data-testid="invalid-checkbox" isInvalid>Must agree</Checkbox>
+      <Checkbox data-testid="valid-checkbox">Optional</Checkbox>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+
+    const invalidCheckbox = canvas.getByTestId('invalid-checkbox')
+    expect(invalidCheckbox).toHaveAttribute('aria-invalid', 'true')
+
+    const validCheckbox = canvas.getByTestId('valid-checkbox')
+    expect(validCheckbox).not.toHaveAttribute('aria-invalid')
+  },
 }

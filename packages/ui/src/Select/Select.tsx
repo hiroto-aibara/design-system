@@ -18,19 +18,22 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
   (
     {
       size = 'md',
-      isInvalid = false,
+      isInvalid,
       disabled,
       placeholder,
       children,
       className,
+      'aria-invalid': ariaInvalid,
       ...props
     },
     ref
   ) => {
+    const invalid = isInvalid ?? (ariaInvalid === true || ariaInvalid === 'true')
+
     const wrapperClasses = [
       'ds-select-wrapper',
       `ds-select-wrapper--${size}`,
-      isInvalid && 'ds-select-wrapper--invalid',
+      invalid && 'ds-select-wrapper--invalid',
       disabled && 'ds-select-wrapper--disabled',
       className,
     ]
@@ -43,7 +46,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
           ref={ref}
           className="ds-select"
           disabled={disabled}
-          aria-invalid={isInvalid}
+          aria-invalid={invalid || undefined}
           {...props}
         >
           {placeholder && (

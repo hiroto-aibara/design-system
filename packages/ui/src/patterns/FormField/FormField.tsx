@@ -42,7 +42,6 @@ export function FormField({
         'aria-describedby': ariaDescribedBy,
         'aria-invalid': error ? true : undefined,
         'aria-required': required || undefined,
-        isInvalid: error ? true : undefined,
       })
     : children
 

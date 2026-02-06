@@ -51,19 +51,21 @@ import { jsx as jsx2, jsxs as jsxs2 } from "react/jsx-runtime";
 var Input = forwardRef2(
   ({
     size = "md",
-    isInvalid = false,
+    isInvalid,
     disabled,
     leftIcon,
     rightIcon,
     className,
+    "aria-invalid": ariaInvalid,
     ...props
   }, ref) => {
+    const invalid = isInvalid ?? (ariaInvalid === true || ariaInvalid === "true");
     const hasLeftIcon = !!leftIcon;
     const hasRightIcon = !!rightIcon;
     return /* @__PURE__ */ jsxs2(
       "div",
       {
-        className: `ds-input-wrapper ds-input-wrapper--${size} ${isInvalid ? "ds-input-wrapper--invalid" : ""} ${disabled ? "ds-input-wrapper--disabled" : ""} ${className || ""}`,
+        className: `ds-input-wrapper ds-input-wrapper--${size} ${invalid ? "ds-input-wrapper--invalid" : ""} ${disabled ? "ds-input-wrapper--disabled" : ""} ${className || ""}`,
         children: [
           leftIcon && /* @__PURE__ */ jsx2("span", { className: "ds-input__icon ds-input__icon--left", children: leftIcon }),
           /* @__PURE__ */ jsx2(
@@ -72,7 +74,7 @@ var Input = forwardRef2(
               ref,
               className: `ds-input ${hasLeftIcon ? "ds-input--has-left-icon" : ""} ${hasRightIcon ? "ds-input--has-right-icon" : ""}`,
               disabled,
-              "aria-invalid": isInvalid,
+              "aria-invalid": invalid || void 0,
               ...props
             }
           ),
@@ -1052,17 +1054,19 @@ import { jsx as jsx15, jsxs as jsxs11 } from "react/jsx-runtime";
 var Select = forwardRef7(
   ({
     size = "md",
-    isInvalid = false,
+    isInvalid,
     disabled,
     placeholder,
     children,
     className,
+    "aria-invalid": ariaInvalid,
     ...props
   }, ref) => {
+    const invalid = isInvalid ?? (ariaInvalid === true || ariaInvalid === "true");
     const wrapperClasses = [
       "ds-select-wrapper",
       `ds-select-wrapper--${size}`,
-      isInvalid && "ds-select-wrapper--invalid",
+      invalid && "ds-select-wrapper--invalid",
       disabled && "ds-select-wrapper--disabled",
       className
     ].filter(Boolean).join(" ");
@@ -1073,7 +1077,7 @@ var Select = forwardRef7(
           ref,
           className: "ds-select",
           disabled,
-          "aria-invalid": isInvalid,
+          "aria-invalid": invalid || void 0,
           ...props,
           children: [
             placeholder && /* @__PURE__ */ jsx15("option", { value: "", disabled: true, children: placeholder }),
@@ -1098,15 +1102,17 @@ import { forwardRef as forwardRef8 } from "react";
 import { jsx as jsx16, jsxs as jsxs12 } from "react/jsx-runtime";
 var Checkbox = forwardRef8(
   ({
-    isInvalid = false,
+    isInvalid,
     disabled,
     children,
     className,
+    "aria-invalid": ariaInvalid,
     ...props
   }, ref) => {
+    const invalid = isInvalid ?? (ariaInvalid === true || ariaInvalid === "true");
     const wrapperClasses = [
       "ds-checkbox",
-      isInvalid && "ds-checkbox--invalid",
+      invalid && "ds-checkbox--invalid",
       disabled && "ds-checkbox--disabled",
       className
     ].filter(Boolean).join(" ");
@@ -1118,7 +1124,7 @@ var Checkbox = forwardRef8(
           type: "checkbox",
           className: "ds-checkbox__input",
           disabled,
-          "aria-invalid": isInvalid,
+          "aria-invalid": invalid || void 0,
           ...props
         }
       ),
@@ -1421,8 +1427,7 @@ function FormField({
     id: inputId,
     "aria-describedby": ariaDescribedBy,
     "aria-invalid": error ? true : void 0,
-    "aria-required": required || void 0,
-    isInvalid: error ? true : void 0
+    "aria-required": required || void 0
   }) : children;
   return /* @__PURE__ */ jsxs17("div", { className: `ds-form-field ${error ? "ds-form-field--error" : ""} ${className || ""}`, children: [
     /* @__PURE__ */ jsxs17("label", { htmlFor: inputId, className: "ds-form-field__label", children: [

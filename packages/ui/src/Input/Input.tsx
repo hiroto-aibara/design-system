@@ -17,21 +17,23 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
   (
     {
       size = 'md',
-      isInvalid = false,
+      isInvalid,
       disabled,
       leftIcon,
       rightIcon,
       className,
+      'aria-invalid': ariaInvalid,
       ...props
     },
     ref
   ) => {
+    const invalid = isInvalid ?? (ariaInvalid === true || ariaInvalid === 'true')
     const hasLeftIcon = !!leftIcon
     const hasRightIcon = !!rightIcon
 
     return (
       <div
-        className={`ds-input-wrapper ds-input-wrapper--${size} ${isInvalid ? 'ds-input-wrapper--invalid' : ''} ${disabled ? 'ds-input-wrapper--disabled' : ''} ${className || ''}`}
+        className={`ds-input-wrapper ds-input-wrapper--${size} ${invalid ? 'ds-input-wrapper--invalid' : ''} ${disabled ? 'ds-input-wrapper--disabled' : ''} ${className || ''}`}
       >
         {leftIcon && (
           <span className="ds-input__icon ds-input__icon--left">{leftIcon}</span>
@@ -40,7 +42,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           ref={ref}
           className={`ds-input ${hasLeftIcon ? 'ds-input--has-left-icon' : ''} ${hasRightIcon ? 'ds-input--has-right-icon' : ''}`}
           disabled={disabled}
-          aria-invalid={isInvalid}
+          aria-invalid={invalid || undefined}
           {...props}
         />
         {rightIcon && (

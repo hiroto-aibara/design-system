@@ -57,7 +57,7 @@ export const WithError: Story = {
         required
         error="有効なメールアドレスを入力してください"
       >
-        <Input type="email" defaultValue="invalid-email" isInvalid />
+        <Input type="email" defaultValue="invalid-email" />
       </FormField>
     </div>
   ),
@@ -72,7 +72,7 @@ export const WithErrorAndDescription: Story = {
         description="8文字以上で、英数字を含めてください"
         error="パスワードが短すぎます"
       >
-        <Input type="password" defaultValue="123" isInvalid />
+        <Input type="password" defaultValue="123" />
       </FormField>
     </div>
   ),
@@ -206,5 +206,50 @@ export const InteractionTest: Story = {
     await userEvent.type(input, 'テスト入力')
 
     await expect(canvas.getByTestId('output')).toHaveTextContent('入力値: テスト入力')
+  },
+}
+
+export const InvalidStyleViaFormField: Story = {
+  render: () => (
+    <div style={{ width: '320px' }}>
+      <FormField
+        label="エラー付きフィールド"
+        error="エラーメッセージ"
+      >
+        <Input data-testid="error-input" />
+      </FormField>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const input = canvas.getByTestId('error-input')
+
+    // FormField passes aria-invalid, Input picks it up for styling
+    expect(input).toHaveAttribute('aria-invalid', 'true')
+
+    // Verify the wrapper has the invalid CSS class
+    const wrapper = input.closest('.ds-input-wrapper')
+    expect(wrapper).toHaveClass('ds-input-wrapper--invalid')
+  },
+}
+
+export const NoErrorNoInvalid: Story = {
+  render: () => (
+    <div style={{ width: '320px' }}>
+      <FormField label="正常なフィールド">
+        <Input data-testid="normal-input" />
+      </FormField>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const input = canvas.getByTestId('normal-input')
+
+    // No error means no aria-invalid
+    expect(input).not.toHaveAttribute('aria-invalid')
+
+    // Wrapper should not have invalid class
+    const wrapper = input.closest('.ds-input-wrapper')
+    expect(wrapper).not.toHaveClass('ds-input-wrapper--invalid')
   },
 }
