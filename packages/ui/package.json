@@ -11,14 +11,16 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./styles.css": "./dist/styles.css"
+    "./styles.css": "./dist/index.css"
   },
+  "sideEffects": [
+    "*.css"
+  ],
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "tsup && npm run build:css",
-    "build:css": "cat src/Button/Button.css src/Input/Input.css src/Card/Card.css src/Heading/Heading.css src/Container/Container.css > dist/styles.css",
+    "build": "tsup",
     "dev": "tsup --watch"
   },
   "peerDependencies": {
