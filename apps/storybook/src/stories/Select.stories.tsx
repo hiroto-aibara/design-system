@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import { expect, within } from 'storybook/test'
 import { Select, Option } from '@ds/ui'
 
 const meta = {
@@ -125,4 +126,27 @@ export const AllSizes: Story = {
       </Select>
     </div>
   ),
+}
+
+/* isInvalid / aria-invalid tests */
+export const InvalidAriaTest: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '300px' }}>
+      <Select data-testid="invalid-select" isInvalid>
+        <Option value="1">Invalid</Option>
+      </Select>
+      <Select data-testid="valid-select">
+        <Option value="1">Valid</Option>
+      </Select>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+
+    const invalidSelect = canvas.getByTestId('invalid-select')
+    expect(invalidSelect).toHaveAttribute('aria-invalid', 'true')
+
+    const validSelect = canvas.getByTestId('valid-select')
+    expect(validSelect).not.toHaveAttribute('aria-invalid')
+  },
 }

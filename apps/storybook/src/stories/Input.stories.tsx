@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import { expect, within } from 'storybook/test'
 import { Input } from '@ds/ui'
 
 const meta = {
@@ -145,4 +146,23 @@ export const IconSizes: Story = {
       <Input size="lg" leftIcon={<SearchIcon />} placeholder="Large with icon" />
     </div>
   ),
+}
+
+/* isInvalid / aria-invalid tests */
+export const InvalidAriaTest: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', width: '300px' }}>
+      <Input data-testid="invalid-input" isInvalid placeholder="Invalid" />
+      <Input data-testid="valid-input" placeholder="Valid" />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+
+    const invalidInput = canvas.getByTestId('invalid-input')
+    expect(invalidInput).toHaveAttribute('aria-invalid', 'true')
+
+    const validInput = canvas.getByTestId('valid-input')
+    expect(validInput).not.toHaveAttribute('aria-invalid')
+  },
 }

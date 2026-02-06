@@ -11,17 +11,20 @@ export interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement
 export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
   (
     {
-      isInvalid = false,
+      isInvalid,
       disabled,
       children,
       className,
+      'aria-invalid': ariaInvalid,
       ...props
     },
     ref
   ) => {
+    const invalid = isInvalid ?? (ariaInvalid === true || ariaInvalid === 'true')
+
     const wrapperClasses = [
       'ds-checkbox',
-      isInvalid && 'ds-checkbox--invalid',
+      invalid && 'ds-checkbox--invalid',
       disabled && 'ds-checkbox--disabled',
       className,
     ]
@@ -35,7 +38,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           type="checkbox"
           className="ds-checkbox__input"
           disabled={disabled}
-          aria-invalid={isInvalid}
+          aria-invalid={invalid || undefined}
           {...props}
         />
         <span className="ds-checkbox__box" aria-hidden="true">
