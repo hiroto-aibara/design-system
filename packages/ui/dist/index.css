@@ -1,3 +1,4 @@
+@import '@ds/tokens';
 /* src/Button/Button.css */
 .ds-button {
   display: inline-flex;

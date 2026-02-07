@@ -11,6 +11,7 @@
     "build": "pnpm -r build",
     "build:storybook": "pnpm --filter @ds/storybook build",
     "lint": "eslint .",
+    "check:css-deps": "bash scripts/check-css-deps.sh",
     "clean": "rm -rf node_modules packages/*/node_modules apps/*/node_modules",
     "docker:up": "docker compose --env-file .env.docker up",
     "docker:up:demo": "docker compose --env-file .env.docker up demo-app",

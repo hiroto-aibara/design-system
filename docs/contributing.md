@@ -191,6 +191,34 @@ function CustomModal({ isOpen, onClose, children }) {
 }
 ```
 
+### パッケージ間CSS依存の宣言ルール
+
+**原則: 各パッケージは自分のCSS依存を自分で宣言する。消費側に暗黙のimport順序を強いてはならない。**
+
+パッケージのCSSが他パッケージのCSS Variables（`var(--color-*)`, `var(--spacing-*)` 等）を使用する場合、ビルド出力の先頭でそのパッケージを `@import` しなければなりません。
+
+#### なぜ必要か
+
+消費側（アプリケーション）が正しいimport順序を知っている前提に依存すると、静的HTMLビルド（Next.js `output: 'export'` 等）時にCSS読込順序が不定となり、CSS Variablesが未定義のまま評価されてレイアウト崩れが発生します。
+
+#### 実装方法: tsup CSS banner
+
+`@ds/ui` では tsup の `banner.css` オプションを使用して、ビルド出力（`dist/index.css`）の先頭に `@import` を挿入しています。
+
+```typescript
+// packages/ui/tsup.config.ts
+banner: {
+  js: "import './index.css';",
+  css: "@import '@ds/tokens';",  // ← CSS出力の先頭に挿入される
+},
+```
+
+この方式はソースCSSに手を加えず、ビルド出力にのみ `@import` 文を追加します。esbuild はこのimportを解決・インライン化せず、そのまま出力するため、消費側のバンドラが適切に解決します。
+
+#### CIによる自動チェック
+
+`pnpm build` 後に `scripts/check-css-deps.sh` が実行され、ビルド出力のCSS依存宣言を自動検証します。トークン変数を使用しているのに `@import '@ds/tokens'` が先頭にないパッケージがあるとCIが失敗します。
+
 ### コンポーネント設計原則
 
 1. **CSS変数でスタイリング** - トークンを使用し、ハードコードしない

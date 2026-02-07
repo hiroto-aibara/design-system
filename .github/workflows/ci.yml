@@ -45,6 +45,9 @@ jobs:
       - name: Build packages
         run: pnpm build
 
+      - name: Check CSS dependency declarations
+        run: bash scripts/check-css-deps.sh
+
   test:
     name: Test
     runs-on: ubuntu-latest

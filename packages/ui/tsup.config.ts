@@ -9,5 +9,6 @@ export default defineConfig({
   injectStyle: false,
   banner: {
     js: "import './index.css';",
+    css: "@import '@ds/tokens';",
   },
 })
