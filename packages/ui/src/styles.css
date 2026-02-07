@@ -29,8 +29,8 @@
  * Usage:
  *   import '@ds/ui/styles.css';
  *
- * Note: Make sure to also import tokens:
- *   import '@ds/tokens';
+ * Tokens (@ds/tokens) are automatically included via the build output.
+ * No separate token import is required.
  */
 
 /* Reset for DS components */
