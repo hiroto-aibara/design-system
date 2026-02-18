@@ -80,6 +80,7 @@ export function BarChart<T extends Record<string, unknown>>({
           />
           <YAxis
             domain={yDomain}
+            allowDataOverflow={yDomain != null}
             stroke="var(--color-text-muted)"
             tick={{ fill: 'var(--color-text-secondary)', fontSize: 12 }}
             tickLine={{ stroke: 'var(--color-border-default)' }}
