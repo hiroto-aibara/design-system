@@ -29,6 +29,8 @@ export interface BarChartProps<T = Record<string, unknown>> extends BaseChartPro
   radius?: number
   /** バーの最大幅 */
   barSize?: number
+  /** Y軸の表示範囲 [min, max] */
+  yDomain?: [number, number]
 }
 
 export function BarChart<T extends Record<string, unknown>>({
@@ -46,6 +48,7 @@ export function BarChart<T extends Record<string, unknown>>({
   showTooltip = true,
   radius = 4,
   barSize = 40,
+  yDomain,
   className,
   style,
 }: BarChartProps<T>) {
@@ -76,6 +79,7 @@ export function BarChart<T extends Record<string, unknown>>({
             axisLine={{ stroke: 'var(--color-border-default)' }}
           />
           <YAxis
+            domain={yDomain}
             stroke="var(--color-text-muted)"
             tick={{ fill: 'var(--color-text-secondary)', fontSize: 12 }}
             tickLine={{ stroke: 'var(--color-border-default)' }}

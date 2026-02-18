@@ -285,8 +285,10 @@ interface BarChartProps<T = Record<string, unknown>> extends BaseChartProps<T> {
     radius?: number;
     /** バーの最大幅 */
     barSize?: number;
+    /** Y軸の表示範囲 [min, max] */
+    yDomain?: [number, number];
 }
-declare function BarChart<T extends Record<string, unknown>>({ data, xKey, yKey, width, height, color, animate, animationConfig, hoverEffect, showGrid, showLegend, showTooltip, radius, barSize, className, style, }: BarChartProps<T>): react_jsx_runtime.JSX.Element;
+declare function BarChart<T extends Record<string, unknown>>({ data, xKey, yKey, width, height, color, animate, animationConfig, hoverEffect, showGrid, showLegend, showTooltip, radius, barSize, yDomain, className, style, }: BarChartProps<T>): react_jsx_runtime.JSX.Element;
 declare namespace BarChart {
     var displayName: string;
 }

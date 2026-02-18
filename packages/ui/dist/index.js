@@ -768,6 +768,7 @@ function BarChart({
   showTooltip = true,
   radius = 4,
   barSize = 40,
+  yDomain,
   className,
   style
 }) {
@@ -802,6 +803,7 @@ function BarChart({
         /* @__PURE__ */ jsx12(
           YAxis2,
           {
+            domain: yDomain,
             stroke: "var(--color-text-muted)",
             tick: { fill: "var(--color-text-secondary)", fontSize: 12 },
             tickLine: { stroke: "var(--color-border-default)" },
